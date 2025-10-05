@@ -39,5 +39,5 @@ public class Alquiler{
 
     //Relaciones
     public List<AlquilarItem> AlquilarItem { get; set; }
-    public MetodosPago TiposMetodoPago { get; set; }
+    public TiposMetodosPago TiposMetodoPago { get; set; }
 }
