@@ -17,4 +17,8 @@ public class CompraItem
     [Display(Name = "Precio de compra")]
     public decimal Precio { get; set; }
 
+
+    public Herramienta Herramienta { get; set; }
+    public Compra Compra { get; set; }
+
 }
