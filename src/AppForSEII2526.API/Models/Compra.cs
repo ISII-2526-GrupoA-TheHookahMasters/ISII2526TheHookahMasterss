@@ -27,4 +27,8 @@ public class Compra
     [DataType(DataType.Currency)]
     [Display(Name = "Precio de compra")]
     public decimal PrecioTotal { get; set; }
+
+
+    public List<CompraItem> CompraItem { get; set; }
+    public TiposMetodoPago TipoMetodoPago { get; set; }
 }
