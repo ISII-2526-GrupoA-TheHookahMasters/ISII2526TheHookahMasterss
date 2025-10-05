@@ -21,5 +21,5 @@ public class Oferta
     public List<OfertaItem> OfertaItems { get; set; }
 
     public TiposMetodoPago TiposMetodoPago { get; set; }
-    public TiposDirigidaOferta TiposDirigidaOferta { get; set; }
+    public TiposDirigidaOferta? TiposDirigidaOferta { get; set; }
 }
