@@ -16,4 +16,8 @@ public class AlquilarItem
     [DataType(DataType.Currency)]
     [Display(Name = "Precio del alquiler")]
     public decimal Precio;
+
+    //Relaciones
+    public Alquiler Alquiler { get; set; }
+    public Herramienta Herramienta { get; set; }
 }
