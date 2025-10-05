@@ -16,4 +16,10 @@ public class Oferta
     [Required]
     [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
     public DateTime FechaOferta { get; set; }
+
+    //Relaciones 
+    public List<OfertaItem> OfertaItems { get; set; }
+
+    public TiposMetodoPago TiposMetodoPago { get; set; }
+    public TiposDirigidaOferta TiposDirigidaOferta { get; set; }
 }
