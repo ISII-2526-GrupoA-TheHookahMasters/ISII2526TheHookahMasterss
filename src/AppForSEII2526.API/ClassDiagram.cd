@@ -8,12 +8,14 @@
         <Point X="1.25" Y="3.75" />
       </Path>
     </AssociationLine>
+  <Class Name="AppForSEII2526.API.Models.Reparacion">
+    <Position X="5.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Models\Fabricante.cs</FileName>
+      <HashCode>AAACCAAAAAAAAACAABAAAAAAAAQAAAgAAAAAAIEAEAA=</HashCode>
+      <FileName>Models\Reparacion.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Herramientas" />
+      <Property Name="ReparacionItem" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.Herramienta">
@@ -24,9 +26,11 @@
         <Point X="0.812" Y="1.796" />
       </Path>
     </AssociationLine>
+  <Class Name="AppForSEII2526.API.Models.ReparacionItem">
+    <Position X="9" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAAAAAAAgABSAAAQEAAAAAgAAIAAAAA=</HashCode>
-      <FileName>Models\Herramienta.cs</FileName>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAARABAAAAAAIAAIAAAAAEA=</HashCode>
+      <FileName>Models\ReparacionItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Fabricante" />
@@ -158,5 +162,8 @@
       <FileName>Models\TiposMetodoPago.cs</FileName>
     </TypeIdentifier>
   </Enum>
+      <Property Name="Reparacion" />
+    </ShowAsAssociation>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
