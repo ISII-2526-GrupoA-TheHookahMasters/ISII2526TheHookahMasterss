@@ -5,6 +5,7 @@ using AppForSEII2526.API.Models;
 namespace AppForSEII2526.API.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options) {
+    public DbSet<Reparacion> Reparacion { get; set; }
 
     public DbSet<Herramienta> Herramienta { get; set; }
     public DbSet<Fabricante> Fabricante { get; set; }
