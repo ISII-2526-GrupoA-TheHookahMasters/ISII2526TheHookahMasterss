@@ -1,8 +1,9 @@
-﻿using System;
-
-public enum TiposMetodoPago
+﻿namespace AppForSEII2526.API.Models
 {
-	TarjetaCredito,
-	PaayPal,
-	Efectivo
+	public enum TiposMetodoPago
+	{
+		TarjetaCredito,
+		PayPal,
+		Efectivo
+	}
 }
