@@ -25,4 +25,9 @@ public class Reparacion
     [Display(Name = "Precio Total")]
     public string PrecioTotal { get; set; }
 
+    //Relaciones
+    [Required]
+    public TiposMetodoPago TiposMetodoPago { get; set; }
+
+    public List<ReparacionItem> ReparacionItem { get; set; }
 }
