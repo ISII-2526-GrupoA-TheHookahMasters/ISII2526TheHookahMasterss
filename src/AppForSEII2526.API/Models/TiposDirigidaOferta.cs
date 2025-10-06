@@ -1,7 +1,8 @@
-﻿using System;
-
-public enum TiposDirigidaOferta
+﻿namespace AppForSEII2526.API.Models
 {
-	Socios, 
-	Clientes
+	public enum TiposDirigidaOferta
+	{
+		Socios,
+		Clientes
+	}
 }

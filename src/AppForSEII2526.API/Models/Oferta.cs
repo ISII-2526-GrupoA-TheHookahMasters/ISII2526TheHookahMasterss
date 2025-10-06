@@ -1,25 +1,26 @@
-﻿using System;
-
-public class Oferta
+﻿namespace AppForSEII2526.API.Models
 {
-	[Key]
-	public int Id { get; set; }
+    public class Oferta
+    {
+        [Key]
+        public int Id { get; set; }
 
-	[Required]
-    [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime FechaFinal { get; set; }
+        [Required]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaFinal { get; set; }
 
-    [Required]
-    [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime FechaInicio { get; set; }
+        [Required]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaInicio { get; set; }
 
-    [Required]
-    [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    public DateTime FechaOferta { get; set; }
+        [Required]
+        [DataType(System.ComponentModel.DataAnnotations.DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaOferta { get; set; }
 
-    //Relaciones 
-    public List<OfertaItem> OfertaItems { get; set; }
+        //Relaciones 
+        public List<OfertaItem> OfertaItems { get; set; }
 
-    public TiposMetodoPago TiposMetodoPago { get; set; }
-    public TiposDirigidaOferta? TiposDirigidaOferta { get; set; }
+        public TiposMetodoPago TiposMetodoPago { get; set; }
+        public TiposDirigidaOferta? TiposDirigidaOferta { get; set; }
+    }
 }
