@@ -36,4 +36,8 @@ public class Alquiler{
 
     [Required]
     public decimal PrecioTotal { get; set; }
+
+    //Relaciones
+    public List<AlquilarItem> AlquilarItem { get; set; }
+    public TiposMetodosPago TiposMetodoPago { get; set; }
 }
