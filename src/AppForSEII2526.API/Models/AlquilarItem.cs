@@ -3,18 +3,18 @@
     public class AlquilarItem
     {
         [Key]
-        public int IdAlquiler;
+        public int IdAlquiler { get; set; }
 
         [Required]
-        public int IdHerramienta;
+        public int IdHerramienta { get; set; }
 
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Cantidad mínima de alquiler es 1")]
-        public int Cantidad;
+        public int Cantidad { get; set; }
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio del alquiler")]
-        public decimal Precio;
+        public decimal Precio { get; set; }
 
         //Relaciones
         public Alquiler Alquiler { get; set; }
