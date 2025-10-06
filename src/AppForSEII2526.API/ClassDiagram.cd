@@ -1,166 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="AppForSEII2526.API.Models.Fabricante">
-    <Position X="1.5" Y="1.25" Width="1.5" />
-    <AssociationLine Name="Herramientas" Type="AppForSEII2526.API.Models.Herramienta" FixedFromPoint="true">
-      <Path>
-        <Point X="3" Y="2.188" />
-        <Point X="4.5" Y="2.188" />
-      </Path>
-    </AssociationLine>
-    <Position X="0.5" Y="0.75" Width="1.5" />
-    <AssociationLine Name="Herramientas" Type="AppForSEII2526.API.Models.Herramienta" FixedFromPoint="true">
-      <Path>
-        <Point X="2" Y="1.875" />
-        <Point X="3.25" Y="1.875" />
-      </Path>
-    </AssociationLine>
-    <Position X="0.5" Y="2" Width="1.5" />
+  <Class Name="AppForSEII2526.API.Models.Reparacion">
+    <Position X="5.75" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAgAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Models\Fabricante.cs</FileName>
+      <HashCode>AAACCAAAAAAAAACAABAAAAAAAAQAAAgAAAAAAIEAEAA=</HashCode>
+      <FileName>Models\Reparacion.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Herramientas" />
+      <Property Name="ReparacionItem" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="AppForSEII2526.API.Models.Herramienta">
-    <Position X="4.5" Y="1.25" Width="1.5" />
-    <Position X="3.25" Y="0.75" Width="1.5" />
-    <AssociationLine Name="Fabricante" Type="AppForSEII2526.API.Models.Fabricante" FixedToPoint="true">
-      <Path>
-        <Point X="3.25" Y="1.25" />
-        <Point X="2" Y="1.25" />
-      </Path>
-    </AssociationLine>
-    <Position X="3.25" Y="1.75" Width="1.5" />
+  <Class Name="AppForSEII2526.API.Models.ReparacionItem">
+    <Position X="9" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAAAAAAAgABSAAAQEAAAAAgAAIAAAAA=</HashCode>
-      <FileName>Models\Herramienta.cs</FileName>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAARABAAAAAAIAAIAAAAAEA=</HashCode>
+      <FileName>Models\ReparacionItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Fabricante" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="OfertaItem" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.Oferta">
-    <Position X="10" Y="1.25" Width="1.5" />
-    <AssociationLine Name="OfertaItems" Type="AppForSEII2526.API.Models.OfertaItem" FixedFromPoint="true">
-      <Path>
-        <Point X="10" Y="1.625" />
-        <Point X="8.75" Y="1.625" />
-      </Path>
-    </AssociationLine>
-    <AssociationLine Name="TiposMetodoPago" Type="AppForSEII2526.API.Models.TiposMetodoPago" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="10.5" Y="2.93" />
-        <Point X="10.5" Y="3.701" />
-        <Point X="8.25" Y="3.701" />
-        <Point X="8.25" Y="4.5" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAEAAAAAAEgCAAAgAAEAAAAAAAAA=</HashCode>
-      <FileName>Models\Oferta.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="TiposDirigidaOferta" />
-      <Property Name="TiposMetodoPago" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="OfertaItems" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.OfertaItem">
-    <Position X="7.25" Y="1.25" Width="1.5" />
-    <AssociationLine Name="Oferta" Type="AppForSEII2526.API.Models.Oferta" FixedFromPoint="true">
-      <Path>
-        <Point X="8.75" Y="2.062" />
-        <Point X="10" Y="2.062" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AACAAAAAAAAAAAABAAAAAAAgABAACAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Models\OfertaItem.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Herramienta" />
-      <Property Name="Oferta" />
+      <Property Name="Reparacion" />
     </ShowAsAssociation>
   </Class>
-  <Enum Name="AppForSEII2526.API.Models.TiposDirigidaOferta">
-    <Position X="10" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
-      <FileName>Models\TiposDirigidaOferta.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
-  <Enum Name="AppForSEII2526.API.Models.TiposMetodoPago">
-    <Position X="7.5" Y="4.5" Width="1.5" />
-      <Property Name="CompraItem" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.CompraItem">
-    <Position X="6" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAEAAEAAAAAAAAAAAAAAAAQABAAAAAAIAAEAAAAAAA=</HashCode>
-      <FileName>Models\CompraItem.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Herramienta" />
-      <Property Name="Compra" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.Compra">
-    <Position X="8.75" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACCAAAAAAAAAAAABAAAEBCAAAAAAAAABAAAgAAEAA=</HashCode>
-      <FileName>Models\Compra.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="TipoMetodoPago" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="CompraItem" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Enum Name="AppForSEII2526.API.Models.TiposMetodoPago">
-    <Position X="8.75" Y="4.5" Width="1.5" />
-      <Property Name="AlquilarItem" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.AlquilarItem">
-    <Position X="6" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAEABAAAAAAAAAAAAAAQABIAAAAAIAAAAAAAAAA=</HashCode>
-      <FileName>Models\AlquilarItem.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Herramienta" />
-      <Property Name="Alquiler" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="AppForSEII2526.API.Models.Alquiler">
-    <Position X="8.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACSQAAAAAAAAAAABAAAEACAoAAAAgAAACAAAAgEAA=</HashCode>
-      <FileName>Models\Alquiler.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="TiposMetodoPago" />
-    </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="AlquilarItem" />
-    </ShowAsCollectionAssociation>
-  </Class>
-  <Enum Name="AppForSEII2526.API.Models.TiposMetodoPago">
-    <Position X="8.75" Y="5.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAAAAAAgAAAAAAAABAAA=</HashCode>
-      <FileName>Models\TiposMetodoPago.cs</FileName>
-    </TypeIdentifier>
-  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
