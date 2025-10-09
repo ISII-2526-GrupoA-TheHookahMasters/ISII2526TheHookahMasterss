@@ -1,11 +1,10 @@
 ﻿namespace AppForSEII2526.API.Models
-{ 
+{
+    [PrimaryKey(nameof(IdCompra), nameof(IdHerramienta))]
     public class CompraItem
     {
-        [Key]
 	    public int IdCompra { get; set; }
 
-        [Required]
 	    public int IdHerramienta { get; set; }
 
         [Required]
@@ -15,6 +14,9 @@
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio de compra")]
         public decimal Precio { get; set; }
+
+        [Required]
+        public string Descripcion { get; set; }
 
         //Relaciones
         public Herramienta Herramienta { get; set; }
