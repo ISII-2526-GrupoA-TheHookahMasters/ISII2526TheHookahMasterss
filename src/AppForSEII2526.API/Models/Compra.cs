@@ -2,6 +2,7 @@
 {
     public class Compra
     {
+
         [Key]
         public int Id { get; set; }
 

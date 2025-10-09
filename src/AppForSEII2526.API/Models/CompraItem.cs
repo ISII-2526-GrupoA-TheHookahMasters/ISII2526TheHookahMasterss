@@ -15,6 +15,7 @@
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio de compra")]
         public decimal Precio { get; set; }
 
+
         [Required]
         public string Descripcion { get; set; }
 
