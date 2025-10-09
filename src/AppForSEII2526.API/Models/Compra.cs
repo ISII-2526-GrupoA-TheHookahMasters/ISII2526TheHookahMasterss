@@ -6,6 +6,7 @@
         [Key]
         public int Id { get; set; }
 
+
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Text), Display(Name = "Dirección de envío")]
         public string DireccionEnvio { get; set; }

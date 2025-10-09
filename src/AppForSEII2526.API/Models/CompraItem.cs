@@ -5,6 +5,7 @@
     {
 	    public int IdCompra { get; set; }
 
+
 	    public int IdHerramienta { get; set; }
 
         [Required]
