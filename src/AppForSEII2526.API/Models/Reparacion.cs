@@ -30,5 +30,7 @@
         public TiposMetodoPago TiposMetodoPago { get; set; }
 
         public List<ReparacionItem> ReparacionItem { get; set; }
+
+        public ApplicationUser Usuario { get; set; }
     }
 }

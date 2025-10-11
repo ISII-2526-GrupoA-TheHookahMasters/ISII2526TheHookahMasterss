@@ -34,6 +34,9 @@
 
         //Relaciones
         public List<CompraItem> CompraItem { get; set; }
+
+        public ApplicationUser Usuario { get; set; }
+
         public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 }

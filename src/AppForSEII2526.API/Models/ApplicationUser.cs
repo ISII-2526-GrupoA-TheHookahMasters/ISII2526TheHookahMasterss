@@ -15,4 +15,10 @@ public class ApplicationUser : IdentityUser {
 
     [DataType(System.ComponentModel.DataAnnotations.DataType.EmailAddress), Display(Name = "Correo electrónico")]
     public string? CorreoElectronico { get; set; }
+
+    //Relaciones
+    public List<Compra> Compras { get; set; }
+    public List<Reparacion> Reparaciones { get; set; }
+    public List<Oferta> Ofertas { get; set; }
+    public List<Alquiler> Alquileres { get; set; }
 }

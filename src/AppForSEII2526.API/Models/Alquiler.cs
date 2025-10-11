@@ -46,6 +46,9 @@
 
         //Relaciones
         public List<AlquilarItem> AlquilarItem { get; set; }
+
+        public ApplicationUser Usuario { get; set; }
+
         public TiposMetodoPago TiposMetodoPago { get; set; }
     }
 }
