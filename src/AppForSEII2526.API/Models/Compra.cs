@@ -2,10 +2,8 @@
 {
     public class Compra
     {
-
         [Key]
         public int Id { get; set; }
-
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Text), Display(Name = "Dirección de envío")]
@@ -18,7 +16,7 @@
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio de compra")]
-        public decimal PrecioTotal { get; set; }
+        public float PrecioTotal { get; set; }
 
         //Relaciones
         public ApplicationUser Usuario { get; set; }

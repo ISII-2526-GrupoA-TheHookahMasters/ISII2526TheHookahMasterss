@@ -15,7 +15,7 @@
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio de la Herramienta")]
-        public decimal Precio { get; set; }
+        public float Precio { get; set; }
 
         public int TiempoReparacion { get; set; }
 

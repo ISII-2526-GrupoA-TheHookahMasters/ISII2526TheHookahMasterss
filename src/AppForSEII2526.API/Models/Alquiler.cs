@@ -26,14 +26,14 @@
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio total")]
-        public decimal PrecioTotal { get; set; }
+        public float PrecioTotal { get; set; }
 
         //Relaciones
-        public List<AlquilarItem> AlquilarItem { get; set; }
+        public List<AlquilarItem> AlquilarItems { get; set; }
 
         public ApplicationUser Usuario { get; set; }
 
         [Required]
-        public TiposMetodoPago TiposMetodoPago { get; set; }
+        public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 }
