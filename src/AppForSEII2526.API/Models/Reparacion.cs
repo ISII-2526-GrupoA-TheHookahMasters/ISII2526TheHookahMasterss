@@ -1,7 +1,5 @@
 ﻿namespace AppForSEII2526.API.Models
 {   
-
-
     public class Reparacion
     {
         [Key]
@@ -23,7 +21,7 @@
 
         //Relaciones
         [Required]
-        public TiposMetodoPago TiposMetodoPago { get; set; }
+        public TiposMetodoPago TipoMetodoPago { get; set; }
 
         public List<ReparacionItem> ReparacionItems { get; set; }
 

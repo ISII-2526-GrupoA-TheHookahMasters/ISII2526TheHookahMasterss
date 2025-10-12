@@ -26,8 +26,8 @@
         public ApplicationUser Usuario { get; set; }
 
         [Required]
-        public TiposMetodoPago TiposMetodoPago { get; set; }
+        public TiposMetodoPago TipoMetodoPago { get; set; }
 
-        public TiposDirigidaOferta? TiposDirigidaOferta { get; set; }
+        public TiposDirigidaOferta? TipoDirigidaOferta { get; set; }
     }
 }

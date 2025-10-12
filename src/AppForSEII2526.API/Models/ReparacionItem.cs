@@ -1,12 +1,11 @@
 ﻿namespace AppForSEII2526.API.Models
 {
-
-    [PrimaryKey(nameof(IdReparacion), nameof(IdHerramienta))]
+    [PrimaryKey(nameof(ReparacionId), nameof(HerramientaId))]
     public class ReparacionItem
     {
-        
-        public int IdReparacion { get; set; }
-        public int IdHerramienta { get; set; }
+        public int ReparacionId { get; set; }
+
+        public int HerramientaId { get; set; }
 
         [Required]
         [Range(1, int.MaxValue, ErrorMessage = "Cantidad minima de compra es 1")]
@@ -16,7 +15,7 @@
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio")]
-        public decimal Precio { get; set; }
+        public float Precio { get; set; }
 
         //Relaciones
         public Reparacion Reparacion { get; set; }
