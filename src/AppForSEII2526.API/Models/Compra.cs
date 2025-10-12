@@ -21,7 +21,11 @@
         public decimal PrecioTotal { get; set; }
 
         //Relaciones
+        public ApplicationUser Usuario { get; set; }
+
         public List<CompraItem> CompraItems { get; set; }
+      
+        [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
     }
 }

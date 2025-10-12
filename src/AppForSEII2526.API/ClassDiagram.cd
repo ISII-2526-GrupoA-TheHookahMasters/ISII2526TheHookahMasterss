@@ -3,7 +3,7 @@
   <Class Name="AppForSEII2526.API.Models.Reparacion">
     <Position X="12.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACCAAAAAAAAACAABAAAAAAAAQAAAgAAAAAAIEAEAA=</HashCode>
+      <HashCode>AAACCAAAAAAAAACAABAAAAAAAAQAAAgAAAAEAIEAEAA=</HashCode>
       <FileName>Models\Reparacion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -34,13 +34,13 @@
     </AssociationLine>
     <AssociationLine Name="TiposMetodoPago" Type="AppForSEII2526.API.Models.TiposMetodoPago" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="15.75" Y="9.68" />
+        <Point X="15.75" Y="9.872" />
         <Point X="15.75" Y="10.875" />
         <Point X="9.5" Y="10.875" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAEAAAAAAEgCAAAgAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAAEAAAAAAEgCAAAgAAEAEAAAAAAA=</HashCode>
       <FileName>Models\Oferta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -75,14 +75,14 @@
       <FileName>Models\CompraItem.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Compra" />
       <Property Name="Herramienta" />
+      <Property Name="Compra" />
     </ShowAsAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.Compra">
     <Position X="7.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACCAAAAAAAAAAAABAAAEBCAAAAAAAAABAAAgAAEAA=</HashCode>
+      <HashCode>AAACCAAAAAAAAAAAABAAAEBCAAAAAAAAABAEAgAAEAA=</HashCode>
       <FileName>Models\Compra.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -106,7 +106,7 @@
   <Class Name="AppForSEII2526.API.Models.Alquiler">
     <Position X="5.5" Y="8.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACSQAAAAAAAAAAABAAAEACAoAAAAgAAACAAAAgEAA=</HashCode>
+      <HashCode>AAACSQAAAAAAAAAAABAAAEACAoAAAAgAAACEAAAgEAA=</HashCode>
       <FileName>Models\Alquiler.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -119,18 +119,12 @@
   <Class Name="AppForSEII2526.API.Models.Herramienta">
     <Position X="3.75" Y="5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEACAAAAAAAAAAAAAAAAgABSAAAQEAAAAAgAAIAAAAA=</HashCode>
+      <HashCode>AEACAAAEAAAAAAAAAAAAgAAQGAAQEAAAAAAAAIAAAAA=</HashCode>
       <FileName>Models\Herramienta.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Fabricante" />
     </ShowAsAssociation>
-    <ShowAsCollectionAssociation>
-      <Property Name="AlquilarItem" />
-      <Property Name="CompraItem" />
-      <Property Name="OfertaItem" />
-      <Property Name="ReparacionItem" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="AppForSEII2526.API.Models.Fabricante">
     <Position X="0.75" Y="1.5" Width="1.5" />
@@ -140,6 +134,19 @@
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Herramientas" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="AppForSEII2526.API.Models.ApplicationUser">
+    <Position X="9.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAgAAAAAEAAAAwAAAAAAAAAAACBAAAgAAAAA=</HashCode>
+      <FileName>Models\ApplicationUser.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Alquileres" />
+      <Property Name="Compras" />
+      <Property Name="Ofertas" />
+      <Property Name="Reparaciones" />
     </ShowAsCollectionAssociation>
   </Class>
   <Enum Name="AppForSEII2526.API.Models.TiposDirigidaOferta">
