@@ -17,7 +17,7 @@
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio Total")]
-        public decimal PrecioTotal { get; set; }
+        public float PrecioTotal { get; set; }
 
         //Relaciones
         [Required]
