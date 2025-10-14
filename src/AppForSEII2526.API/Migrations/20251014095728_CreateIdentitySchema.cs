@@ -250,7 +250,7 @@ namespace AppForSEII2526.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FechaEntrega = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaRecogida = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrecioTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PrecioTotal = table.Column<float>(type: "real", nullable: false),
                     TipoMetodoPago = table.Column<int>(type: "int", nullable: false),
                     UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
