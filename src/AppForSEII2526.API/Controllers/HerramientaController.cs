@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AppForSEII2526.API.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using AppForSEII2526.API.Data;
-using AppForSEII2526.API.DTOs;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -17,8 +18,8 @@ namespace AppForSEII2526.API.Controllers
         {
             _context = context;
             _logger = logger;
-        }
-
+        }   
+            
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaOfertaDTO>), (int)HttpStatusCode.OK)]
@@ -30,6 +31,18 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
 
+
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(IList<HerramientasParaAlquilarDTO>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetHerramientasParaAlquilar()
+        {
+            var herramientas = await _context.Herramienta
+                .Select(h => new HerramientasParaAlquilarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
+                .ToListAsync();
+            return Ok(herramientas);
+        }
+        
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaRepararDTO>), (int)HttpStatusCode.OK)]
@@ -41,6 +54,20 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
 
+
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(IList<HerramientasParaAlquilarDTO>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetHerramientasNombreMaterial(string? nombre, string? material)
+        {
+            var herramientas = await _context.Herramienta
+                .Include(herramienta =>  herramienta.Fabricante)
+                .Where(h=> h.Nombre.Equals(nombre) || h.Material.Equals(material))
+                .Select(h => new HerramientasParaAlquilarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
+                .ToListAsync();
+            return Ok(herramientas);
+        }
+        
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
