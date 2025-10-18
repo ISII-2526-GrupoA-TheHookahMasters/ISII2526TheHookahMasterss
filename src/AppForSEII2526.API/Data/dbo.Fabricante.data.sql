@@ -6,6 +6,7 @@ INSERT INTO [dbo].[Fabricante] ([Id], [Nombre]) VALUES (4, N'Bellota')
 INSERT INTO [dbo].[Fabricante] ([Id], [Nombre]) VALUES (5, N'Black+Decker')
 SET IDENTITY_INSERT [dbo].[Fabricante] OFF
 
+
 SET IDENTITY_INSERT [dbo].[Herramienta] ON
 INSERT INTO [dbo].[Herramienta] ([Id], [Nombre], [Material], [Precio], [TiempoReparacion], [FabricanteId]) VALUES (1, N'Taladro percutor Bosch GSB 13 RE', N'Acero y plástico', 89.99, 5, 1)
 INSERT INTO [dbo].[Herramienta] ([Id], [Nombre], [Material], [Precio], [TiempoReparacion], [FabricanteId]) VALUES (2, N'Sierra circular Makita HS7601', N'Aluminio y acero', 120.5, 7, 2)
