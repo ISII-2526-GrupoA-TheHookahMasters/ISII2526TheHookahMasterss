@@ -4,8 +4,8 @@ namespace AppForSEII2526.API.DTOs
 {
     public class ReparacionItemDTO
     {
-        [JsonPropertyName("reparacionId")]
-        public int ReparacionId { get; set; }
+        [JsonPropertyName("herramientaId")]
+        public int HerramientaId { get; set; }
 
         [Required]
         [JsonPropertyName("nombreHerramienta")]
@@ -24,13 +24,13 @@ namespace AppForSEII2526.API.DTOs
         [JsonPropertyName("descripcion")]
         public string? Descripcion { get; set; }
 
-        public ReparacionItemDTO(int reparacionId, string NombreHerramienta, float Precio, int Cantidad, string Descripcion)
+        public ReparacionItemDTO(int herramientaId, string nombreHerramienta, float precio, int cantidad, string descripcion)
         {
-            this.ReparacionId = reparacionId;
-            this.NombreHerramienta = NombreHerramienta;
-            this.Precio = Precio;
-            this.Cantidad = Cantidad;
-            this.Descripcion = Descripcion;
+            HerramientaId = herramientaId;
+            NombreHerramienta = nombreHerramienta;
+            Precio = precio;
+            Cantidad = cantidad;
+            Descripcion = descripcion;
         }
     }
 }
