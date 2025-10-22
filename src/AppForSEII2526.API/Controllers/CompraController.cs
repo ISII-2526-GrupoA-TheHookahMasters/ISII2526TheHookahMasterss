@@ -25,27 +25,27 @@ namespace AppForSEII2526.API.Controllers
         public async Task<ActionResult> GetComprasPorId(int id)
         {
             var compra = await _context.Compra
-                .Where(o => o.Id == id)
-                    .Include(o => o.CompraItems)
-                        .ThenInclude(oi => oi.Herramienta)
+                .Where(c => c.Id == id)
+                    .Include(c => c.CompraItems)
+                        .ThenInclude(ci => ci.Herramienta)
                             .ThenInclude(h => h.Fabricante)
 
-                .Select(o => new CompraDetailDTO(
-                    o.Id,
-                    o.Usuario.Nombre,
-                    o.Usuario.Apellido,
-                    o.DireccionEnvio,
-                    o.FechaCompra,
-                    o.PrecioTotal,
-                    o.CompraItems   
+                .Select(c => new CompraDetailDTO(
+                    c.Id,
+                    c.Usuario.Nombre,
+                    c.Usuario.Apellido,
+                    c.DireccionEnvio,
+                    c.FechaCompra,
+                    c.PrecioTotal,
+                    c.CompraItems   
                     
-                        .Select(oi => new CompraItemDTO(
-                            oi.CompraId,
-                            oi.Herramienta.Nombre,
-                            oi.Herramienta.Material,
-                            oi.Precio,
-                            oi.Descripcion,
-                            oi.Cantidad)).ToList<CompraItemDTO>()))
+                        .Select(ci => new CompraItemDTO(
+                            ci.HerramientaId,
+                            ci.Herramienta.Nombre,
+                            ci.Herramienta.Material,
+                            ci.Precio,
+                            ci.Descripcion,
+                            ci.Cantidad)).ToList<CompraItemDTO>()))
                 
                 .FirstOrDefaultAsync();
 

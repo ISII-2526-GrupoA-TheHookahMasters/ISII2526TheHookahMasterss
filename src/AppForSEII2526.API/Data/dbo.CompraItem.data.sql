@@ -1,0 +1,5 @@
+﻿INSERT INTO [dbo].[CompraItem] ([CompraId], [HerramientaId], [Cantidad], [Precio], [Descripcion]) VALUES (1, 1, 1, 89.99, N'Taladro percutor Bosch GSB 13 RE')
+INSERT INTO [dbo].[CompraItem] ([CompraId], [HerramientaId], [Cantidad], [Precio], [Descripcion]) VALUES (2, 2, 1, 120.5, N'Sierra circular Makita HS7601')
+INSERT INTO [dbo].[CompraItem] ([CompraId], [HerramientaId], [Cantidad], [Precio], [Descripcion]) VALUES (3, 3, 2, 25.75, N'Llave inglesa Stanley 300mm')
+INSERT INTO [dbo].[CompraItem] ([CompraId], [HerramientaId], [Cantidad], [Precio], [Descripcion]) VALUES (4, 4, 3, 15.9, N'Martillo de carpintero Bellota')
+INSERT INTO [dbo].[CompraItem] ([CompraId], [HerramientaId], [Cantidad], [Precio], [Descripcion]) VALUES (5, 5, 1, 45.3, N'Destornillador electrico Black+Decker')
