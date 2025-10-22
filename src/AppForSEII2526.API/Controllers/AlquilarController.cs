@@ -31,7 +31,7 @@ namespace AppForSEII2526.API.Controllers
 
                 .Select(a => new AlquilerDetailDTO(a.Id,a.Usuario.Nombre,a.Usuario.Apellido,a.DireccionEnvio,
                         a.FechaAlquiler,a.PrecioTotal,a.FechaFin,a.FechaInicio, a.AlquilarItems
-                            .Select(ai => new AlquilarItemDTO(ai.AlquilerId, ai.Herramienta.Nombre,
+                            .Select(ai => new AlquilarItemDTO(ai.HerramientaId, ai.Herramienta.Nombre,
                                 ai.Herramienta.Material, ai.Cantidad,
                                 ai.Herramienta.Precio)).ToList<AlquilarItemDTO>()))
                 .FirstOrDefaultAsync();
