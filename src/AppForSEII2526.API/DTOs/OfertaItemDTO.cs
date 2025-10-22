@@ -2,8 +2,8 @@
 {
     public class OfertaItemDTO
     {
-        [JsonPropertyName("ofertaId")]
-        public int OfertaId { get; set; }
+        [JsonPropertyName("herramientaId")]
+        public int HerramientaId { get; set; }
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency)]
@@ -29,10 +29,10 @@
         [JsonPropertyName("fabricante")]
         public string Fabricante { get; set; }
 
-        public OfertaItemDTO(int ofertaId, float precioFinal, string nombreHerramienta,
+        public OfertaItemDTO(int herramientaId, float precioFinal, string nombreHerramienta,
                          float precio, string material, string fabricante)
         {
-            OfertaId = ofertaId;
+            HerramientaId = herramientaId;
             PrecioFinal = precioFinal;
             NombreHerramienta = nombreHerramienta;
             Precio = precio;

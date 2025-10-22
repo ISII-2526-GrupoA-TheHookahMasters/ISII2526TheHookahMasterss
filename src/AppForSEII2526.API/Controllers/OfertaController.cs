@@ -31,7 +31,7 @@ namespace AppForSEII2526.API.Controllers
                             
                 .Select(o => new OfertaDetailDTO(o.Id, o.FechaFinal, o.FechaInicio, o.FechaOferta,
                 o.TipoMetodoPago, o.TipoDirigidaOferta, o.OfertaItems
-                            .Select(oi => new OfertaItemDTO(oi.OfertaId, oi.PrecioFinal, oi.Herramienta.Nombre, 
+                            .Select(oi => new OfertaItemDTO(oi.HerramientaId, oi.PrecioFinal, oi.Herramienta.Nombre, 
                                 oi.Herramienta.Precio, oi.Herramienta.Material, 
                                 oi.Herramienta.Fabricante.Nombre)).ToList<OfertaItemDTO>()))
                 .FirstOrDefaultAsync();
