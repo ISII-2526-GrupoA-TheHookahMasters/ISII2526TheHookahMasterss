@@ -1,0 +1,5 @@
+﻿INSERT INTO [dbo].[AlquilarItem] ([AlquilerId], [HerramientaId], [Cantidad], [Precio]) VALUES (1, 1, 2, 25.5)
+INSERT INTO [dbo].[AlquilarItem] ([AlquilerId], [HerramientaId], [Cantidad], [Precio]) VALUES (1, 3, 1, 15)
+INSERT INTO [dbo].[AlquilarItem] ([AlquilerId], [HerramientaId], [Cantidad], [Precio]) VALUES (2, 2, 3, 90)
+INSERT INTO [dbo].[AlquilarItem] ([AlquilerId], [HerramientaId], [Cantidad], [Precio]) VALUES (3, 5, 1, 40.75)
+INSERT INTO [dbo].[AlquilarItem] ([AlquilerId], [HerramientaId], [Cantidad], [Precio]) VALUES (4, 4, 2, 28.2)
