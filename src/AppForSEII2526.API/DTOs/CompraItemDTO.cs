@@ -2,8 +2,8 @@
 {
     public class CompraItemDTO
     {
-        [JsonPropertyName("compraId")]
-        public int CompraId { get; set; }
+        [JsonPropertyName("HerramientaId")]
+        public int HerramientaId { get; set; }
 
         [JsonPropertyName("nombreHerramienta")]
         [Required]
@@ -30,9 +30,9 @@
         public int Cantidad { get; set; }
 
 
-        public CompraItemDTO(int compraId, string nombreHerramienta, string material, float precio, string descripcion, int cantidad)
+        public CompraItemDTO(int herramientaId, string nombreHerramienta, string material, float precio, string descripcion, int cantidad)
         {
-            CompraId = compraId;
+            HerramientaId = herramientaId;
             NombreHerramienta = nombreHerramienta;
             Material = material;
             Precio = precio;
