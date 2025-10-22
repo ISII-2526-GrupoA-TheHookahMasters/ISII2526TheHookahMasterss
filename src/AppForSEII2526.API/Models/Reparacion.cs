@@ -8,12 +8,12 @@
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date), Display(Name = "Fecha de Entrega")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string FechaEntrega { get; set; }
+        public DateTime FechaEntrega { get; set; }
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Date), Display(Name = "Fecha de Recogida")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string FechaRecogida { get; set; }
+        public DateTime FechaRecogida { get; set; }
 
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio Total")]
