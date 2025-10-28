@@ -21,4 +21,17 @@ public class ApplicationUser : IdentityUser {
     public List<Reparacion> Reparaciones { get; set; }
     public List<Oferta> Ofertas { get; set; }
     public List<Alquiler> Alquileres { get; set; }
+
+    public ApplicationUser(string nombre, string apellido, int? telefono, string? correoElectronico)
+    {
+        Nombre = nombre;
+        Apellido = apellido;
+        Telefono = telefono;
+        CorreoElectronico = correoElectronico;
+    }
+
+    public ApplicationUser()
+    {
+
+    }
 }
