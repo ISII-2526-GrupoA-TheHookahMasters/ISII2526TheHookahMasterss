@@ -29,5 +29,20 @@
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
         public TiposDirigidaOferta? TipoDirigidaOferta { get; set; }
+
+        public Oferta(DateTime fechaFinal, DateTime fechaInicio, DateTime fechaOferta, TiposMetodoPago tipoMetodoPago, TiposDirigidaOferta? tipoDirigidaOferta, List<OfertaItem> ofertaItems)
+        {
+            FechaFinal = fechaFinal;
+            FechaInicio = fechaInicio;
+            FechaOferta = fechaOferta;
+            TipoMetodoPago = tipoMetodoPago;
+            TipoDirigidaOferta = tipoDirigidaOferta;
+            OfertaItems = ofertaItems;
+        }
+
+        public Oferta()
+        {
+
+        }
     }
 }
