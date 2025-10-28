@@ -1,4 +1,6 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿using AppForSEII2526.API.DTOs.OfertaDTOs;
+
+namespace AppForSEII2526.API.DTOs
 {
     public class OfertaDetailDTO
     {
@@ -30,10 +32,10 @@
         [JsonPropertyName("tipoDirigidaOferta")]
         public TiposDirigidaOferta? TipoDirigidaOferta { get; set; }
 
-        public IList<OfertaItemDTO> OfertaItemDTO { get; set; }
+        public IList<OfertaItemDTO> OfertaItems { get; set; }
 
         public OfertaDetailDTO(int id, DateTime fechaFinal, DateTime fechaInicio, DateTime fechaOferta,
-                         TiposMetodoPago tipoMetodoPago, TiposDirigidaOferta? tipoDirigidaOferta, IList<OfertaItemDTO> ofertaItemDTO)
+                         TiposMetodoPago tipoMetodoPago, TiposDirigidaOferta? tipoDirigidaOferta, IList<OfertaItemDTO> ofertaItems)
         {
             Id = id;
             FechaFinal = fechaFinal;
@@ -41,7 +43,7 @@
             FechaOferta = fechaOferta;
             TipoMetodoPago = tipoMetodoPago;
             TipoDirigidaOferta = tipoDirigidaOferta;
-            OfertaItemDTO = ofertaItemDTO;
+            OfertaItems = ofertaItems;
         }
     }
 }
