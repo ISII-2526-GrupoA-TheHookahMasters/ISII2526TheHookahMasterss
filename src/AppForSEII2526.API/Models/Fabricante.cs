@@ -12,6 +12,12 @@
         //Relaciones
         public List<Herramienta> Herramientas { get; set; }
 
+        public Fabricante(int id, string nombre)
+        {
+            Id = id;
+            Nombre = nombre;
+        }
+
         public Fabricante()
         {
         }

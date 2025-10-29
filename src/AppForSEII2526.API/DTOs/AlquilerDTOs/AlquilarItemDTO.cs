@@ -1,4 +1,4 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿namespace AppForSEII2526.API.DTOs.AlquilerDTOs
 {
     public class AlquilarItemDTO
     {
