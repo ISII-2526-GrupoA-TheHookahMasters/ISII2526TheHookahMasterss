@@ -1,8 +1,9 @@
-﻿using AppForSEII2526.API.DTOs;
+﻿using AppForSEII2526.API.Data;
+using AppForSEII2526.API.DTOs;
+using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppForSEII2526.API.Data;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -62,7 +63,8 @@ namespace AppForSEII2526.API.Controllers
         {
             var herramientas = await _context.Herramienta
                 .Include(herramienta =>  herramienta.Fabricante)
-                .Where(h=> h.Nombre.Equals(nombre) || h.Material.Equals(material))
+                .Where(h => (h.Nombre.Contains(nombre) || nombre == null)
+                && (h.Material == material || material == null))
                 .Select(h => new HerramientasParaAlquilarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
                 .ToListAsync();
             return Ok(herramientas);
