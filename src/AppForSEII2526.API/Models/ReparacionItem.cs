@@ -20,5 +20,18 @@
         //Relaciones
         public Reparacion Reparacion { get; set; }
         public Herramienta Herramienta { get; set; }
+
+        public ReparacionItem(int reparacionId, int herramientaId, int cantidad, float precio, string? descripcion = null)
+        {
+            ReparacionId = reparacionId;
+            HerramientaId = herramientaId;
+            Cantidad = cantidad;
+            Precio = precio;
+            Descripcion = descripcion;
+        }
+
+        public ReparacionItem()
+        {
+        }
     }
 }

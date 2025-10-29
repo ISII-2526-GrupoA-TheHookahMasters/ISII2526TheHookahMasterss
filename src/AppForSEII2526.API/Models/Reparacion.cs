@@ -26,5 +26,20 @@
         public List<ReparacionItem> ReparacionItems { get; set; }
 
         public ApplicationUser Usuario { get; set; }
+
+        public Reparacion(ApplicationUser usuario, DateTime fechaEntrega, DateTime fechaRecogida, float precioTotal, TiposMetodoPago tipoMetodoPago, List<ReparacionItem> reparacionItems)
+        {
+            Usuario = usuario;
+            FechaEntrega = fechaEntrega;
+            FechaRecogida = fechaRecogida;
+            PrecioTotal = precioTotal;
+            TipoMetodoPago = tipoMetodoPago;
+            ReparacionItems = reparacionItems;
+        }
+
+        public Reparacion()
+        {
+        }
+
     }
 }
