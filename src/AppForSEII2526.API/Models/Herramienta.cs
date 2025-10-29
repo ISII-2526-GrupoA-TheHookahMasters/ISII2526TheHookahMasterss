@@ -25,5 +25,9 @@
         public List<AlquilarItem> AlquilarItems { get; set; }
         public List<OfertaItem> OfertaItems { get; set; }
         public List<ReparacionItem> ReparacionItems { get; set; }
+
+        public Herramienta()
+        {
+        }
     }
 }
