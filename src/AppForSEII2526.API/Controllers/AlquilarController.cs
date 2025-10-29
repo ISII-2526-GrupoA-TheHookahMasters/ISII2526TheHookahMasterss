@@ -115,8 +115,7 @@ namespace AppForSEII2526.API.Controllers
                 }
                 else
                 {
-                    float precioTotal = herramienta.Precio * nuevoAlquiler.Periodo;
-                    nuevoAlquiler.PrecioTotal = precioTotal;
+                    nuevoAlquiler.PrecioTotal += herramienta.Precio * nuevoAlquiler.Periodo;
                     nuevoAlquiler.AlquilarItems.Add(new AlquilarItem(alquilerItem.Cantidad, alquilerItem.Precio, nuevoAlquiler, herramienta));
                 }
             }
