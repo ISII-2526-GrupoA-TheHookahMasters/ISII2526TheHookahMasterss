@@ -1,8 +1,9 @@
-﻿using AppForSEII2526.API.DTOs;
+﻿using AppForSEII2526.API.Data;
+using AppForSEII2526.API.DTOs;
+using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppForSEII2526.API.Data;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -82,7 +83,8 @@ namespace AppForSEII2526.API.Controllers
                 .ToListAsync();
             return Ok(herramientas);
         }
-                
+        
+        //Caso de uso Reparacion
         [HttpGet]
         [Route("[action]")]        
         [ProducesResponseType(typeof(IList<HerramientasParaRepararDTO>), (int)HttpStatusCode.OK)]
@@ -90,7 +92,8 @@ namespace AppForSEII2526.API.Controllers
         {
             var herramientas = await _context.Herramienta
                 .Include(herramienta => herramienta.Fabricante)
-                .Where(h => h.Nombre.Contains(nombre) || h.TiempoReparacion == tiemporeparacion)
+                .Where(h => (h.Nombre.Contains(nombre) || nombre == null)
+                    && (h.TiempoReparacion == tiemporeparacion || tiemporeparacion == null))
                 .Select(h => new HerramientasParaRepararDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre, h.TiempoReparacion))
                 .ToListAsync();
             return Ok(herramientas);
