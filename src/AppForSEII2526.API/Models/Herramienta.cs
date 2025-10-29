@@ -26,7 +26,6 @@
         public List<OfertaItem> OfertaItems { get; set; }
         public List<ReparacionItem> ReparacionItems { get; set; }
 
-
         public Herramienta(int id, string nombre, string material, float precio, int tiempoReparacion, Fabricante fabricante)
         {
             Id = id;
@@ -39,7 +38,6 @@
 
         public Herramienta()
         {
-
         }
     }
 }

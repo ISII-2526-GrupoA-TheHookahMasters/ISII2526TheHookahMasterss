@@ -18,8 +18,8 @@
             Nombre = nombre;
         }
 
-        public Fabricante() { 
-
+        public Fabricante()
+        {
         }
     }
 }

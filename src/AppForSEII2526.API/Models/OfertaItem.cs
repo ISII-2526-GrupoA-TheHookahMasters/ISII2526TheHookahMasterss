@@ -20,8 +20,9 @@
         public Oferta Oferta { get; set; }
         public Herramienta Herramienta { get; set; }
 
-        public OfertaItem(int herramientaId, int porcentaje, float precioFinal, Oferta oferta, Herramienta herramienta)
+        public OfertaItem(int ofertaId, int herramientaId, int porcentaje, float precioFinal, Oferta oferta, Herramienta herramienta)
         {
+            OfertaId = ofertaId;
             HerramientaId = herramientaId;
             Porcentaje = porcentaje;
             PrecioFinal = precioFinal;
@@ -29,17 +30,14 @@
             Herramienta = herramienta;
         }
 
-        protected OfertaItem()
+        public OfertaItem(Oferta oferta, Herramienta herramienta)
         {
-
+            Oferta = oferta;
+            Herramienta = herramienta;
         }
 
-        public OfertaItem(Herramienta herramienta, Oferta oferta)
+        public OfertaItem()
         {
-            Herramienta = herramienta;
-            HerramientaId = herramienta.Id;
-            Oferta = oferta;
-            OfertaId = oferta.Id;
         }
     }
 }
