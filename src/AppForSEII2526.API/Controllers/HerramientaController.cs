@@ -54,7 +54,7 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
 
-
+        // Caso de Uso Alquilar Herramientas
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaAlquilarDTO>), (int)HttpStatusCode.OK)]
@@ -68,6 +68,7 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
         
+        // Caso de Uso Comprar Herramientas
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
@@ -83,6 +84,7 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
                 
+        // Caso de Uso Reparar Herramientas
         [HttpGet]
         [Route("[action]")]        
         [ProducesResponseType(typeof(IList<HerramientasParaRepararDTO>), (int)HttpStatusCode.OK)]
@@ -96,6 +98,7 @@ namespace AppForSEII2526.API.Controllers
             return Ok(herramientas);
         }
 
+        // Caso de Uso Oferta Herramientas
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaOfertaDTO>), (int)HttpStatusCode.OK)]
@@ -103,7 +106,8 @@ namespace AppForSEII2526.API.Controllers
         {
             var herramientas = await _context.Herramienta
                 .Include(herramienta => herramienta.Fabricante)
-                .Where(h => h.Fabricante.Nombre.Contains(fabricante) || h.Precio == precio)
+                .Where(h => (h.Fabricante.Nombre.Contains(fabricante) || fabricante == null)
+                         && (h.Precio == precio || precio == null))
                 .Select(h => new HerramientasParaOfertaDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
                 .ToListAsync();
             return Ok(herramientas);
