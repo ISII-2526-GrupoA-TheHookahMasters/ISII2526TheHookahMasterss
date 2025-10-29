@@ -28,6 +28,8 @@
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio total")]
         public float PrecioTotal { get; set; }
 
+
+
         //Relaciones
         public List<AlquilarItem> AlquilarItems { get; set; }
 
@@ -46,7 +48,6 @@
             FechaInicio = fechaInicio;
             PrecioTotal = precioTotal;
             AlquilarItems = alquilarItems;
-            TipoMetodoPago = tipoMetodoPago;
         }
 
         public Alquiler()
@@ -54,4 +55,6 @@
 
         }
     }
+
+
 }

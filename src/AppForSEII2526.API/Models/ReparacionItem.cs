@@ -20,5 +20,17 @@
         //Relaciones
         public Reparacion Reparacion { get; set; }
         public Herramienta Herramienta { get; set; }
+
+        public ReparacionItem(int cantidad, string? descripcion, float precio, Reparacion reparacion, Herramienta herramienta)
+        {
+            Cantidad = cantidad;
+            Descripcion = descripcion;
+            Precio = precio;
+            Reparacion = reparacion;
+            Herramienta = herramienta;
+        }
+        public ReparacionItem()
+        {
+        }
     }
 }

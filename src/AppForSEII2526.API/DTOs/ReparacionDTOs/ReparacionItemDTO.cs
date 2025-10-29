@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace AppForSEII2526.API.DTOs
+namespace AppForSEII2526.API.DTOs.ReparacionDTOs
 {
     public class ReparacionItemDTO
     {

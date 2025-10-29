@@ -19,5 +19,27 @@
         //Relaciones
         public Oferta Oferta { get; set; }
         public Herramienta Herramienta { get; set; }
+
+        public OfertaItem(int herramientaId, int porcentaje, float precioFinal, Oferta oferta, Herramienta herramienta)
+        {
+            HerramientaId = herramientaId;
+            Porcentaje = porcentaje;
+            PrecioFinal = precioFinal;
+            Oferta = oferta;
+            Herramienta = herramienta;
+        }
+
+        protected OfertaItem()
+        {
+
+        }
+
+        public OfertaItem(Herramienta herramienta, Oferta oferta)
+        {
+            Herramienta = herramienta;
+            HerramientaId = herramienta.Id;
+            Oferta = oferta;
+            OfertaId = oferta.Id;
+        }
     }
 }
