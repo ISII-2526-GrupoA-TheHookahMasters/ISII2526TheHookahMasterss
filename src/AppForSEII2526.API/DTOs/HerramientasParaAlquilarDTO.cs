@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿
+namespace AppForSEII2526.API.DTOs
 {
     public class HerramientasParaAlquilarDTO{
         [JsonPropertyName("Id")]
@@ -33,7 +34,20 @@
             Fabricante = fabricante;
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is HerramientasParaAlquilarDTO dTO &&
+                   Id == dTO.Id &&
+                   Nombre == dTO.Nombre &&
+                   Material == dTO.Material &&
+                   Precio == dTO.Precio &&
+                   Fabricante == dTO.Fabricante;
+        }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, Nombre, Material, Precio, Fabricante);
+        }
     }
 
 }

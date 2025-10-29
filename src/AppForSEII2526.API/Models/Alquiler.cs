@@ -28,6 +28,8 @@
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio total")]
         public float PrecioTotal { get; set; }
 
+
+
         //Relaciones
         public List<AlquilarItem> AlquilarItems { get; set; }
 
@@ -35,5 +37,24 @@
 
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
+
+        public Alquiler(ApplicationUser usuario,int id, string direccionEnvio, DateTime fechaAlquiler, DateTime fechaFin, DateTime fechaInicio, float precioTotal, List<AlquilarItem> alquilarItems, TiposMetodoPago tipoMetodoPago)
+        {
+            Usuario = usuario;
+            Id = id;
+            DireccionEnvio = direccionEnvio;
+            FechaAlquiler = fechaAlquiler;
+            FechaFin = fechaFin;
+            FechaInicio = fechaInicio;
+            PrecioTotal = precioTotal;
+            AlquilarItems = alquilarItems;
+        }
+
+        public Alquiler()
+        {
+
+        }
     }
+
+
 }
