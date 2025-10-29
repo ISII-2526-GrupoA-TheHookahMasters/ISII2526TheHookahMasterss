@@ -4,6 +4,8 @@ using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AppForSEII2526.API.Data;
+using AppForSEII2526.API.DTOs.ReparacionDTOs;
 
 namespace AppForSEII2526.API.Controllers
 {

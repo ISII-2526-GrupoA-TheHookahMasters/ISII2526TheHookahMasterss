@@ -107,6 +107,7 @@ namespace AppForSEII2526.API.Controllers
                 {
            
                     nuevaReparacion.ReparacionItems.Add(new ReparacionItem(reparacionItem.Cantidad, reparacionItem.Descripcion, reparacionItem.Precio, nuevaReparacion, herramienta));
+                    nuevaReparacion.PrecioTotal += herramienta.Precio * reparacionItem.Cantidad;
                 }
             }
 
