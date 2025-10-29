@@ -11,5 +11,9 @@
 
         //Relaciones
         public List<Herramienta> Herramientas { get; set; }
+
+        public Fabricante()
+        {
+        }
     }
 }

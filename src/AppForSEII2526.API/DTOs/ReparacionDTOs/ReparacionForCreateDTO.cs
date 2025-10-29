@@ -1,10 +1,7 @@
-﻿namespace AppForSEII2526.API.DTOs
+﻿namespace AppForSEII2526.API.DTOs.ReparacionDTOs
 {
-    public class ReparacionDetailDTO
+    public class ReparacionForCreateDTO
     {
-        [JsonPropertyName("id")]
-        public int Id { get; set; }
-
         [Required]
         [JsonPropertyName("nombreCliente")]
         public string NombreCliente { get; set; }
@@ -32,16 +29,21 @@
 
         public IList<ReparacionItemDTO> ReparacionItems { get; set; }
 
-        public ReparacionDetailDTO(int id, string nombreCliente, string apellidoCliente, DateTime fechaEntrega, DateTime fechaRecogida, float precioTotal, IList<ReparacionItemDTO> reparacionItems)
+        [Required]
+        public TiposMetodoPago TipoMetodoPago { get; set; }
+
+        public ReparacionForCreateDTO(string nombreCliente, string apellidosCliente, DateTime fechaEntrega, DateTime fechaRecogida, float precioTotal, TiposMetodoPago tipoMetodoPago, IList<ReparacionItemDTO> reparacionItems)
         {
-            Id = id;
             NombreCliente = nombreCliente;
-            ApellidosCliente = apellidoCliente;
+            ApellidosCliente = apellidosCliente;
             FechaEntrega = fechaEntrega;
             FechaRecogida = fechaRecogida;
             PrecioTotal = precioTotal;
+            TipoMetodoPago = tipoMetodoPago;
             ReparacionItems = reparacionItems;
-
+            
         }
+
+
     }
 }
