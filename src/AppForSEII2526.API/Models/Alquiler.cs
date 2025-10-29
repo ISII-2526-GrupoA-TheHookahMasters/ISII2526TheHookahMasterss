@@ -35,5 +35,23 @@
 
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
+
+        public Alquiler(ApplicationUser usuario,int id, string direccionEnvio, DateTime fechaAlquiler, DateTime fechaFin, DateTime fechaInicio, float precioTotal, List<AlquilarItem> alquilarItems, TiposMetodoPago tipoMetodoPago)
+        {
+            Usuario = usuario;
+            Id = id;
+            DireccionEnvio = direccionEnvio;
+            FechaAlquiler = fechaAlquiler;
+            FechaFin = fechaFin;
+            FechaInicio = fechaInicio;
+            PrecioTotal = precioTotal;
+            AlquilarItems = alquilarItems;
+            TipoMetodoPago = tipoMetodoPago;
+        }
+
+        public Alquiler()
+        {
+
+        }
     }
 }

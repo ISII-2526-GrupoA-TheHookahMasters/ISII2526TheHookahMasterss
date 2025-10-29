@@ -25,5 +25,21 @@
         public List<AlquilarItem> AlquilarItems { get; set; }
         public List<OfertaItem> OfertaItems { get; set; }
         public List<ReparacionItem> ReparacionItems { get; set; }
+
+
+        public Herramienta(int id, string nombre, string material, float precio, int tiempoReparacion, Fabricante fabricante)
+        {
+            Id = id;
+            Nombre = nombre;
+            Material = material;
+            Precio = precio;
+            TiempoReparacion = tiempoReparacion;
+            Fabricante = fabricante;
+        }
+
+        public Herramienta()
+        {
+
+        }
     }
 }
