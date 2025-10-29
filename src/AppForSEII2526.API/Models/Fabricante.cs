@@ -11,7 +11,5 @@
 
         //Relaciones
         public List<Herramienta> Herramientas { get; set; }
-
-        
     }
 }
