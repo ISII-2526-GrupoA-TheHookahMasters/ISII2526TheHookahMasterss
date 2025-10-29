@@ -38,10 +38,10 @@
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
-
-        public Alquiler(ApplicationUser usuario, string direccionEnvio, DateTime fechaAlquiler, DateTime fechaFin, DateTime fechaInicio, float precioTotal, List<AlquilarItem> alquilarItems)
+        public Alquiler(ApplicationUser usuario,int id, string direccionEnvio, DateTime fechaAlquiler, DateTime fechaFin, DateTime fechaInicio, float precioTotal, List<AlquilarItem> alquilarItems, TiposMetodoPago tipoMetodoPago)
         {
-            Usuario= usuario;
+            Usuario = usuario;
+            Id = id;
             DireccionEnvio = direccionEnvio;
             FechaAlquiler = fechaAlquiler;
             FechaFin = fechaFin;
