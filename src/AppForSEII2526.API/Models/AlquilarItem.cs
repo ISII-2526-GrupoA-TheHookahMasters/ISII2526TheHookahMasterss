@@ -18,5 +18,20 @@
         //Relaciones
         public Alquiler Alquiler { get; set; }
         public Herramienta Herramienta { get; set; }
+
+        public AlquilarItem(int cantidad, float precio, Alquiler alquiler, Herramienta herramienta)
+        {
+            
+            Cantidad = cantidad;
+            Precio = precio;
+            Alquiler = alquiler;
+            Herramienta = herramienta;
+        }
+
+        public AlquilarItem()
+        {
+
+        }
     }
+
 }
