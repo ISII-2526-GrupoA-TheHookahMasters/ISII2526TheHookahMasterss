@@ -1,6 +1,7 @@
 ﻿namespace AppForSEII2526.API.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<ApplicationUser>(options) {
+    
     public DbSet<Herramienta> Herramienta { get; set; }
     public DbSet<Fabricante> Fabricante { get; set; }
     public DbSet<Reparacion> Reparacion { get; set; }
@@ -11,4 +12,5 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<AlquilarItem> AlquilarItem { get; set; }
     public DbSet<Oferta> Oferta { get; set; }
     public DbSet<OfertaItem> OfertaItem { get; set; }
+    public DbSet<ApplicationUser> Usuario { get; set; }
 }
