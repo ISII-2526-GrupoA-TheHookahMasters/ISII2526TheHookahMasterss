@@ -76,13 +76,12 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetHerramientas_filtroMaterialPrecioDTOs(string? filtroMaterial, double? filtroPrecio)
+        public async Task<ActionResult> GetHerramientasMaterialPrecio(string? filtroMaterial, double? filtroPrecio)
         {
             IList<HerramientasParaComprarDTO> herramientas = await _context.Herramienta
                 .Include(h => h.Fabricante)
                 .Where(h => (filtroMaterial == null || h.Material.Contains(filtroMaterial)) 
-                    && (filtroPrecio == null || h.Precio <= filtroPrecio))
-                .OrderBy(h => h.Precio)
+                    && (filtroPrecio == null || h.Precio == filtroPrecio))
                 .Select(h => new HerramientasParaComprarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
                 .ToListAsync();
             return Ok(herramientas);
