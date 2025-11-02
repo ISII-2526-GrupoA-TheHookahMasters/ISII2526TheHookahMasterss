@@ -21,5 +21,18 @@
         //Relaciones
         public Herramienta Herramienta { get; set; }
         public Compra Compra { get; set; }
+
+        public CompraItem(int cantidad, float precio, string descripcion, Herramienta herramienta, Compra compra)
+        {
+            Cantidad = cantidad;
+            Precio = precio;
+            Descripcion = descripcion;
+            Herramienta = herramienta;
+            Compra = compra;
+        }
+
+        public CompraItem()
+        {
+        }
     }
 }

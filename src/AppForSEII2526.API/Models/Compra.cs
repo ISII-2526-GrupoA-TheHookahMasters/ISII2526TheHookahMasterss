@@ -2,6 +2,7 @@
 {
     public class Compra
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -22,8 +23,22 @@
         public ApplicationUser Usuario { get; set; }
 
         public List<CompraItem> CompraItems { get; set; }
-      
+
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
+
+        public Compra(ApplicationUser usuario, string direccionEnvio, DateTime fechaCompra, float precioTotal, TiposMetodoPago tipoMetodoPago, List<CompraItem> compraItems)
+        {
+            Usuario = usuario;
+            DireccionEnvio = direccionEnvio;
+            FechaCompra = fechaCompra;
+            PrecioTotal = precioTotal;
+            TipoMetodoPago = tipoMetodoPago;
+            CompraItems = compraItems;
+        }
+
+        public Compra()
+        { 
+        }
     }
 }
