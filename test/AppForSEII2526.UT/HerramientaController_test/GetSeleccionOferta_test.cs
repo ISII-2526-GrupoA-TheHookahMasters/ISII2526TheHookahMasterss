@@ -1,10 +1,5 @@
 ﻿using AppForSEII2526.API.Controllers;
 using AppForSEII2526.API.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
 
 namespace AppForSEII2526.UT.HerramientasController_Test
 {
@@ -35,9 +30,9 @@ namespace AppForSEII2526.UT.HerramientasController_Test
         {
             var herramientaDTOs = new List<HerramientasParaOfertaDTO>()
             {
-                new HerramientasParaOfertaDTO(1, "Martillo", "Acero", 23, "Bosch"),
-                new HerramientasParaOfertaDTO(2, "Llave inglesa", "Hierro", 15, "Makita"),
-                new HerramientasParaOfertaDTO(3, "Destornillador", "Acero y Plastico", 20, "Stanley")
+                new HerramientasParaOfertaDTO(1, "Martillo", "Acero", 23.4f, "Bosch"),
+                new HerramientasParaOfertaDTO(2, "Llave inglesa", "Hierro", 15.9f, "Makita"),
+                new HerramientasParaOfertaDTO(3, "Destornillador", "Acero y Plastico", 20.0f, "Stanley")
             };
 
             var herramientaDTOsTC1 = new List<HerramientasParaOfertaDTO>()
@@ -61,7 +56,7 @@ namespace AppForSEII2526.UT.HerramientasController_Test
             {
                 new object[] { null, null, herramientaDTOsTC1 },
                 new object[] { "Makita", null, herramientaDTOsTC2 },
-                new object[] { null, 20, herramientaDTOsTC3 }
+                new object[] { null, 20.0f, herramientaDTOsTC3 }
             };
 
             return allTest;
@@ -71,7 +66,7 @@ namespace AppForSEII2526.UT.HerramientasController_Test
         [MemberData(nameof(TestCasesFor_GetHerramientasPorFabricantePrecio))]
         [Trait("Database", "WithoutFixture")]
         [Trait("LevelTesting", "Unit testing")]
-        public async Task GetHerramientasPorFabricantePrecio_test(string? fabricante, int? precio, List<HerramientasParaOfertaDTO> expectedHerramientas)
+        public async Task GetHerramientasPorFabricantePrecio_test(string? fabricante, float? precio, List<HerramientasParaOfertaDTO> expectedHerramientas)
         {
             // Arrange
             var controller = new HerramientaController(_context, null);

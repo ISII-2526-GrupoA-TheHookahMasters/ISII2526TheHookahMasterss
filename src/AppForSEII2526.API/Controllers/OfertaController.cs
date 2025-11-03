@@ -106,7 +106,7 @@ namespace AppForSEII2526.API.Controllers
                 else
                 {
                     float precioFinal = herramienta.Precio * (1 - (ofertaForCreate.Porcentaje / 100.0f));
-                    nuevaOferta.OfertaItems.Add(new OfertaItem(ofertaItem.HerramientaId, ofertaForCreate.Porcentaje, precioFinal, nuevaOferta, herramienta));
+                    nuevaOferta.OfertaItems.Add(new OfertaItem(ofertaForCreate.Porcentaje, precioFinal, nuevaOferta, herramienta));
                 }
             }
 
