@@ -27,12 +27,11 @@
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
-        public Compra(ApplicationUser usuario, string direccionEnvio, DateTime fechaCompra, float precioTotal, TiposMetodoPago tipoMetodoPago, List<CompraItem> compraItems)
+        public Compra(ApplicationUser usuario, string direccionEnvio, DateTime fechaCompra, TiposMetodoPago tipoMetodoPago, List<CompraItem> compraItems)
         {
             Usuario = usuario;
             DireccionEnvio = direccionEnvio;
             FechaCompra = fechaCompra;
-            PrecioTotal = precioTotal;
             TipoMetodoPago = tipoMetodoPago;
             CompraItems = compraItems;
         }
