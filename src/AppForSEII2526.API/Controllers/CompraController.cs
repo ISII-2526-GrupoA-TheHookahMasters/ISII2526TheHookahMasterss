@@ -37,7 +37,6 @@ namespace AppForSEII2526.API.Controllers
                     c.Usuario.Apellido,
                     c.DireccionEnvio,
                     c.FechaCompra,
-                    c.PrecioTotal,
                     c.CompraItems
 
                         .Select(ci => new CompraItemDTO(
@@ -105,7 +104,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaCompra = new Compra(usuario, compraForCreate.DireccionEnvio, DateTime.Today, compraForCreate.PrecioTotal, compraForCreate.TipoMetodoPago, new List<CompraItem>());
+            var nuevaCompra = new Compra(usuario, compraForCreate.DireccionEnvio, DateTime.Today, compraForCreate.TipoMetodoPago, new List<CompraItem>());
 
             foreach (var compraItem in compraForCreate.CompraItems)
             {
@@ -154,7 +153,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var compraCreada = new CompraDetailDTO(nuevaCompra.Id, nuevaCompra.Usuario.Nombre, nuevaCompra.Usuario.Apellido,
-                                                        nuevaCompra.DireccionEnvio, nuevaCompra.FechaCompra, nuevaCompra.PrecioTotal,
+                                                        nuevaCompra.DireccionEnvio, nuevaCompra.FechaCompra,
                                                         nuevaCompra.CompraItems.Select(ci => new CompraItemDTO(
                                                             ci.HerramientaId,
                                                             ci.Herramienta.Nombre,
