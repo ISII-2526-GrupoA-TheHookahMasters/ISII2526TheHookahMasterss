@@ -33,7 +33,7 @@ namespace AppForSEII2526.API.Controllers
                         .ThenInclude(ai => ai.Herramienta)
 
                 .Select(a => new AlquilerDetailDTO(a.Id,a.Usuario.Nombre,a.Usuario.Apellido,a.DireccionEnvio,
-                        a.FechaAlquiler,a.PrecioTotal,a.FechaFin,a.FechaInicio, a.AlquilarItems
+                        a.FechaAlquiler, a.FechaFin, a.FechaInicio, a.AlquilarItems
                             .Select(ai => new AlquilarItemDTO(ai.HerramientaId, ai.Herramienta.Nombre,
                                 ai.Herramienta.Material, ai.Cantidad,
                                 ai.Herramienta.Precio)).ToList<AlquilarItemDTO>()))
@@ -140,7 +140,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var alquilerCreado = new AlquilerDetailDTO(nuevoAlquiler.Id, nuevoAlquiler.Usuario.Nombre, nuevoAlquiler.Usuario.Apellido, nuevoAlquiler.DireccionEnvio,
-                                                    nuevoAlquiler.FechaAlquiler, nuevoAlquiler.PrecioTotal, nuevoAlquiler.FechaFin, nuevoAlquiler.FechaInicio,
+                                                    nuevoAlquiler.FechaAlquiler, nuevoAlquiler.FechaFin, nuevoAlquiler.FechaInicio,
                                                     nuevoAlquiler.AlquilarItems.Select(ai => new AlquilarItemDTO(
                                                         ai.HerramientaId,
                                                         ai.Herramienta.Nombre,
