@@ -31,7 +31,7 @@ namespace AppForSEII2526.API.Controllers
                         .ThenInclude(ri => ri.Herramienta)
                             .ThenInclude(h => h.Fabricante)
 
-                .Select(r => new ReparacionDetailDTO(r.Id, r.Usuario.Nombre, r.Usuario.Apellido, r.FechaEntrega, r.FechaRecogida, r.PrecioTotal, r.ReparacionItems
+                .Select(r => new ReparacionDetailDTO(r.Id, r.Usuario.Nombre, r.Usuario.Apellido, r.FechaEntrega, r.FechaRecogida, r.ReparacionItems
                             .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion)).ToList<ReparacionItemDTO>()))
                 .FirstOrDefaultAsync();
 
@@ -87,7 +87,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaRecogida, reparacionForCreate.FechaEntrega, reparacionForCreate.PrecioTotal, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
+            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaRecogida, reparacionForCreate.FechaEntrega, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
 
             foreach (var reparacionItem in reparacionForCreate.ReparacionItems)
             {
@@ -127,7 +127,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var reparacionCreada = new ReparacionDetailDTO(nuevaReparacion.Id, nuevaReparacion.Usuario.Nombre, nuevaReparacion.Usuario.Apellido, 
-                                                        nuevaReparacion.FechaEntrega, nuevaReparacion.FechaRecogida, nuevaReparacion.PrecioTotal,
+                                                        nuevaReparacion.FechaEntrega, nuevaReparacion.FechaRecogida,
                                                         nuevaReparacion.ReparacionItems.Select(ri => new ReparacionItemDTO(
                                                             ri.HerramientaId, 
                                                             ri.Herramienta.Nombre, 
