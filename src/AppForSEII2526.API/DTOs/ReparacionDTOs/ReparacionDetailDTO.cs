@@ -1,4 +1,7 @@
-﻿namespace AppForSEII2526.API.DTOs.ReparacionDTOs
+﻿
+using AppForSEII2526.API.Models;
+
+namespace AppForSEII2526.API.DTOs.ReparacionDTOs
 {
     public class ReparacionDetailDTO
     {
@@ -28,20 +31,45 @@
         [Required]
         [JsonPropertyName("precioTotal")]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio Total")]
-        public float PrecioTotal { get; set; }
+        public float PrecioTotal
+        {
+            get
+            {
+                return ReparacionItems.Sum(ri => ri.Precio * ri.Cantidad);
+            }
+        }
 
         public IList<ReparacionItemDTO> ReparacionItems { get; set; }
 
-        public ReparacionDetailDTO(int id, string nombreCliente, string apellidoCliente, DateTime fechaEntrega, DateTime fechaRecogida, float precioTotal, IList<ReparacionItemDTO> reparacionItems)
+        public ReparacionDetailDTO(int id, string nombreCliente, string apellidoCliente, DateTime fechaEntrega, DateTime fechaRecogida, IList<ReparacionItemDTO> reparacionItems)
         {
             Id = id;
             NombreCliente = nombreCliente;
             ApellidosCliente = apellidoCliente;
             FechaEntrega = fechaEntrega;
             FechaRecogida = fechaRecogida;
-            PrecioTotal = precioTotal;
             ReparacionItems = reparacionItems;
 
+        }
+        public bool CompareDate(DateTime date1, DateTime date2)
+        {
+            return (date1.Subtract(date2) < new TimeSpan(0, 1, 0));
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ReparacionDetailDTO dTO &&
+                   Id == dTO.Id &&
+                   NombreCliente == dTO.NombreCliente &&
+                   ApellidosCliente == dTO.ApellidosCliente &&
+                   CompareDate(FechaEntrega, dTO.FechaEntrega) &&
+                   CompareDate(FechaRecogida, dTO.FechaRecogida) &&
+                   ReparacionItems.SequenceEqual(dTO.ReparacionItems);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Id, NombreCliente, ApellidosCliente, FechaEntrega, FechaRecogida, ReparacionItems);
         }
     }
 }
