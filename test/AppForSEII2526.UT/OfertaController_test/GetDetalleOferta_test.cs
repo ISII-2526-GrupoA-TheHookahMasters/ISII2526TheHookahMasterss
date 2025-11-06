@@ -62,7 +62,7 @@ namespace AppForSEII2526.UT.OfertaController_test
             var expectedOferta = new OfertaDetailDTO(1, DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), 
                         DateTime.Today, TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                         new List<OfertaItemDTO>());
-            expectedOferta.OfertaItems.Add(new OfertaItemDTO(1, 10, "Martillo", 20, "Acero", "Bosch"));
+            expectedOferta.OfertaItems.Add(new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50));
 
             // Act 
             var result = await controller.GetOfertasPorId(1);

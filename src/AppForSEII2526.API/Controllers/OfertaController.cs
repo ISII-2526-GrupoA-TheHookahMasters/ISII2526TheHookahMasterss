@@ -35,9 +35,9 @@ namespace AppForSEII2526.API.Controllers
 
                 .Select(o => new OfertaDetailDTO(o.Id, o.FechaFinal, o.FechaInicio, o.FechaOferta,
                 o.TipoMetodoPago, o.TipoDirigidaOferta, o.OfertaItems
-                            .Select(oi => new OfertaItemDTO(oi.HerramientaId, oi.PrecioFinal, oi.Herramienta.Nombre,
-                                oi.Herramienta.Precio, oi.Herramienta.Material,
-                                oi.Herramienta.Fabricante.Nombre)).ToList<OfertaItemDTO>()))
+                            .Select(oi => new OfertaItemDTO(oi.HerramientaId, oi.Herramienta.Nombre,
+                                oi.Herramienta.Material, oi.Herramienta.Fabricante.Nombre,
+                                oi.Herramienta.Precio, oi.Porcentaje)).ToList<OfertaItemDTO>()))
                 .FirstOrDefaultAsync();
 
             if (oferta == null)
@@ -57,6 +57,12 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreateOferta(OfertaForCreateDTO ofertaForCreate)
         {
+            if (ofertaForCreate.CompareDate(ofertaForCreate.FechaInicio, DateTime.MinValue))
+                ModelState.AddModelError("FechaInicio", "Error! Fecha Inicio es un campo obligatorio");
+
+            if (ofertaForCreate.CompareDate(ofertaForCreate.FechaFinal, DateTime.MinValue))
+                ModelState.AddModelError("FechaFinal", "Error! Fecha Final es un campo obligatorio");
+
             if (ofertaForCreate.FechaInicio <= DateTime.Today)
                 ModelState.AddModelError("FechaInicio", "Error! La fecha de inicio de tu oferta debe ser posterior a hoy");
 
@@ -65,20 +71,10 @@ namespace AppForSEII2526.API.Controllers
 
             if (ofertaForCreate.OfertaItems.Count() == 0 || ofertaForCreate.OfertaItems == null)
                 ModelState.AddModelError("OfertaItems", "Error! Tienes que incluir al menos una herramienta para aplicar una oferta");
-            
-            if (ofertaForCreate.FechaInicio == DateTime.MinValue)
-                ModelState.AddModelError("FechaInicio", "Error! Fecha Inicio es un campo obligatorio");
-
-            if (ofertaForCreate.FechaFinal == DateTime.MinValue)
-                ModelState.AddModelError("FechaFinal", "Error! Fecha Final es un campo obligatorio");
-
-            if (ofertaForCreate.TipoMetodoPago == null)
-                ModelState.AddModelError("TipoMetodoPago", "Error! El tipo de método de pago es un campo obligatorio");
 
             //Si se ha producido alguno de los errores anteriores, terminamos la ejecucion del metodo 
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
-
 
             var herramientaNombre = ofertaForCreate.OfertaItems.Select(h => h.NombreHerramienta).Distinct().ToList();
 
@@ -87,7 +83,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientaNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaOferta = new Oferta(ofertaForCreate.FechaFinal, ofertaForCreate.FechaInicio, DateTime.Today, 
+            var nuevaOferta = new Oferta(ofertaForCreate.FechaFinal, ofertaForCreate.FechaInicio, DateTime.Today,
                                         ofertaForCreate.TipoMetodoPago, ofertaForCreate.TipoDirigidaOferta, new List<OfertaItem>());
 
 
@@ -97,16 +93,16 @@ namespace AppForSEII2526.API.Controllers
 
                 if (herramienta == null)
                 {
-                    ModelState.AddModelError("OfertaItems", $"La herramienta con ID {ofertaItem.HerramientaId} no fue encontrada.");
+                    ModelState.AddModelError("OfertaItems", $"La herramienta con nombre {ofertaItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
 
-                if (ofertaForCreate.Porcentaje < 0 || ofertaForCreate.Porcentaje > 100)
+                if (ofertaItem.Porcentaje < 0 || ofertaItem.Porcentaje > 100)
                     ModelState.AddModelError("Porcentaje", "Error: El porcentaje debe estar entre 0 y 100");
                 else
                 {
-                    float precioFinal = herramienta.Precio * (1 - (ofertaForCreate.Porcentaje / 100.0f));
-                    nuevaOferta.OfertaItems.Add(new OfertaItem(ofertaForCreate.Porcentaje, precioFinal, nuevaOferta, herramienta));
+                    float precioFinal = herramienta.Precio * (1 - (ofertaItem.Porcentaje / 100.0f));
+                    nuevaOferta.OfertaItems.Add(new OfertaItem(ofertaItem.Porcentaje, precioFinal, nuevaOferta, herramienta));
                 }
             }
 
@@ -127,14 +123,14 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var ofertaCreada = new OfertaDetailDTO(nuevaOferta.Id, nuevaOferta.FechaFinal, nuevaOferta.FechaInicio, nuevaOferta.FechaOferta,
-                                                    nuevaOferta.TipoMetodoPago, nuevaOferta.TipoDirigidaOferta, 
+                                                    nuevaOferta.TipoMetodoPago, nuevaOferta.TipoDirigidaOferta,
                                                     nuevaOferta.OfertaItems.Select(oi => new OfertaItemDTO(
                                                         oi.HerramientaId,
-                                                        oi.PrecioFinal,
                                                         oi.Herramienta.Nombre,
-                                                        oi.Herramienta.Precio,
                                                         oi.Herramienta.Material,
-                                                        oi.Herramienta.Fabricante.Nombre
+                                                        oi.Herramienta.Fabricante.Nombre,
+                                                        oi.Herramienta.Precio,
+                                                        oi.Porcentaje
                                                     ))
                                                     .ToList());
 
