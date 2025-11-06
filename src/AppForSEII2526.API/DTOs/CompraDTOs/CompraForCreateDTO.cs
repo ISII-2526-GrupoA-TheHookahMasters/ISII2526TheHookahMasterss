@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs.CompraDTOs
+﻿
+namespace AppForSEII2526.API.DTOs.CompraDTOs
 {
     public class CompraForCreateDTO
     {
@@ -21,7 +22,15 @@
         [JsonPropertyName("precioTotal")]
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.Currency), Display(Name = "Precio de compra")]
-        public float PrecioTotal { get; set; }
+        public float PrecioTotal
+        {
+            get
+            {
+
+                return CompraItems.Sum(ci => ci.Precio * ci.Cantidad);
+
+            }
+        }
 
         [JsonPropertyName("tipoMetodoPago")]
         [Required]
@@ -29,14 +38,29 @@
 
         public IList<CompraItemDTO> CompraItems { get; set; }
 
-        public CompraForCreateDTO(string nombreCliente, string apellidoCliente, string direccionEnvio, float precioTotal, TiposMetodoPago tipoMetodoPago, IList<CompraItemDTO> compraItems)
+        public CompraForCreateDTO(string nombreCliente, string apellidoCliente, string direccionEnvio, TiposMetodoPago tipoMetodoPago, IList<CompraItemDTO> compraItems)
         {
             NombreCliente = nombreCliente;
             ApellidoCliente = apellidoCliente;
             DireccionEnvio = direccionEnvio;
-            PrecioTotal = precioTotal;
             TipoMetodoPago = tipoMetodoPago;
             CompraItems = compraItems;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CompraForCreateDTO dTO &&
+                   NombreCliente == dTO.NombreCliente &&
+                   ApellidoCliente == dTO.ApellidoCliente &&
+                   DireccionEnvio == dTO.DireccionEnvio &&
+                   PrecioTotal == dTO.PrecioTotal &&
+                   TipoMetodoPago == dTO.TipoMetodoPago &&
+                   CompraItems.SequenceEqual(dTO.CompraItems);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(NombreCliente, ApellidoCliente, DireccionEnvio, PrecioTotal, TipoMetodoPago, CompraItems);
         }
     }
 }
