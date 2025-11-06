@@ -51,17 +51,6 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CreateReparacion(ReparacionForCreateDTO reparacionForCreate)
         {
-            if (reparacionForCreate.FechaEntrega <= DateTime.Today)
-                ModelState.AddModelError("FechaEntrega", "Error! La fecha de entrega debe ser posterior a hoy");
-
-            if (reparacionForCreate.ReparacionItems.Count() == 0 || reparacionForCreate.ReparacionItems == null)
-                ModelState.AddModelError("ReparacionItems", "Error! Tienes que tener al menos una herramienta para reparar en el carrito");
-
-            if(reparacionForCreate.NombreCliente == null)
-                ModelState.AddModelError("NombreCliente", "Error! El nombre del cliente es obligatorio");
-
-            if (reparacionForCreate.ApellidosCliente == null)
-                ModelState.AddModelError("ApellidosCliente", "Error! Los apellidos del cliente son obligatorios");
 
             if (reparacionForCreate.FechaEntrega == DateTime.MinValue)
                 ModelState.AddModelError("FechaEntrega", "Error! La fecha de entrega es obligatoria");
@@ -69,13 +58,21 @@ namespace AppForSEII2526.API.Controllers
             if (reparacionForCreate.FechaRecogida == DateTime.MinValue)
                 ModelState.AddModelError("FechaRecogida", "Error! La fecha de recogida es obligatoria");
 
-            if (reparacionForCreate.TipoMetodoPago == null )
-                ModelState.AddModelError("TipoMetodoPago", "Error! El tipo de método de pago es obligatorio");
+            if (reparacionForCreate.FechaEntrega <= DateTime.Today)
+                ModelState.AddModelError("FechaEntrega", "Error! La fecha de entrega debe ser posterior a hoy");
 
+            if (reparacionForCreate.ReparacionItems.Count() == 0 || reparacionForCreate.ReparacionItems == null)
+                ModelState.AddModelError("ReparacionItems", "Error! Tienes que tener al menos una herramienta para reparar en el carrito");
+
+            if (reparacionForCreate.NombreCliente == null)
+                ModelState.AddModelError("NombreCliente", "Error! El nombre del cliente es obligatorio");
+
+            if (reparacionForCreate.ApellidosCliente == null)
+                ModelState.AddModelError("ApellidosCliente", "Error! Los apellidos del cliente son obligatorios");
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == reparacionForCreate.NombreCliente && u.Apellido == reparacionForCreate.ApellidosCliente);
             if (usuario == null)
             {
-                ModelState.AddModelError("Usuario", "El usuario no existe");
+                return BadRequest(new ValidationProblemDetails(ModelState));
             }
 
             if (ModelState.ErrorCount > 0)

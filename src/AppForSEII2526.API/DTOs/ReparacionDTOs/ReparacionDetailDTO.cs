@@ -64,6 +64,7 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
                    ApellidosCliente == dTO.ApellidosCliente &&
                    CompareDate(FechaEntrega, dTO.FechaEntrega) &&
                    CompareDate(FechaRecogida, dTO.FechaRecogida) &&
+                   PrecioTotal == dTO.PrecioTotal &&
                    ReparacionItems.SequenceEqual(dTO.ReparacionItems);
         }
 
