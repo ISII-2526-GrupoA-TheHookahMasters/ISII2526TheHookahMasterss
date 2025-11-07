@@ -13,7 +13,6 @@ namespace AppForSEII2526.UT.AlquilerController_test
 {
     public class GetDetalleAlquiler_test : AppForSEII25264SqliteUT
     {
-
         public GetDetalleAlquiler_test()
         {
             var fabricante = new Fabricante(1, "Bosch");
@@ -25,12 +24,12 @@ namespace AppForSEII2526.UT.AlquilerController_test
             };
 
             ApplicationUser user= new ApplicationUser("Carlos", "Gomez", 123456789, "carlosgomez@gmail.com");
-            var oferta = new Alquiler(user, "Avd España 4", DateTime.Today,DateTime.Today.AddDays(5),DateTime.Today.AddDays(2), 120, new List<AlquilarItem>());
-            oferta.AlquilarItems.Add(new AlquilarItem(3, 40, oferta, herramientas[0]));
+            var alquiler = new Alquiler(user, "Avd España 4", DateTime.Today,DateTime.Today.AddDays(5),DateTime.Today.AddDays(2), 120, new List<AlquilarItem>());
+            alquiler.AlquilarItems.Add(new AlquilarItem(3, 40, alquiler, herramientas[0]));
 
             _context.Add(fabricante);
             _context.AddRange(herramientas);
-            _context.Add(oferta);
+            _context.Add(alquiler);
             _context.SaveChanges();
         }
 
@@ -70,12 +69,11 @@ namespace AppForSEII2526.UT.AlquilerController_test
             // Act 
             var result = await controller.GetAlquilerPorId(1);
 
-            //Assert
-            //we check that the response type is OK and obtain the rental
+            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var alquilerDTOActual = Assert.IsType<AlquilerDetailDTO>(okResult.Value);
             var eq = expectedAlquiler.Equals(alquilerDTOActual);
-            //we check that the expected and actual are the same
+
             Assert.Equal(expectedAlquiler, alquilerDTOActual);
         }
     }

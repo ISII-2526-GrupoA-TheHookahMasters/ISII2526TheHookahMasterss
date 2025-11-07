@@ -57,12 +57,13 @@ namespace AppForSEII2526.API.Controllers
 
         public async Task<ActionResult> CreateAlquiler(AlquilerForCreateDTO alquilerForCreate)
         {
+
             if (alquilerForCreate.FechaInicio <= DateTime.Today)
                 ModelState.AddModelError("FechaInicio", "Error! La fecha de inicio de tu alquiler debe ser posterior a hoy");
 
             if (alquilerForCreate.FechaInicio >= alquilerForCreate.FechaFin)
                 ModelState.AddModelError("FechaInicio&FechaFin", "Error! Tu alquiler debe terminar despues de que empiece");
-            
+
             if (alquilerForCreate.AlquilerItems.Count == 0)
                 ModelState.AddModelError("AlquilerItems", "Error! Debes incluir al menos una herramienta para ser alquilada");
 
@@ -75,16 +76,13 @@ namespace AppForSEII2526.API.Controllers
             if (alquilerForCreate.DireccionEnvio == null)
                 ModelState.AddModelError("DireccionEnvio", "Error! La direccion de envio es un campo obligatorio");
 
-            if (alquilerForCreate.TipoMetodoPago == null)
-                ModelState.AddModelError("TipoMetodoPago", "Error! El tipo de método de pago es un campo obligatorio");
-
             if (alquilerForCreate.AlquilerItems.Count() == 0 || alquilerForCreate.AlquilerItems == null)
-                ModelState.AddModelError("OfertaItems", "Error! Tienes que incluir al menos una herramienta para aplicar una oferta");
+                ModelState.AddModelError("AlquilerItems", "Error! Tienes que incluir al menos una herramienta para aplicar un alquiler");
 
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == alquilerForCreate.NombreCliente && u.Apellido == alquilerForCreate.ApellidosCliente);
             if (usuario == null)
             {
-                ModelState.AddModelError("Usuario", "El usuario no existe");
+                return BadRequest(new ValidationProblemDetails(ModelState));
             }
 
             if (ModelState.ErrorCount > 0)
@@ -105,7 +103,7 @@ namespace AppForSEII2526.API.Controllers
 
                 if (herramienta == null)
                 {
-                    ModelState.AddModelError("AlquilerItems", $"La herramienta con ID {alquilerItem.HerramientaId} no fue encontrada.");
+                    ModelState.AddModelError("AlquilerItems", $"La herramienta con nombre {alquilerItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
 
