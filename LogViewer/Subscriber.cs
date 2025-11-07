@@ -1,0 +1,76 @@
+using System;
+using System.Text;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using System.Text.Json;
+
+public class Subscriber
+{
+    private readonly string _hostname = "localhost"; //cambiar por la dirección que corresponda
+    private readonly string _queueName = "";
+    private readonly string _userName = "guest"; //utilizar las credenciales de un usuario de RabbitMQ
+    private readonly string _password = "guest";
+    private readonly string _exchangeName = "logs";
+    private readonly int _port = 5672;     //reemplazar por el puerto AMQP de RabbitMQ
+
+    private readonly IConnection _connection;
+    private readonly IModel _channel;
+    private readonly IBasicProperties _properties;
+
+    public Subscriber()
+    {
+        var factory = new ConnectionFactory()
+        {
+            HostName = _hostname,
+            UserName = _userName,
+            Password = _password,
+            Port = _port
+        };
+
+        _connection = factory.CreateConnection();
+
+        _channel = _connection.CreateModel();
+        _properties = _channel.CreateBasicProperties();
+        _properties.Persistent = true; // Hace el mensaje persistente
+
+        _channel.ExchangeDeclare(_exchangeName, ExchangeType.Fanout, durable: true);
+
+        var tempQueue = _channel.QueueDeclare(
+                        queue: _queueName,
+                        durable: false,   // La cola sobrevive a reinicios del servidor
+                        exclusive: false, // La cola puede ser usada por múltiples conexiones
+                        autoDelete: false, // La cola no se elimina automáticamente
+                        arguments: null
+                    );
+
+        _queueName = tempQueue.QueueName;
+
+        _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: "");
+    }
+
+    public void StartConsuming()
+    {
+        var consumer = new EventingBasicConsumer(_channel);
+
+        consumer.Received += (model, ea) =>
+        {
+            var body = ea.Body.ToArray();
+            var json = Encoding.UTF8.GetString(body);
+            var log = JsonSerializer.Deserialize<LogEntry>(json);
+
+            Console.WriteLine($"Log recibido: {log.Message}\n");
+        };
+
+        _channel.BasicConsume(
+            queue: _queueName,
+            autoAck: true, // Confirmación automática de recepción del mensaje  
+            consumer: consumer
+        );
+    }
+
+    public void DisposeResources()
+    {
+        _channel?.Close();
+        _connection?.Close();
+    }
+}

@@ -1,10 +1,11 @@
 ﻿using AppForSEII2526.API.Data;
+using AppForSEII2526.API.Data;
 using AppForSEII2526.API.DTOs;
 using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using AppForSEII2526.API.Data;
+using System;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -20,6 +21,7 @@ namespace AppForSEII2526.API.Controllers
         {
             _context = context;
             _logger = logger;
+            _logger.LogInformation("HerramientaController initialized");
         }
 
         [HttpGet]
@@ -27,10 +29,19 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetHerramientasParaComprar()
         {
-            var herramientas = await _context.Herramienta
-                .Select(h => new HerramientasParaComprarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
-                .ToListAsync();
-            return Ok(herramientas);
+            try
+            {
+                var herramientas = await _context.Herramienta
+                    .Select(h => new HerramientasParaComprarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
+                    .ToListAsync();
+                _logger.LogInformation("Herramientas mostradas con exito");
+                return Ok(herramientas);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Warning");
+                return BadRequest(ex);
+            }
         }
 
         [HttpGet]
