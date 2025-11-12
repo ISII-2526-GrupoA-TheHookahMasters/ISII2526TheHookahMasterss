@@ -69,6 +69,7 @@ namespace AppForSEII2526.API.Controllers
 
             if (reparacionForCreate.ApellidosCliente == null)
                 ModelState.AddModelError("ApellidosCliente", "Error! Los apellidos del cliente son obligatorios");
+
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == reparacionForCreate.NombreCliente && u.Apellido == reparacionForCreate.ApellidosCliente);
             if (usuario == null)
             {
@@ -92,7 +93,7 @@ namespace AppForSEII2526.API.Controllers
 
                 if (herramienta == null)
                 {
-                    ModelState.AddModelError("ReparacionItems", $"La herramienta con ID {reparacionItem.HerramientaId} no fue encontrada.");
+                    ModelState.AddModelError("ReparacionItems", $"La herramienta con nombre {reparacionItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
 

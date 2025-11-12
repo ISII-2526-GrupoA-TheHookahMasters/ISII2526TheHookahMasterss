@@ -58,6 +58,14 @@ namespace AppForSEII2526.UT.ReparacionController_test
             var reparacionNoFechaRecogida = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.MinValue,
                                          TiposMetodoPago.PayPal, reparacionItems);
 
+            var reparacionCantidadCero = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
+                                         TiposMetodoPago.PayPal, new List<ReparacionItemDTO>() {
+                                             new ReparacionItemDTO(2, "Llave inglesa", 15, 0, "Llave inglesa de cabezal grande")});
+
+            var reparacionHerramientaNoExiste = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
+                                                     TiposMetodoPago.PayPal, new List<ReparacionItemDTO>() {
+                                             new ReparacionItemDTO(2, "Serrucho", 15, 1, "Serrucho grande")});
+
 
             var allTests = new List<object[]>
             {             //input for createpurchase - Error expected
@@ -67,6 +75,8 @@ namespace AppForSEII2526.UT.ReparacionController_test
                 new object[] { reparacionNoApellido, "Error! Los apellidos del cliente son obligatorios", },
                 new object[] { reparacionNoFechaEntrega, "Error! La fecha de entrega es obligatoria", },
                 new object[] { reparacionNoFechaRecogida, "Error! La fecha de recogida es obligatoria", },
+                new object[] { reparacionCantidadCero, "Error! La cantidad no puede ser 0", },
+                new object[] { reparacionHerramientaNoExiste, $"La herramienta con nombre {reparacionHerramientaNoExiste.ReparacionItems[0].NombreHerramienta} no fue encontrada.", },
             };
 
             return allTests;
