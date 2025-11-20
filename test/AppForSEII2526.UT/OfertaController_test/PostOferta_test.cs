@@ -32,47 +32,63 @@ namespace AppForSEII2526.UT.OfertaController_test
 
         public static IEnumerable<object[]> TestCasesFor_CreateOferta()
         {
-            var ofertaNoItem = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+
+            var ofertaToBeforeFrom = new OfertaForCreateDTO(DateTime.Today.AddDays(2), DateTime.Today.AddDays(11),
+                TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes, new List<OfertaItemDTO>()
+                { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
+
+            var ofertaSinFechaFinal = new OfertaForCreateDTO(DateTime.MinValue, DateTime.Today.AddDays(10),
+                TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
+                new List<OfertaItemDTO>()
+                { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
+
+            var ofertaNoItem = new OfertaForCreateDTO(DateTime.Today.AddDays(11), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes, new List<OfertaItemDTO>());
 
             var ofertaItems = new List<OfertaItemDTO>() { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) };
 
-            var ofertaFromBeforeToday = new OfertaForCreateDTO(DateTime.Today.AddDays(3), DateTime.Today,
+            var ofertaFromBeforeToday = new OfertaForCreateDTO(DateTime.Today.AddDays(8), DateTime.Today,
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes, ofertaItems);
 
-            var ofertaToBeforeFrom = new OfertaForCreateDTO(DateTime.Today.AddDays(2), DateTime.Today.AddDays(5),
-                TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes, ofertaItems);
+            
 
-            var ofertaHerramientaNoDisponible = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaHerramientaNoDisponible = new OfertaForCreateDTO(DateTime.Today.AddDays(11), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(2, "Destornillador", "Acero y Plástico", "Bosch", 40, 50) });
 
-            var ofertaPorcentajeNoValido = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaPorcentajeNoValido = new OfertaForCreateDTO(DateTime.Today.AddDays(11), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 150) });
 
-            var ofertaSinFechaFinal = new OfertaForCreateDTO(DateTime.MinValue, DateTime.Today.AddDays(2),
-                TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
-                new List<OfertaItemDTO>()
-                { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
+            
 
             var ofertaSinFechaInicio = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.MinValue,
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
 
+            var ofertaMayorQueUnaSemana = new OfertaForCreateDTO(DateTime.Today.AddDays(3), DateTime.Today.AddDays(2),
+               TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
+               new List<OfertaItemDTO>()
+               { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
+
+
 
             var allTests = new List<object[]>
             {
+                new object[] { ofertaToBeforeFrom, "Error! Tu oferta debe terminar después de que empiece", },
+                new object[] { ofertaSinFechaFinal, "Error! Fecha Final es un campo obligatorio", },
                 new object[] { ofertaNoItem, "Error! Tienes que incluir al menos una herramienta para aplicar una oferta",  },
                 new object[] { ofertaFromBeforeToday, "Error! La fecha de inicio de tu oferta debe ser posterior a hoy", },
-                new object[] { ofertaToBeforeFrom, "Error! Tu oferta debe terminar después de que empiece", },
+                
                 new object[] { ofertaHerramientaNoDisponible, $"La herramienta con nombre {ofertaHerramientaNoDisponible.OfertaItems[0].NombreHerramienta} no fue encontrada", },
                 new object[] { ofertaPorcentajeNoValido, "Error: El porcentaje debe estar entre 0 y 100", },
-                new object[] { ofertaSinFechaFinal, "Error! Fecha Final es un campo obligatorio", },
                 new object[] { ofertaSinFechaInicio, "Error! Fecha Inicio es un campo obligatorio", },
+                new object[] { ofertaMayorQueUnaSemana, "¡Error!, la oferta debe durar al menos una semana", },
+                
+
             };
 
             return allTests;
