@@ -129,12 +129,12 @@ namespace AppForSEII2526.UT.OfertaController_test
 
             var controller = new OfertaController(_context, logger);
 
-            var ofertaDTO = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var ofertaDTO = new OfertaForCreateDTO(DateTime.Today.AddDays(10), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
 
-            var expectedOfertaDetailDTO = new OfertaDetailDTO(2, DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
+            var expectedOfertaDetailDTO = new OfertaDetailDTO(2, DateTime.Today.AddDays(10), DateTime.Today.AddDays(2),
                 DateTime.Today, TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
