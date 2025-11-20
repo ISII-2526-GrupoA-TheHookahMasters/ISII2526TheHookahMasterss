@@ -63,14 +63,17 @@ namespace AppForSEII2526.API.Controllers
             if (ofertaForCreate.CompareDate(ofertaForCreate.FechaFinal, DateTime.MinValue))
                 ModelState.AddModelError("FechaFinal", "Error! Fecha Final es un campo obligatorio");
 
-            if (ofertaForCreate.FechaInicio <= DateTime.Today)
-                ModelState.AddModelError("FechaInicio", "Error! La fecha de inicio de tu oferta debe ser posterior a hoy");
-
             if (ofertaForCreate.FechaInicio >= ofertaForCreate.FechaFinal)
                 ModelState.AddModelError("FechaInicio&FechaFinal", "Error! Tu oferta debe terminar después de que empiece");
 
+            if ((ofertaForCreate.FechaFinal <= ofertaForCreate.FechaInicio.AddDays(7)) && (ofertaForCreate.FechaInicio <= ofertaForCreate.FechaFinal))
+                ModelState.AddModelError("Semana", "¡Error!, la oferta debe durar al menos una semana");
+
             if (ofertaForCreate.OfertaItems.Count() == 0 || ofertaForCreate.OfertaItems == null)
                 ModelState.AddModelError("OfertaItems", "Error! Tienes que incluir al menos una herramienta para aplicar una oferta");
+
+            if (ofertaForCreate.FechaInicio <= DateTime.Today)
+                ModelState.AddModelError("FechaInicio", "Error! La fecha de inicio de tu oferta debe ser posterior a hoy");
 
             //Si se ha producido alguno de los errores anteriores, terminamos la ejecucion del metodo 
             if (ModelState.ErrorCount > 0)
