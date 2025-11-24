@@ -37,7 +37,6 @@ namespace AppForSEII2526.API.Controllers
                     c.Usuario.Apellido,
                     c.DireccionEnvio,
                     c.FechaCompra,
-                    c.PrecioTotal,
                     c.CompraItems
 
                         .Select(ci => new CompraItemDTO(
@@ -66,14 +65,10 @@ namespace AppForSEII2526.API.Controllers
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CrearCompra(CompraForCreateDTO compraForCreate)
         {
-            if (compraForCreate == null)
-            {
-                ModelState.AddModelError("CompraDetailDTO", "El objeto de compra no puede ser nulo.");
-            }
 
             if (compraForCreate.CompraItems == null || compraForCreate.CompraItems.Count == 0)
             {
-                ModelState.AddModelError("CompraItemsDTO", "La compra debe contener al menos un ítem.");
+                ModelState.AddModelError("CompraItemsDTO", "Error! La compra debe contener al menos un ítem.");
             }
 
             if(compraForCreate.NombreCliente == null)
@@ -85,17 +80,15 @@ namespace AppForSEII2526.API.Controllers
             if(compraForCreate.DireccionEnvio == null)
                 ModelState.AddModelError("DireccionEnvio", "Error! La dirección de envío es obligatoria");
 
-            if (compraForCreate.TipoMetodoPago == null)
-                ModelState.AddModelError("TipoMetodoPago", "Error! El tipo de método de pago es obligatorio");
-
 
 
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == compraForCreate.NombreCliente && u.Apellido == compraForCreate.ApellidoCliente);
+            
             if (usuario == null)
             {
-                ModelState.AddModelError("Usuario", "El usuario no existe");
+                return BadRequest(new ValidationProblemDetails(ModelState));
             }
-
+            
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
@@ -105,7 +98,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaCompra = new Compra(usuario, compraForCreate.DireccionEnvio, DateTime.Today, compraForCreate.PrecioTotal, compraForCreate.TipoMetodoPago, new List<CompraItem>());
+            var nuevaCompra = new Compra(usuario, compraForCreate.DireccionEnvio, DateTime.Today, compraForCreate.TipoMetodoPago, new List<CompraItem>());
 
             foreach (var compraItem in compraForCreate.CompraItems)
             {
@@ -113,13 +106,8 @@ namespace AppForSEII2526.API.Controllers
 
                 if (herramienta == null)
                 {
-                    ModelState.AddModelError("CompraItems", $"La herramienta con ID {compraItem.HerramientaId} no fue encontrada.");
+                    ModelState.AddModelError("CompraItems", $"Error! La herramienta con nombre {compraItem.NombreHerramienta} no fue encontrada.");
                     continue;
-                }
-
-                if(compraItem.Cantidad == null)
-                {
-                    ModelState.AddModelError("Cantidad", $"Error! La cantidad es un campo obligatorio");
                 }
 
                 if (compraItem.Descripcion == null)
@@ -154,7 +142,7 @@ namespace AppForSEII2526.API.Controllers
             }
 
             var compraCreada = new CompraDetailDTO(nuevaCompra.Id, nuevaCompra.Usuario.Nombre, nuevaCompra.Usuario.Apellido,
-                                                        nuevaCompra.DireccionEnvio, nuevaCompra.FechaCompra, nuevaCompra.PrecioTotal,
+                                                        nuevaCompra.DireccionEnvio, nuevaCompra.FechaCompra,
                                                         nuevaCompra.CompraItems.Select(ci => new CompraItemDTO(
                                                             ci.HerramientaId,
                                                             ci.Herramienta.Nombre,

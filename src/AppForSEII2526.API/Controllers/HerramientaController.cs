@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AppForSEII2526.API.Data;
-using AppForSEII2526.API.DTOs.ReparacionDTOs;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -21,8 +20,19 @@ namespace AppForSEII2526.API.Controllers
         {
             _context = context;
             _logger = logger;
-        }   
-            
+        }
+
+        [HttpGet]
+        [Route("[action]")]
+        [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult> GetHerramientasParaComprar()
+        {
+            var herramientas = await _context.Herramienta
+                .Select(h => new HerramientasParaComprarDTO(h.Id, h.Nombre, h.Material, h.Precio, h.Fabricante.Nombre))
+                .ToListAsync();
+            return Ok(herramientas);
+        }
+
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaOfertaDTO>), (int)HttpStatusCode.OK)]
@@ -76,7 +86,7 @@ namespace AppForSEII2526.API.Controllers
         [HttpGet]
         [Route("[action]")]
         [ProducesResponseType(typeof(IList<HerramientasParaComprarDTO>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult> GetHerramientasMaterialPrecio(string? filtroMaterial, double? filtroPrecio)
+        public async Task<ActionResult> GetHerramientasMaterialPrecio(string? filtroMaterial, float? filtroPrecio)
         {
             IList<HerramientasParaComprarDTO> herramientas = await _context.Herramienta
                 .Include(h => h.Fabricante)
