@@ -416,4 +416,3 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-/test/AppForSEII2526.UT/HerramientaController_Test/GetSeleccionReparacion_test.cs
