@@ -1,4 +1,5 @@
-﻿namespace AppForSEII2526.API.DTOs.AlquilerDTOs
+﻿
+namespace AppForSEII2526.API.DTOs.AlquilerDTOs
 {
     public class AlquilarItemDTO
     {
@@ -34,7 +35,19 @@
             Precio = precio;
         }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is AlquilarItemDTO dTO &&
+                   HerramientaId == dTO.HerramientaId &&
+                   NombreHerramienta == dTO.NombreHerramienta &&
+                   Material == dTO.Material &&
+                   Cantidad == dTO.Cantidad &&
+                   Precio == dTO.Precio;
+        }
 
-
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(HerramientaId, NombreHerramienta, Material, Cantidad, Precio);
+        }
     }
 }

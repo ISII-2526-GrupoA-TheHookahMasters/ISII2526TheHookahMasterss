@@ -32,5 +32,20 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
             Cantidad = cantidad;
             Descripcion = descripcion;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ReparacionItemDTO dTO &&
+                   HerramientaId == dTO.HerramientaId &&
+                   NombreHerramienta == dTO.NombreHerramienta &&
+                   Precio == dTO.Precio &&
+                   Cantidad == dTO.Cantidad &&
+                   Descripcion == dTO.Descripcion;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(HerramientaId, NombreHerramienta, Precio, Cantidad, Descripcion);
+        }
     }
 }
