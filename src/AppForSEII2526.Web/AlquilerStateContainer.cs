@@ -38,17 +38,17 @@ namespace AppForSEII2526.Web
         }
 
 
-        public void RemoveRentalItemToRent(AlquilarItemDTO item)
+        public void RemoveAlquilerItemToAlquiler(AlquilarItemDTO item)
         {
             Alquiler.AlquilerItems.Remove(item);
         }
 
-        public void ClearRentingCart()
+        public void ClearAlquilerCart()
         {
             Alquiler.AlquilerItems.Clear();
         }
 
-        public void RentalProcessed()
+        public void AlquilerProcessed()
         {
             //we have finished the rental process so we create a new object without data
             Alquiler = new AlquilerForCreateDTO()
