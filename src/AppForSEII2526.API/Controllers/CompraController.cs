@@ -3,6 +3,7 @@ using AppForSEII2526.API.DTOs.CompraDTOs;
 using AppForSEII2526.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AppForSEII2526.API.Controllers
 {
@@ -109,23 +110,27 @@ namespace AppForSEII2526.API.Controllers
                     ModelState.AddModelError("CompraItems", $"Error! La herramienta con nombre {compraItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
-
-                if (compraItem.Descripcion == null)
+                if (compraItem.Descripcion.IsNullOrEmpty() && compraItem.Cantidad == 3)
+                {
+                    ModelState.AddModelError("HerramientaSinDescripcion", "Error!, Estas comprando demasiadas herramientas sin descripcion");
+                }
+                
+                else if (compraItem.Descripcion == null)
                 {
                     ModelState.AddModelError("Descripcion", $"Error! La descripción es un campo obligatorio");
                 }
-
+                
                 if (compraItem.Cantidad == 0)
                 {
                     ModelState.AddModelError("Cantidad", $"Error! La cantidad no puede ser 0");
                 }
+
                 else
                 {
                     nuevaCompra.PrecioTotal += herramienta.Precio * compraItem.Cantidad;
                     nuevaCompra.CompraItems.Add(new CompraItem(compraItem.Cantidad, compraItem.Precio, compraItem.Descripcion, herramienta, nuevaCompra));
                 }
             }
-
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 

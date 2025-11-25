@@ -63,8 +63,11 @@ namespace AppForSEII2526.UT.CompraController_test
 
             var compraNoDescripcion = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 3) });
+                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 2) });
 
+            var compraHerramientaSinDescripcion = new CompraForCreateDTO("Juan", "Perez",
+                "Avenida España 12", TiposMetodoPago.PayPal,
+                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 3) });
 
             var allTests = new List<object[]>
             {             //input for createpurchase - Error expected
@@ -75,6 +78,7 @@ namespace AppForSEII2526.UT.CompraController_test
                 new object[] { compraCantidadCero, "Error! La cantidad no puede ser 0",  },
                 new object[] { compraHerramientaNoExiste, $"Error! La herramienta con nombre {compraHerramientaNoExiste.CompraItems[0].NombreHerramienta} no fue encontrada.",  },
                 new object[] { compraNoDescripcion, "Error! La descripción es un campo obligatorio",  },
+                new object[] { compraHerramientaSinDescripcion, "Error!, Estas comprando demasiadas herramientas sin descripcion"}
             };
 
             return allTests;
