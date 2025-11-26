@@ -41,6 +41,7 @@ string? URI2API = builder.Configuration.GetValue(typeof(string), "AppForHerramie
 // We create the service for accesing the API from where .WEB project
 builder.Services.AddScoped<AppForHerramientasAPIClient>(sp => new AppForHerramientasAPIClient(URI2API, new HttpClient()));
 
+builder.Services.AddScoped<ReparacionStateContainer>();
 builder.Services.AddScoped<AlquilerStateContainer>();
 builder.Services.AddScoped<CompraStateContainer>();
 
