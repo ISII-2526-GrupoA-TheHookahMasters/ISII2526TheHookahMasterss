@@ -1186,7 +1186,6 @@
       "CompraItemDTO": {
         "required": [
           "cantidad",
-          "descripcionHerramienta",
           "materialHerramienta",
           "nombreHerramienta",
           "precioHerramienta"
@@ -1212,8 +1211,8 @@
             "format": "currency"
           },
           "descripcionHerramienta": {
-            "minLength": 1,
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "cantidad": {
             "maximum": 2147483647,
