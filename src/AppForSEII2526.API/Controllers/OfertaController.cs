@@ -24,7 +24,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<OfertaDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OfertaDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetOfertasPorId(int id)
         {
             var oferta = await _context.Oferta
