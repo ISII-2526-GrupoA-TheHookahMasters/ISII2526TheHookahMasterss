@@ -122,7 +122,9 @@
             if (oferta.OfertaItems.Count == 0) hiddenRentingCart = true;
         }
 
-        public async void SearchHerramientas() {
+        public async void SearchHerramientas() 
+        {
+            herramientaFabricante = fabricanteSelected == "All" ? null : fabricanteSelected;
             if(herramientaPrecio == 0)
             {
                 herramientaPrecio = null;
@@ -138,11 +140,11 @@
             StateHasChanged();
         }
 
-        protected override Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             try
             {
-                fabricantes = await apiclient.getf(null);
+                fabricantes = await apiclient.GetFabricantesAsync(null);
             }
             catch (ApiException ex)
             {
@@ -152,7 +154,7 @@
 
             SearchHerramientas();
 
-            return base.OnInitializedAsync();
+            // return base.OnInitializedAsync();
         }
 
         private void OfertarHerramientas()

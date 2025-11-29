@@ -290,6 +290,54 @@
         }
       }
     },
+    "/api/Fabricante/GetFabricantes": {
+      "get": {
+        "tags": [
+          "Fabricante"
+        ],
+        "operationId": "GetFabricantes",
+        "parameters": [
+          {
+            "name": "fabricanteNombre",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Herramienta/GetHerramientasParaComprar": {
       "get": {
         "tags": [
@@ -691,26 +739,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OfertaDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/OfertaDetailDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OfertaDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/OfertaDetailDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/OfertaDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/OfertaDetailDTO"
                 }
               }
             }
