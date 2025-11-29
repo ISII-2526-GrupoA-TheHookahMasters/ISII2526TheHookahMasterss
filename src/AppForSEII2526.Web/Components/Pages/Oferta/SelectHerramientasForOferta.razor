@@ -20,7 +20,13 @@
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">Fabricante</span>
-                        <input type="text" id="inputFabricante" @bind=herramientaFabricante class="form-control" placeholder="Fabricante" aria-label="Fabricante" aria-describedby="basic-addon1">
+                        <select class="form-select" aria-label="Default select" @bind="fabricanteSelected" id="selectFabricante">
+                            <option value="All" selected>All</option>
+                            @foreach (string fabricanteNombre in fabricantes)
+                            {
+                                <option value="@fabricanteNombre" id="fabricanteSelected_@fabricanteNombre">@fabricanteNombre</option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="col">
@@ -92,6 +98,8 @@
 
 
     @code {
+        private string fabricanteSelected;
+        private ICollection<string>? fabricantes = new List<string>();
         private bool hideRentingCart { get { return oferta.OfertaItems.Count == 0; } }
         private ICollection<HerramientasParaOfertaDTO> herramientas;
         private bool hideErrors { get { return errors.Length == 0; } }
@@ -127,18 +135,28 @@
                 logger.LogError($"{DateTime.Now} Error: {ex}");
                 errors = "Error while connecting to the system";
             }
-        StateHasChanged();
-    }
+            StateHasChanged();
+        }
 
-    protected override Task OnInitializedAsync()
-    {
-        SearchHerramientas();
+        protected override Task OnInitializedAsync()
+        {
+            try
+            {
+                fabricantes = await apiclient.getf(null);
+            }
+            catch (ApiException ex)
+            {
+            if (fabricantes == null) fabricantes = new List<string>() { "All", };
+                logger.LogError("Error! There was an error while connecting to the GetFabricantesAsync service");
+            }
 
-        return base.OnInitializedAsync();
-    }
+            SearchHerramientas();
 
-    private void OfertarHerramientas()
-    {
-        navigation.NavigateTo("/ofertas/createoferta");
+            return base.OnInitializedAsync();
+        }
+
+        private void OfertarHerramientas()
+        {
+            navigation.NavigateTo("/ofertas/createoferta");
+        }
     }
-}
