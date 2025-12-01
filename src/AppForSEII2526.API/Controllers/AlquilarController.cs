@@ -24,7 +24,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<AlquilerDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AlquilerDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetAlquilerPorId(int id)
         {
             var alquiler = await _context.Alquiler
