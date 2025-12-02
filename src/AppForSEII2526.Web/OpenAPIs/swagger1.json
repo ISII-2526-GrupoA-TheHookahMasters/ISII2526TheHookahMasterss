@@ -165,26 +165,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               }
             }

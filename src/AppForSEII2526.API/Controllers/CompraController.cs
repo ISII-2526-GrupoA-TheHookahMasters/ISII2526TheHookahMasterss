@@ -23,7 +23,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<CompraDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetComprasPorId(int id)
         {
             var compra = await _context.Compra
