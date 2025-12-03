@@ -61,7 +61,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CrearCompra(CompraForCreateDTO compraForCreate)
