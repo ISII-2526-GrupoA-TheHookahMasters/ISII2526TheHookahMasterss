@@ -6,22 +6,108 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<section class="imagen-section mb-5">
+    <div class="imagen-overlay">
+        <div class="container text-center text-white h-100 d-flex flex-column justify-content-center align-items-center">
+            <h1 class="display-3 fw-bold">Tu Ferretería de Confianza</h1>
+            <p class="lead fs-4">Venta, Reparación, Oferta y Alquiler de herramientas profesionales.</p>
+        </div>
+    </div>
+</section>
 
-Welcome to your new app.
+<section class="py-2 bg-light">
+    <div class="container">
+        <h2 class="text-center fw-bold mb-3">Nuestros Servicios Destacados</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 mb-4">
 
-<br>
-<br>
+            <div class="col">
+                <a href="/compra/selectherramientasforcompra" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm card text-center border-0 p-4">
+                        <div class="card-icon mb-3">
+                            <i class="bi bi-cart-fill"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Compra Online</h5>
+                        <p class="card-text text-muted small">
+                            Explora nuestro amplio inventario y compra directamente.
+                        </p>
+                    </div>
+                </a>
+            </div>
 
-@if (_herramientas == null)
-{
-    <p><em>Cargando...</em></p>
-}
-else foreach (var herramienta in _herramientas)
-{
-    @herramienta.Nombre
-    <br>
-}
+            <div class="col">
+                <a href="/reparar/selectherramientasforreparar" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm card text-center border-0 p-4">
+                        <div class="service-icon mb-3">
+                            <i class="bi bi-wrench-adjustable-circle-fill"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Reparación Express</h5>
+                        <p class="card-text text-muted small">
+                            ¿Herramienta averiada? Solicita presupuesto y la dejamos como nueva.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="/oferta/selectherramientasforoferta" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm card text-center border-0 p-4">
+                        <div class="service-icon mb-3">
+                            <i class="bi bi-tag-fill"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Ofertas Especiales</h5>
+                        <p class="card-text text-muted small">
+                            Ofrece descuentos increíbles por tus herramientas favoritas.
+                        </p>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col">
+                <a href="/alquiler/selectalquileroferta" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm card text-center border-0 p-4">
+                        <div class="service-icon mb-3">
+                            <i class="bi bi-calendar2-range-fill"></i>
+                        </div>
+                        <h5 class="card-title fw-bold text-dark">Alquiler Flexible</h5>
+                        <p class="card-text text-muted small">
+                            Alquila lo que necesites por días. Paga sólo por el uso.
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .imagen-section {
+        background-image: url('https://images.unsplash.com/photo-1504148455328-c376907d081c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        background-position: center;
+        height: 400px;
+        position: relative;
+    }
+
+    .imagen-overlay {
+        background: rgba(0, 0, 0, 0.6);
+        height: 100%;
+        width: 100%;
+    }
+
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+    }
+
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1) !important;
+    }
+
+    .card-icon {
+        font-size: 3rem;
+        color: #fd7e14;
+    }
+</style>
 
 @code {
     private ICollection<HerramientasParaOfertaDTO> _herramientas;
