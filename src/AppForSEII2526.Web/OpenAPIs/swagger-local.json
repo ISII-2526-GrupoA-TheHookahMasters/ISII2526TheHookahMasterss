@@ -850,17 +850,26 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  }
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  }
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReparacionDetailDTO"
+                  }
                 }
               }
             }
