@@ -1673,7 +1673,7 @@
             "nullable": true
           },
           "errors": {
-            "type": "object",
+            "type": "object", 
             "additionalProperties": {
               "type": "array",
               "items": {

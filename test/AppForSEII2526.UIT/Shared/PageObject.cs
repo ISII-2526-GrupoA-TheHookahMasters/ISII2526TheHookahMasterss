@@ -96,7 +96,6 @@ namespace AppForSEII2526.UIT.Shared {
         }
 
         public void PressOkModalDialog() {
-            //waiting for the message error to be shown
             WaitForBeingVisible(_okModalDialog);
             _driver.FindElement(_okModalDialog).Click();
         }
