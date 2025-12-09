@@ -32,7 +32,8 @@ namespace AppForSEII2526.API.Controllers
                             .ThenInclude(h => h.Fabricante)
 
                 .Select(r => new ReparacionDetailDTO(r.Id, r.Usuario.Nombre, r.Usuario.Apellido, r.FechaEntrega, r.FechaRecogida, r.ReparacionItems
-                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion)).ToList<ReparacionItemDTO>()))
+                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion, ri.Herramienta.TiempoReparacion
+                            )).ToList<ReparacionItemDTO>()))
                 .FirstOrDefaultAsync();
 
             if (reparacion == null)
@@ -131,7 +132,8 @@ namespace AppForSEII2526.API.Controllers
                                                             ri.Herramienta.Nombre, 
                                                             ri.Herramienta.Precio, 
                                                             ri.Cantidad, 
-                                                            ri.Descripcion
+                                                            ri.Descripcion,
+                                                            ri.Herramienta.TiempoReparacion
                                                         ))
                                                         .ToList<ReparacionItemDTO>());
 

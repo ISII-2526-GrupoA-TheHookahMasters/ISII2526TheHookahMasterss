@@ -165,26 +165,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/CompraDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/CompraDetailDTO"
                 }
               }
             }
@@ -218,8 +209,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -859,26 +850,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ReparacionDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/ReparacionDetailDTO"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ReparacionDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/ReparacionDetailDTO"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ReparacionDetailDTO"
-                  }
+                  "$ref": "#/components/schemas/ReparacionDetailDTO"
                 }
               }
             }

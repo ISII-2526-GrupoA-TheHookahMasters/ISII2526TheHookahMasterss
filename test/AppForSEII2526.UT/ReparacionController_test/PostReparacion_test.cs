@@ -41,7 +41,7 @@ namespace AppForSEII2526.UT.ReparacionController_test
             var reparacionNoItems = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
                                          TiposMetodoPago.PayPal, new List<ReparacionItemDTO>());
 
-            var reparacionItems = new List<ReparacionItemDTO>(){ new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande") };
+            var reparacionItems = new List<ReparacionItemDTO>(){ new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande", 1) };
 
             var reparacionFechaEntregaNC = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today, 
                                             DateTime.Today.AddDays(3), TiposMetodoPago.PayPal, reparacionItems);
@@ -60,11 +60,11 @@ namespace AppForSEII2526.UT.ReparacionController_test
 
             var reparacionCantidadCero = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
                                          TiposMetodoPago.PayPal, new List<ReparacionItemDTO>() {
-                                             new ReparacionItemDTO(2, "Llave inglesa", 15, 0, "Llave inglesa de cabezal grande")});
+                                             new ReparacionItemDTO(2, "Llave inglesa", 15, 0, "Llave inglesa de cabezal grande", 1)});
 
             var reparacionHerramientaNoExiste = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
                                                      TiposMetodoPago.PayPal, new List<ReparacionItemDTO>() {
-                                             new ReparacionItemDTO(2, "Serrucho", 15, 1, "Serrucho grande")});
+                                             new ReparacionItemDTO(2, "Serrucho", 15, 1, "Serrucho grande", 1)});
 
 
             var allTests = new List<object[]>
@@ -122,11 +122,11 @@ namespace AppForSEII2526.UT.ReparacionController_test
 
             var reparacionDTO = new ReparacionForCreateDTO("Antonio", "Ortiz", DateTime.Today.AddDays(1), DateTime.Today.AddDays(3),
                                                  TiposMetodoPago.PayPal, new List<ReparacionItemDTO>{
-                                                  new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande")});
+                                                  new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande", 1)});
 
             var expectedreparacionDetailDTO = new ReparacionDetailDTO(2, "Antonio", "Ortiz", DateTime.Today.AddDays(3),
                                                 DateTime.Today.AddDays(1), new List<ReparacionItemDTO>{
-                                                  new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande")}); 
+                                                  new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande", 1)}); 
 
             // Act
             var result = await controller.CreateReparacion(reparacionDTO);
