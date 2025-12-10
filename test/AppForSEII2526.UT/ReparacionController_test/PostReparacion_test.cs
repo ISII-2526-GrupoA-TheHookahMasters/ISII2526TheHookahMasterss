@@ -124,8 +124,8 @@ namespace AppForSEII2526.UT.ReparacionController_test
                                                  TiposMetodoPago.PayPal, new List<ReparacionItemDTO>{
                                                   new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande", 1)});
 
-            var expectedreparacionDetailDTO = new ReparacionDetailDTO(2, "Antonio", "Ortiz", DateTime.Today.AddDays(3),
-                                                DateTime.Today.AddDays(1), new List<ReparacionItemDTO>{
+            var expectedreparacionDetailDTO = new ReparacionDetailDTO(2, "Antonio", "Ortiz", DateTime.Today.AddDays(1),
+                                                DateTime.Today.AddDays(3), new List<ReparacionItemDTO>{
                                                   new ReparacionItemDTO(2, "Llave inglesa", 15, 1, "Llave inglesa de cabezal grande", 1)}); 
 
             // Act
