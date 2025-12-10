@@ -1611,6 +1611,10 @@
           "descripcion": {
             "type": "string",
             "nullable": true
+          },
+          "tiempoReparacion": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
