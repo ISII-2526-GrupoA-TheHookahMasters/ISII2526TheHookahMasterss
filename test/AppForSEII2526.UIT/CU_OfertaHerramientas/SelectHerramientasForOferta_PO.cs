@@ -22,7 +22,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
         {
             //wait for the webelement to be clickable
             WaitForBeingClickable(inputPrecio);
-            _driver.FindElement(inputPrecio).SendKeys(precio.ToString());
+            _driver.FindElement(inputPrecio).SendKeys(precio);
 
             if (fabricante == "") fabricante = "All";
             SelectElement selectElement = new SelectElement(_driver.FindElement(inputFabricante));
@@ -35,7 +35,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
         {
             return CheckBodyTable(expectedHerramientas, tableOfHerramientasBy);
         }
-
+        
         public bool CheckMessageError(string errorMessage)
         {
             IWebElement actualErrorShown = _driver.FindElement(errorShownBy);
