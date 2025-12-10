@@ -1,0 +1,154 @@
+﻿@page "/reparacion/detailreparacion"
+@using Microsoft.AspNetCore.Authorization
+@using AppForSEII2526.Web.API
+@using Microsoft.AspNetCore.Authorization
+@inject AppForHerramientasAPIClient apiclient
+@inject ILogger<SelectHerramientasForReparacion> logger
+
+<h3>DetailReparacion</h3>
+
+@*@attribute [Authorize]@*@
+
+    <div class="container-fluid mb-3">
+        <div class="row">
+            <div class="col">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">Id</span>
+                    <input type="text" id="inputId" @bind="reparacionID" class="form-control" placeholder="Id de la reparacion" aria-label="Id" aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col">
+            <button type="button" class="btn btn-primary" @onclick="SearchReparaciones" id="searchReparaciones">Search Reparaciones</button>
+            </div>
+        </div>
+    </div>
+
+    @if (!string.IsNullOrEmpty(errors))
+    {
+        <div class="alert alert-warning" role="alert">
+            @errors
+        </div>
+    }
+
+    @if (reparacion != null)
+    {
+        <div class="container-fluid">
+            <table class="table table-borderless table-sm">
+                <tr>
+                    <th>ID Reparacion</th>
+                <td id="IdReparacion">@reparacion.Id</td>
+                </tr>
+                <tr>
+                    <th>Nombre Cliente</th>
+                    <td id="MetodoPago">@reparacion.NombreCliente</td>
+                </tr>
+                <tr>
+                    <th>Apellidos Cliente</th>
+                    <td id="MetodoPago">@reparacion.ApellidosCliente</td>
+                </tr>
+                <tr>
+                    <th>Fecha Entrega</th>
+                <td id="FechaInicio">@reparacion.FechaEntrega.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Fecha Recogida</th>
+                    <td id="FechaRecogida">@reparacion.FechaRecogida.ToString("dd/MM/yyyy")</td>
+                </tr>
+                <tr>
+                    <th>Precio Final</th>
+                <td id="PrecioFinal">@reparacion.PrecioTotal</td>
+                </tr>
+                
+                <tr>
+                <th>Items en la Reparacion</th>
+                <td id="ItemsCount">@reparacion.ReparacionItems.Count</td>
+                </tr>
+            </table>
+
+            <h4>Herramientas reparadas</h4>
+
+            <table class="table table-striped table-hover" id="HerramientasReparadas">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Herramienta</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Precio (€)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                @foreach (var item in reparacion.ReparacionItems)
+                    {
+                        <tr id="ReparacionItem_@item.HerramientaId">
+                            <td>@item.HerramientaId</td>
+                            <td>@item.NombreHerramienta</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.Cantidad</td
+                            <td>@item.Precio.ToString("0.00") €</td>
+                        </tr>
+                    }
+                </tbody>
+
+                <tfoot class="table-light">
+                    <tr>
+                    <th scope="row" colspan="4" class="text-end">Precio Total de la Reparacion</th>
+                        <td id="TotalPrice">
+                        <td id="PrecioTotal">@reparacion.PrecioTotal.ToString("0.00") €</td>
+                    </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+}
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public int reparacionID { get; set; }
+    private ReparacionDetailDTO reparacion;
+    private bool hideErrors { get { return errors.Length == 0; } }
+    private string errors = "";
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+
+    public async void SearchReparaciones()
+    {
+        try
+        {
+            reparacion = await apiclient.GetReparacionesPorIdAsync(reparacionID);
+            errors = "";
+        }
+        catch (ApiException ex)
+        {
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "ID no válido";
+        }
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync() {
+        @*string userName = "";
+        if (authenticationState is not null) {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            if (user is not null) {
+                if (user.Identity is not null && user.Identity.IsAuthenticated && user.IsInRole("User")) {
+                    userName = user.Identity.Name;
+                }
+            }
+        }*@
+
+        if (reparacionID > 0)
+        {
+            SearchReparaciones();
+        }
+        else
+        {
+            errors = "Por favor, introduce un ID para buscar.";
+        }
+    }
+}

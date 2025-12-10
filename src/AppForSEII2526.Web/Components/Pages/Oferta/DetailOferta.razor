@@ -5,23 +5,9 @@
 @inject AppForHerramientasAPIClient apiclient
 @inject ILogger<SelectHerramientasForOferta> logger
 
-<h3>DetailOferta</h3>
+<h3>Detalle de la Oferta</h3>
 
 @*@attribute [Authorize]*@
-
-    <div class="container-fluid mb-3">
-        <div class="row">
-            <div class="col">
-                <div class="input-group">
-                    <span class="input-group-text" id="basic-addon1">Id</span>
-                    <input type="text" id="inputId" @bind="ofertaID" class="form-control" placeholder="Id de la oferta" aria-label="Id" aria-describedby="basic-addon1">
-                </div>
-            </div>
-            <div class="col">
-                <button type="button" class="btn btn-primary" @onclick="SearchOfertas" id="searchOfertas">Search Ofertas</button>
-            </div>
-        </div>
-    </div>
 
     @if (!string.IsNullOrEmpty(errors))
     {
@@ -159,13 +145,21 @@
             }
         }*@
 
-        if (ofertaID > 0)
+        try
         {
-            SearchOfertas();
+            oferta = await apiclient.GetOfertasPorIdAsync(ofertaID);
+            errors = "";
         }
-        else
+        catch (ApiException ex)
         {
-            errors = "Por favor, introduce un ID para buscar.";
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "ID no válido";
+            oferta = null;
         }
+        if (oferta == null) 
+        {
+            errors = $"Error! There is not a oferta with id={ofertaID}";
+        }
+
     }
 }
