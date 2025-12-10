@@ -86,7 +86,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaRecogida, reparacionForCreate.FechaEntrega, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
+            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaEntrega, reparacionForCreate.FechaRecogida, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
 
             foreach (var reparacionItem in reparacionForCreate.ReparacionItems)
             {
