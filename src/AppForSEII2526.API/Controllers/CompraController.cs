@@ -61,7 +61,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CrearCompra(CompraForCreateDTO compraForCreate)
@@ -92,6 +92,14 @@ namespace AppForSEII2526.API.Controllers
             
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
+
+
+            if (compraForCreate.NumTelefono.HasValue)
+                usuario.Telefono = compraForCreate.NumTelefono;
+
+            if (!string.IsNullOrWhiteSpace(compraForCreate.CorreoElectronico))
+                usuario.CorreoElectronico = compraForCreate.CorreoElectronico;
+
 
             var herramientasNombre = compraForCreate.CompraItems.Select(ri => ri.NombreHerramienta).ToList();
             var herramientas = await _context.Herramienta
@@ -159,8 +167,6 @@ namespace AppForSEII2526.API.Controllers
                                                         .ToList<CompraItemDTO>());
 
             return CreatedAtAction("GetComprasPorId", new { id = nuevaCompra.Id }, compraCreada);
-
-
         }
 
     }
