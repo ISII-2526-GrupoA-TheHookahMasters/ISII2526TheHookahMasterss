@@ -24,13 +24,17 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
         [JsonPropertyName("descripcion")]
         public string? Descripcion { get; set; }
 
-        public ReparacionItemDTO(int herramientaId, string nombreHerramienta, float precio, int cantidad, string descripcion)
+        [JsonPropertyName("tiempoReparacion")]
+        public int TiempoReparacion { get; set; }
+
+        public ReparacionItemDTO(int herramientaId, string nombreHerramienta, float precio, int cantidad, string descripcion, int tiempoReparacion)
         {
             HerramientaId = herramientaId;
             NombreHerramienta = nombreHerramienta;
             Precio = precio;
             Cantidad = cantidad;
             Descripcion = descripcion;
+            TiempoReparacion = tiempoReparacion;
         }
 
         public override bool Equals(object? obj)
@@ -40,12 +44,13 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
                    NombreHerramienta == dTO.NombreHerramienta &&
                    Precio == dTO.Precio &&
                    Cantidad == dTO.Cantidad &&
-                   Descripcion == dTO.Descripcion;
+                   Descripcion == dTO.Descripcion &&
+                   TiempoReparacion == dTO.TiempoReparacion;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(HerramientaId, NombreHerramienta, Precio, Cantidad, Descripcion);
+            return HashCode.Combine(HerramientaId, NombreHerramienta, Precio, Cantidad, Descripcion, TiempoReparacion);
         }
     }
 }

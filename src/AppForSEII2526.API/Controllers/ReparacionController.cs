@@ -22,7 +22,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<ReparacionDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ReparacionDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetReparacionesPorId(int id)
         {
             var reparacion = await _context.Reparacion
@@ -32,7 +32,8 @@ namespace AppForSEII2526.API.Controllers
                             .ThenInclude(h => h.Fabricante)
 
                 .Select(r => new ReparacionDetailDTO(r.Id, r.Usuario.Nombre, r.Usuario.Apellido, r.FechaEntrega, r.FechaRecogida, r.ReparacionItems
-                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion)).ToList<ReparacionItemDTO>()))
+                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion, ri.Herramienta.TiempoReparacion
+                            )).ToList<ReparacionItemDTO>()))
                 .FirstOrDefaultAsync();
 
             if (reparacion == null)
@@ -85,7 +86,7 @@ namespace AppForSEII2526.API.Controllers
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaRecogida, reparacionForCreate.FechaEntrega, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
+            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaEntrega, reparacionForCreate.FechaRecogida, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
 
             foreach (var reparacionItem in reparacionForCreate.ReparacionItems)
             {
@@ -131,7 +132,8 @@ namespace AppForSEII2526.API.Controllers
                                                             ri.Herramienta.Nombre, 
                                                             ri.Herramienta.Precio, 
                                                             ri.Cantidad, 
-                                                            ri.Descripcion
+                                                            ri.Descripcion,
+                                                            ri.Herramienta.TiempoReparacion
                                                         ))
                                                         .ToList<ReparacionItemDTO>());
 
