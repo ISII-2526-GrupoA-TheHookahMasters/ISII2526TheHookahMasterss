@@ -1,5 +1,6 @@
 ﻿using AppForMovies.UIT.Shared;
 using AppForSEII2526.UIT.CU_CompraHerramientas;
+using AppForSEII2526.UIT.CU_OfertaHerramientas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,35 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas_UIT
 
             _driver.FindElement(id).Click();
         }
+
+        [Theory]
+        [InlineData(herramientaId1, herramientaNombre1, "", "")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC1_AF0_CrearCompra(string herramientaId, string herramientaNombre, string filtroMaterial, string filtroPrecio)
+        {
+            //Arrange
+            InitialStepsForCompraHerramientas();
+
+            //Act
+            selectHerramientasForCompra_PO.SearchHerramientas(filtroMaterial, filtroPrecio);
+
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.AddHerramientaToCompraCart(herramientaNombre);
+
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.crearCompraCarrito();
+
+            Thread.Sleep(1000);
+
+            selectHerramientasForCompra_PO.addAtributosCompra(herramientaId, "22/12/2025",
+                "31/12/2025", "PayPal", "Socios", "10");
+
+            Thread.Sleep(5000);
+        }
+
+
 
         [Theory]
         [InlineData(herramientaId1, herramientaNombre1, herramientaMaterial1, herramientaPrecio1, herramientaFabricante1, "Acero y plástico", "")]
