@@ -209,8 +209,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Created",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1611,6 +1611,10 @@
           "descripcion": {
             "type": "string",
             "nullable": true
+          },
+          "tiempoReparacion": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

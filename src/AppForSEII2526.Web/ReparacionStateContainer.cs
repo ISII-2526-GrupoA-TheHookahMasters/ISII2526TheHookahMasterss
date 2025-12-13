@@ -31,6 +31,7 @@ namespace AppForSEII2526.Web
                     HerramientaId = herramienta.Id,
                     NombreHerramienta = herramienta.Nombre,
                     Precio = herramienta.Precio,
+                    TiempoReparacion = herramienta.TiempoReparacion,
                 }
             );
         }
