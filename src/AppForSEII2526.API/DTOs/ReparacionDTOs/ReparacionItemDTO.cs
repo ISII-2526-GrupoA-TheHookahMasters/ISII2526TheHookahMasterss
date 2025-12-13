@@ -27,7 +27,7 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
         [JsonPropertyName("tiempoReparacion")]
         public int TiempoReparacion { get; set; }
 
-        public ReparacionItemDTO(int herramientaId, string nombreHerramienta, float precio, int cantidad, string descripcion, int tiempoReparacion)
+        public ReparacionItemDTO(int herramientaId, string nombreHerramienta, float precio, int cantidad, string? descripcion, int tiempoReparacion)
         {
             HerramientaId = herramientaId;
             NombreHerramienta = nombreHerramienta;
