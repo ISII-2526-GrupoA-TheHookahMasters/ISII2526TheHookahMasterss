@@ -22,7 +22,7 @@ namespace AppForSEII2526.API.DTOs
         public float Precio { get; set; }
 
         [JsonPropertyName("descripcionHerramienta")]
-        
+        [Required]
         public string Descripcion { get; set; }
 
         [JsonPropertyName("cantidad")]
