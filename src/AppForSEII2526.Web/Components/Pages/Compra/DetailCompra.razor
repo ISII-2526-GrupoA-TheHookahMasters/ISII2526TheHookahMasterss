@@ -6,21 +6,7 @@
 @inject ILogger<SelectHerramientasForCompra> logger
 
 @*attribute [Authorize]*@
-<h3>DetailCompra</h3>
-
-<div class="container-fluid mb-3">
-    <div class="row">
-        <div class="col">
-            <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">Id</span>
-                <input type="text" id="inputId" @bind="compraID" class="form-control" placeholder="Id de la Compra" aria-label="Id" aria-describedby="basic-addon1">
-            </div>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-primary" @onclick="SearchCompra" id="searchCompra">Search Compra</button>
-        </div>
-    </div>
-</div>
+<h3>Detalle de la Compra</h3>
 
 @if (!string.IsNullOrEmpty(errors))
 {
@@ -111,21 +97,6 @@
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
-    public async void SearchCompra()
-    {
-        try
-        {
-            compra = await apiclient.GetComprasPorIdAsync(compraID);
-            errors = "";
-        }
-        catch (ApiException ex)
-        {
-            logger.LogError($"{DateTime.Now} Error: {ex}");
-            errors = "ID no válido";
-        }
-        StateHasChanged();
-    }
-
     protected override async Task OnInitializedAsync()
     {
         @*string userName = "";
@@ -140,13 +111,23 @@
             }
         }*@
 
-        if (compraID > 0)
+        try
         {
-            SearchCompra();
+            compra = await apiclient.GetComprasPorIdAsync(compraID);
+            errors = "";
         }
-        else
+        catch (ApiException ex)
         {
-            errors = "Por favor, introduce un ID para buscar.";
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "ID no válido";
+            compra = null;
+
+
+        }
+
+        if (compra == null)
+        {
+            errors = $"Error! There is not a compra with id={compraID}";
         }
     }
 }

@@ -32,6 +32,7 @@ namespace AppForSEII2526.UT.CompraController_test
 
             _context.Add(fabricante);
             _context.AddRange(herramientas);
+            _context.Add(usuario);
             _context.Add(compra);
             _context.SaveChanges();
         }
@@ -141,5 +142,61 @@ namespace AppForSEII2526.UT.CompraController_test
             Assert.Equal(expectedCompraDetailDTO, actualCompraDetailDTO);
 
         }
+
+        [Fact]
+        [Trait("LevelTesting", "Unit Testing")]
+        [Trait("Database", "WithoutFixture")]
+        public async Task CreateCompra_Success_WithoutOptionalFields()
+        {
+            // Arrange
+            var mock = new Mock<ILogger<CompraController>>();
+            ILogger<CompraController> logger = mock.Object;
+            var controller = new CompraController(_context, logger);
+
+            var compraDTO = new CompraForCreateDTO("Juan", "Perez",
+                "Avenida España 12", TiposMetodoPago.PayPal,
+                new List<CompraItemDTO>() { new CompraItemDTO(1, "Martillo", "Acero", 20, "Martillo de carpintero", 1) }
+            ); // correoElectronico=null, numTelefono=null
+
+            // Act
+            var result = await controller.CrearCompra(compraDTO);
+
+            // Assert
+            Assert.IsType<CreatedAtActionResult>(result);
+
+            var userDb = await _context.Users.FirstAsync(u => u.Nombre == "Juan" && u.Apellido == "Perez");
+            Assert.Equal(12345678, userDb.Telefono);
+            Assert.Equal("jperez@gmail.com", userDb.CorreoElectronico);
+        }
+
+        [Fact]
+[Trait("LevelTesting", "Unit Testing")]
+[Trait("Database", "WithoutFixture")]
+public async Task CreateCompra_Success_WithOptionalFields()
+{
+    // Arrange
+    var mock = new Mock<ILogger<CompraController>>();
+    ILogger<CompraController> logger = mock.Object;
+    var controller = new CompraController(_context, logger);
+
+    var compraDTO = new CompraForCreateDTO(
+        "Juan", "Perez",
+        "Avenida España 12",
+        TiposMetodoPago.PayPal,
+        new List<CompraItemDTO>() { new CompraItemDTO(1, "Martillo", "Acero", 20, "Martillo de carpintero", 1) },
+        correoElectronico: "juan.nuevo@gmail.com",
+        numTelefono: 612345678
+    );
+
+    // Act
+    var result = await controller.CrearCompra(compraDTO);
+
+    // Assert
+    Assert.IsType<CreatedAtActionResult>(result);
+
+    var userDb = await _context.Users.FirstAsync(u => u.Nombre == "Juan" && u.Apellido == "Perez");
+    Assert.Equal(612345678, userDb.Telefono);
+    Assert.Equal("juan.nuevo@gmail.com", userDb.CorreoElectronico);
+}
     }
 }
