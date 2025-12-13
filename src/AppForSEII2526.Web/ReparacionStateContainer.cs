@@ -13,7 +13,7 @@ namespace AppForSEII2526.Web
         {
             get
             {
-                return (float)Reparacion.ReparacionItems.Sum(h => h.Precio * h.Cantidad);
+                return (float) Reparacion.ReparacionItems.Sum(h => h.Precio * h.Cantidad); 
             }
         }
 
