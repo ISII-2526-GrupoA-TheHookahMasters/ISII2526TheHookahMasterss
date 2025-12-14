@@ -72,13 +72,13 @@ namespace AppForSEII2526.API.Controllers
                 ModelState.AddModelError("CompraItemsDTO", "Error! La compra debe contener al menos un ítem.");
             }
 
-            if(compraForCreate.NombreCliente == null)
+            if(compraForCreate.NombreCliente.IsNullOrEmpty())
                 ModelState.AddModelError("NombreCliente", "Error! El nombre del cliente es obligatorio");
 
-            if (compraForCreate.ApellidoCliente == null)
+            if (compraForCreate.ApellidoCliente.IsNullOrEmpty())
                 ModelState.AddModelError("ApellidosCliente", "Error! Los apellidos del cliente son obligatorios");
 
-            if(compraForCreate.DireccionEnvio == null)
+            if(compraForCreate.DireccionEnvio.IsNullOrEmpty())
                 ModelState.AddModelError("DireccionEnvio", "Error! La dirección de envío es obligatoria");
 
 
@@ -115,7 +115,7 @@ namespace AppForSEII2526.API.Controllers
                     ModelState.AddModelError("HerramientaSinDescripcion", "Error!, Estas comprando demasiadas herramientas sin descripcion");
                 }
                 
-                else if (compraItem.Descripcion == null)
+                else if (compraItem.Descripcion.IsNullOrEmpty())
                 {
                     ModelState.AddModelError("Descripcion", $"Error! La descripción es un campo obligatorio");
                 }
