@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace AppForSEII2526.UIT.CU_OfertaHerramientas
 {
-    public class CrearCompra_PO : PageObject
+    public class CrearOferta_PO : PageObject
     {
         By buttonCrearOferta = By.Id("crearOfertaButton");
         By button_DialogOK = By.Id("Button_DialogOK");
         By modifyHerramientasButton = By.Id("modifyHerramientasButton");
         By tableOfOfertaItems = By.Id("TableOfOfertaItems");
 
-        public CrearCompra_PO(IWebDriver driver, ITestOutputHelper output) : base(driver, output)
+        public CrearOferta_PO(IWebDriver driver, ITestOutputHelper output) : base(driver, output)
         {
         }
 

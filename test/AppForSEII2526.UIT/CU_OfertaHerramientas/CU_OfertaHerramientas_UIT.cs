@@ -13,7 +13,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
     {
         private SelectHerramientasForOferta_PO selectHerramientasForOferta_PO;
         private DetailOferta_PO detailOferta_PO;
-        private CrearCompra_PO crearCompra_PO;
+        private CrearOferta_PO crearOferta_PO;
         private const string herramientaId1 = "1";
         private const string herramientaNombre1 = "Taladro percutor Bosch GSB 13 RE";
         private const string herramientaMaterial1 = "Acero y plástico";
@@ -31,7 +31,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
         {
             selectHerramientasForOferta_PO = new SelectHerramientasForOferta_PO(_driver, _output);
             detailOferta_PO = new DetailOferta_PO(_driver, _output);
-            crearCompra_PO = new CrearCompra_PO(_driver, _output);
+            crearOferta_PO = new CrearOferta_PO(_driver, _output);
         }
 
         /*private void Precondition_perform_login()
@@ -63,9 +63,9 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(500);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(1000);
-            crearCompra_PO.addAtributosOferta(herramientaId, DateTime.Today.AddDays(3).ToString(), DateTime.Today.AddDays(11).ToString(), "PayPal", "Socios", "10");
+            crearOferta_PO.addAtributosOferta(herramientaId, DateTime.Today.AddDays(3).ToString(), DateTime.Today.AddDays(11).ToString(), "PayPal", "Socios", "10");
             Thread.Sleep(1000);
-            crearCompra_PO.guardarOfertaDialog();
+            crearOferta_PO.guardarOfertaDialog();
             Thread.Sleep(1000);
             Assert.True(detailOferta_PO.CheckOfertaDetail(DateTime.Today.AddDays(3), DateTime.Today.AddDays(11), DateTime.Today, "PayPal", "Socios", 1));
         }
@@ -98,12 +98,12 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(2000);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(2000);
-            crearCompra_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", "10");
+            crearOferta_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", "10");
             Thread.Sleep(2000);
-            crearCompra_PO.guardarOfertaDialog();
+            crearOferta_PO.guardarOfertaDialog();
             Thread.Sleep(1000);
 
-            Assert.True(crearCompra_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
+            Assert.True(crearOferta_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(1000);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(500);
-            crearCompra_PO.modificarHerramientas();
+            crearOferta_PO.modificarHerramientas();
             Thread.Sleep(500);
             selectHerramientasForOferta_PO.RemoveHerramientaFromOfertaCart(herramientaNombre1);
             Thread.Sleep(500);
@@ -124,7 +124,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(500);
             var expectedOfertaItems = new List<string[]> { new string[] { herramientaNombre2, herramientaMaterial2, herramientaPrecio2 }, };
 
-            Assert.True(crearCompra_PO.CheckListOfOfertaItems(expectedOfertaItems));
+            Assert.True(crearOferta_PO.CheckListOfOfertaItems(expectedOfertaItems));
         }
 
         [Theory]
@@ -139,13 +139,13 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(500);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(2000);
-            crearCompra_PO.addAtributosOferta(herramientaId, DateTime.Today.AddDays(5).ToString("dd/MM/yyyy"),
+            crearOferta_PO.addAtributosOferta(herramientaId, DateTime.Today.AddDays(5).ToString("dd/MM/yyyy"),
                 DateTime.Today.AddDays(15).ToString("dd/MM/yyyy"), "Tarjeta de Crédito", "Clientes", porcentaje);
             Thread.Sleep(2000);
-            crearCompra_PO.guardarOfertaDialog();
+            crearOferta_PO.guardarOfertaDialog();
             Thread.Sleep(1000);
 
-            Assert.True(crearCompra_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
+            Assert.True(crearOferta_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
         }
 
         
@@ -162,12 +162,12 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(2000);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(2000);
-            crearCompra_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", "10");
+            crearOferta_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", "10");
             Thread.Sleep(2000);
-            crearCompra_PO.guardarOfertaDialog();
+            crearOferta_PO.guardarOfertaDialog();
             Thread.Sleep(1000);
 
-            Assert.True(crearCompra_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
+            Assert.True(crearOferta_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
         }
     }
 }
