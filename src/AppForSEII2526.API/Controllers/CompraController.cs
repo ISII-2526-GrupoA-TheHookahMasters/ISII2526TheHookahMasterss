@@ -93,6 +93,14 @@ namespace AppForSEII2526.API.Controllers
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
+
+            if (compraForCreate.NumTelefono.HasValue)
+                usuario.Telefono = compraForCreate.NumTelefono;
+
+            if (!string.IsNullOrWhiteSpace(compraForCreate.CorreoElectronico))
+                usuario.CorreoElectronico = compraForCreate.CorreoElectronico;
+
+
             var herramientasNombre = compraForCreate.CompraItems.Select(ri => ri.NombreHerramienta).ToList();
             var herramientas = await _context.Herramienta
                 .Include(h => h.Fabricante)
@@ -159,8 +167,6 @@ namespace AppForSEII2526.API.Controllers
                                                         .ToList<CompraItemDTO>());
 
             return CreatedAtAction("GetComprasPorId", new { id = nuevaCompra.Id }, compraCreada);
-
-
         }
 
     }

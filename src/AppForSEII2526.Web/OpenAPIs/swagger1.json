@@ -1611,6 +1611,10 @@
           "descripcion": {
             "type": "string",
             "nullable": true
+          },
+          "tiempoReparacion": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -1655,7 +1659,7 @@
             "nullable": true
           },
           "errors": {
-            "type": "object",
+            "type": "object", 
             "additionalProperties": {
               "type": "array",
               "items": {
