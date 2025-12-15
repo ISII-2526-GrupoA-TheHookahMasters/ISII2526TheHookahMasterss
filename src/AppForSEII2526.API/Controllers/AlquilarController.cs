@@ -79,6 +79,9 @@ namespace AppForSEII2526.API.Controllers
             if (alquilerForCreate.AlquilerItems.Count() == 0 || alquilerForCreate.AlquilerItems == null)
                 ModelState.AddModelError("AlquilerItems", "Error! Tienes que incluir al menos una herramienta para aplicar un alquiler");
 
+            if (alquilerForCreate.TipoMetodoPago.Equals(TiposMetodoPago.PayPal))
+                ModelState.AddModelError("TipoMetodoPago", "Error! No aceptamos alquileres pagados con PayPal");
+
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == alquilerForCreate.NombreCliente && u.Apellido == alquilerForCreate.ApellidosCliente);
             if (usuario == null)
             {
