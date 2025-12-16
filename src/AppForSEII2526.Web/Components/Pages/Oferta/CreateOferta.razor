@@ -1,0 +1,183 @@
+﻿@page "/ofertas/createoferta"
+
+@inject NavigationManager navigation
+@using AppForSEII2526.Web.Components.Shared
+@using AppForSEII2526.Web.API
+@inject AppForHerramientasAPIClient apiclient
+@inject ILogger<CreateOferta> logger
+@inject OfertaStateContainer ofertaState
+
+@* @attribute [Authorize] *@
+
+<h3>Create Oferta</h3>
+
+<EditForm Model="oferta" OnValidSubmit="OpenDialog">
+    <div class="row">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="row alert alert-danger"/>
+    </div>
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @messageError</p>
+    </div>
+    <div class="row g-3">
+        <div class="col-12">
+            <div class="form-floating">
+                <InputDate @bind-Value="oferta.FechaInicio" class="form-control" id="FechaInicio" />
+                <label for="FechaInicio">Fecha de Inicio</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <InputDate @bind-Value="oferta.FechaFinal" class="form-control" id="FechaFinal" />
+                <label for="FechaFinal">Fecha Final </label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <InputSelect class="form-select" @bind-Value="@oferta.TipoMetodoPago" id="TipoMetodoPago">
+                    <option value="@TiposMetodoPago.TarjetaCredito" default> Tarjeta de Crédito</option>
+                    <option value="@TiposMetodoPago.PayPal"> PayPal</option>
+                    <option value="@TiposMetodoPago.Efectivo"> Efectivo</option>
+                </InputSelect>
+                <label for="TipoMetodoPago">Método de Pago</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <InputSelect class="form-select" @bind-Value="@oferta.TipoDirigidaOferta" id="DirigidaOferta">
+                    <option value="@TiposDirigidaOferta.Clientes" default> Clientes</option>
+                    <option value="@TiposDirigidaOferta.Socios"> Socios</option>
+                </InputSelect>
+                <label for="TipoDirigidaOferta">Dirigida a</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <button class="btn btn-primary" type="submit" id="Submit">
+                    Oferta tus herramientas
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <br/>
+    <h4>Oferta detail</h4>
+    <p><b>Desde:</b> @oferta.FechaInicio.ToString("dd/MM/yyyy") <b>hasta:</b> @oferta.FechaFinal.ToString("dd/MM/yyyy")</p>
+    <p><b>Precio total:</b> @PrecioTotal €</p>
+    <button class="btn btn-outline-primary" type="submit" @onclick="ModifyOfertaItems" id="ModifyHerramientas">
+        Modify Herramientas
+    </button>
+
+    <div class="mh-100 table-responsive">
+        <table class="table table-condensed table-hover" id="TableOfOfertaItems">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Material</th>
+                    <th>Precio</th>
+                    <th>Porcentaje</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in oferta.OfertaItems)
+                {
+                    <tr id="HerramientaData_@item.NombreHerramienta">
+                        <td>@item.NombreHerramienta</td>
+                        <td>@item.Material</td>
+                        <td>@item.Precio</td>
+                        <td><InputNumber @bind-Value="item.Porcentaje" class="form-control" id="@($"porcentaje_{item.HerramientaId}")" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</EditForm>
+
+
+@if (DialogIsOpen)
+{
+    <Dialog Caption="Oferta herramientas"
+    Message="¿Quieres realizar una oferta de las herramientas seleccionadas?"
+    OnClose="@OnDialogClose"
+    Type=Dialog.Category.SaveNot>
+    </Dialog>
+}
+
+@code {
+    private string messageError = "";
+    private bool hideErrors { get { return messageError.Length == 0; } }
+    private bool DialogIsOpen;
+    private OfertaForCreateDTO oferta => ofertaState.Oferta;
+
+    private float PrecioTotal
+    {
+        get
+        {
+            float precio = (float)oferta.OfertaItems.Sum(ri => (ri.Precio) * (100f - ri.Porcentaje) / 100f);
+            return precio;
+        }
+    }
+    private void ModifyOfertaItems()
+    {
+        navigation.NavigateTo("/oferta/selectherramientasforoferta");
+    }
+
+    private void OpenDialog()
+    {
+        DialogIsOpen = true;
+    }
+
+    private async Task OnDialogClose(bool isOk)
+    {
+        DialogIsOpen = false;
+        if (isOk)
+        {
+            if (oferta.OfertaItems.Count > 0)
+            {
+                try
+                {
+                    var ofertado = await apiclient.CreateOfertaAsync(oferta);
+                    ofertaState.OfertaProcessed();
+                    navigation.NavigateTo($"/oferta/detailoferta/?OfertaID={ofertado.Id}");
+                }
+                catch (ApiException<ValidationProblemDetails> apiexceptionvalidation)
+                {
+
+                    if (apiexceptionvalidation.Result.Errors.Values != null)
+                    {
+                        messageError = "";
+                        foreach (var errors in apiexceptionvalidation.Result.Errors.Values)
+                            messageError = string.Join("(*) ", messageError, string.Join(" (*) ", errors));
+                    }
+                }
+
+            }
+        }
+    }
+    @*
+    protected override async Task OnInitializedAsync()
+    {
+
+        if (authenticationState is not null)
+        {
+            var authState = await authenticationState;
+            var user = authState?.User;
+
+            if (user is not null)
+            {
+                if (user.Identity is not null && user.Identity.IsAuthenticated)
+                {
+                    oferta.UserNameCustomer = user.Identity.Name;
+                }
+            }
+            oferta.NameCustomer = oferta.NameCustomer == null ? "" : oferta.NameCustomer;
+            oferta.SurnameCustomer = oferta.SurnameCustomer == null ? "" : oferta.SurnameCustomer;
+            oferta.DeliveryAddress = oferta.DeliveryAddress == null ? "" : oferta.DeliveryAddress;
+
+        }
+    }*@
+
+
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationState { get; set; }
+}

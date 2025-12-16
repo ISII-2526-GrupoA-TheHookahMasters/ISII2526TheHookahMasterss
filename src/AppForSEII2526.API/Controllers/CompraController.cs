@@ -23,7 +23,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<CompraDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetComprasPorId(int id)
         {
             var compra = await _context.Compra
@@ -61,7 +61,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpPost]
         [Route("[action]")]
-        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CompraDetailDTO), (int)HttpStatusCode.Created)]
         [ProducesResponseType(typeof(ValidationProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(string), (int)HttpStatusCode.Conflict)]
         public async Task<ActionResult> CrearCompra(CompraForCreateDTO compraForCreate)
@@ -159,8 +159,6 @@ namespace AppForSEII2526.API.Controllers
                                                         .ToList<CompraItemDTO>());
 
             return CreatedAtAction("GetComprasPorId", new { id = nuevaCompra.Id }, compraCreada);
-
-
         }
 
     }

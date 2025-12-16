@@ -1,7 +1,0 @@
-﻿SET IDENTITY_INSERT [dbo].[Alquiler] ON
-INSERT INTO [dbo].[Alquiler] ([Id], [DireccionEnvio], [FechaAlquiler], [FechaFin], [FechaInicio], [PrecioTotal], [UsuarioId], [TipoMetodoPago]) VALUES (1, N'Calle Mayor 12, Madrid', N'2025-10-14 00:00:00', N'2025-10-20 00:00:00', N'2025-10-15 00:00:00', 120.5, N'1', 1)
-INSERT INTO [dbo].[Alquiler] ([Id], [DireccionEnvio], [FechaAlquiler], [FechaFin], [FechaInicio], [PrecioTotal], [UsuarioId], [TipoMetodoPago]) VALUES (2, N'Avenida Andalucía 45, Sevilla', N'2025-11-10 00:00:00', N'2025-11-17 00:00:00', N'2025-11-11 00:00:00', 98.75, N'2', 0)
-INSERT INTO [dbo].[Alquiler] ([Id], [DireccionEnvio], [FechaAlquiler], [FechaFin], [FechaInicio], [PrecioTotal], [UsuarioId], [TipoMetodoPago]) VALUES (3, N'Calle del Carmen 33, Valencia', N'2025-11-25 00:00:00', N'2025-11-30 00:00:00', N'2025-11-26 00:00:00', 150, N'3', 2)
-INSERT INTO [dbo].[Alquiler] ([Id], [DireccionEnvio], [FechaAlquiler], [FechaFin], [FechaInicio], [PrecioTotal], [UsuarioId], [TipoMetodoPago]) VALUES (4, N'Paseo de Gracia 21, Barcelona', N'2025-12-05 00:00:00', N'2025-12-12 00:00:00', N'2025-12-06 00:00:00', 175.8, N'4', 1)
-INSERT INTO [dbo].[Alquiler] ([Id], [DireccionEnvio], [FechaAlquiler], [FechaFin], [FechaInicio], [PrecioTotal], [UsuarioId], [TipoMetodoPago]) VALUES (5, N'Plaza Mayor 9, Valladolid', N'2025-12-20 00:00:00', N'2025-12-28 00:00:00', N'2025-12-21 00:00:00', 210.4, N'5', 2)
-SET IDENTITY_INSERT [dbo].[Alquiler] OFF

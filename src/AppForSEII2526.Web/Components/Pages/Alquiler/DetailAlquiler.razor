@@ -5,25 +5,9 @@
 @inject AppForHerramientasAPIClient apiclient
 @inject ILogger<SelectHerramientaForAlquiler> logger
 
-<h3>DetailAlquiler</h3>
+<h3>Detalle del Alquiler</h3>
 
 @*attribute [Authorize]*@
-
-
-
-<div class="container-fluid mb-3">
-    <div class="row">
-        <div class="col">
-            <div class="input-group">
-                <span class="input-group-text" id="basic-addon1">Id</span>
-                <input type="text" id="inputId" @bind="alquilerID" class="form-control" placeholder="Id del alquiler" aria-label="Id" aria-describedby="basic-addon1">
-            </div>
-        </div>
-        <div class="col">
-            <button type="button" class="btn btn-primary" @onclick="SearchAlquiler" id="searchOfertas">Search Alquiler</button>
-        </div>
-    </div>
-</div>
 
 @if (!string.IsNullOrEmpty(errors))
 {
@@ -116,21 +100,6 @@
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
 
-    public async void SearchAlquiler()
-    {
-        try
-        {
-            alquiler = await apiclient.GetAlquilerPorIdAsync(alquilerID);
-            errors = "";
-        }
-        catch (ApiException ex)
-        {
-            logger.LogError($"{DateTime.Now} Error: {ex}");
-            errors = "ID no válido";
-        }
-        StateHasChanged();
-    }
-
     protected override async Task OnInitializedAsync()
     {
         @*string userName = "";
@@ -145,13 +114,20 @@
             }
         }*@
 
-        if (alquilerID > 0)
+        try
         {
-            SearchAlquiler();
+            alquiler = await apiclient.GetAlquilerPorIdAsync(alquilerID);
+            errors = "";
         }
-        else
+        catch (ApiException ex)
         {
-            errors = "Por favor, introduce un ID para buscar.";
+            logger.LogError($"{DateTime.Now} Error: {ex}");
+            errors = "ID no válido";
+            alquiler = null;
+        }
+        if (alquiler == null)
+        {
+            errors = $"Error! There is not a alquiler with id={alquilerID}";
         }
     }
 }

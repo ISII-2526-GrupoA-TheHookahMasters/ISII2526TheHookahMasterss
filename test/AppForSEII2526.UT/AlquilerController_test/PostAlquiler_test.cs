@@ -37,32 +37,32 @@ namespace AppForSEII2526.UT.AlquilerController_test
         public static IEnumerable<object[]> TestCasesFor_CreatePurchase()
         {
             var alquilerNoItem = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>(), TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>(), TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerItems = new List<AlquilarItemDTO>() { new AlquilarItemDTO(1, "Martillo", "Acero", 4, 120) };
 
             var alquilerFromBeforeToday = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today, alquilerItems, TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(5), DateTime.Today, alquilerItems, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerToBeforeFrom = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), alquilerItems, TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), alquilerItems, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilarHerramientaNotAvailable = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),new List<AlquilarItemDTO>() 
-                    { new AlquilarItemDTO(1, "Destornillador", "Cristal", 4, 120) }, TiposMetodoPago.PayPal);
+                    { new AlquilarItemDTO(1, "Destornillador", "Cristal", 4, 120) }, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerSinNombreCliente= new AlquilerForCreateDTO(null, "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerSinApellidoCliente = new AlquilerForCreateDTO("Carlos", null, "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerSinDireccionEnvio = new AlquilerForCreateDTO("Carlos", "Gomez", null,
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal);
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var alquilerSinCantidad = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>() 
-                    { new AlquilarItemDTO(1, "Martillo", "Acero", 0, 120) }, TiposMetodoPago.PayPal);
+                    { new AlquilarItemDTO(1, "Martillo", "Acero", 0, 120) }, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
 
             var allTests = new List<object[]>
@@ -120,7 +120,7 @@ namespace AppForSEII2526.UT.AlquilerController_test
 
             var alquilerDTO = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),
-                new List<AlquilarItemDTO>() { new AlquilarItemDTO(1, "Martillo", "Acero", 1, 120) }, TiposMetodoPago.PayPal);
+                new List<AlquilarItemDTO>() { new AlquilarItemDTO(1, "Martillo", "Acero", 1, 120) }, TiposMetodoPago.PayPal, 123456789, "carlos@gmail.com");
 
             var expectedAlquilerDetailDTO = new AlquilerDetailDTO(2, "Carlos", "Gomez", "Avd España 4", DateTime.Today,
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),

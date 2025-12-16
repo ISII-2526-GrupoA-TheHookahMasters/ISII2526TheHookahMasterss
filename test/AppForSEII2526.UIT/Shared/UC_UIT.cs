@@ -9,9 +9,7 @@ namespace AppForMovies.UIT.Shared {
         private bool _pipeline = false;
 
         //establish which browser you would like to use
-        //private string _browser = "Chrome";
-        //private string _browser = "Firefox";
-        private string _browser = "Edge";
+        private string _browser = "Chrome";
 
         protected IWebDriver _driver;
         protected readonly ITestOutputHelper _output;
@@ -20,7 +18,7 @@ namespace AppForMovies.UIT.Shared {
         public string _URI {
             get {
                 //set url of your web page 
-                return "https://localhost:7083/";
+                return "https://localhost:7081/";
 
             }
         }
@@ -71,7 +69,7 @@ namespace AppForMovies.UIT.Shared {
         }
 
 
-        protected void SetUp_Chrome4UIT() {
+        public void SetUp_Chrome4UIT() {
             var optionsc = new ChromeOptions {
                 PageLoadStrategy = PageLoadStrategy.Normal,
                 AcceptInsecureCertificates = true

@@ -79,7 +79,7 @@ namespace AppForSEII2526.API.Controllers
             if (alquilerForCreate.AlquilerItems.Count() == 0 || alquilerForCreate.AlquilerItems == null)
                 ModelState.AddModelError("AlquilerItems", "Error! Tienes que incluir al menos una herramienta para aplicar un alquiler");
 
-            var usuario = _context.Users.FirstOrDefault(u => u.Nombre == alquilerForCreate.NombreCliente && u.Apellido == alquilerForCreate.ApellidosCliente);
+            var usuario = _context.Users.FirstOrDefault(u => u.Nombre == alquilerForCreate.NombreCliente && u.Apellido == alquilerForCreate.ApellidosCliente && u.Telefono == alquilerForCreate.Telefono && u.CorreoElectronico==alquilerForCreate.CorreoElectronico);
             if (usuario == null)
             {
                 return BadRequest(new ValidationProblemDetails(ModelState));

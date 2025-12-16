@@ -1,19 +1,12 @@
-﻿@page "/alquiler/selectalquileroferta"
-
+﻿@page "/reparar/selectherramientasforreparar"
 @using Microsoft.AspNetCore.Authorization
 @using AppForSEII2526.Web.API
 @inject AppForHerramientasAPIClient apiclient
-@inject ILogger<SelectHerramientaForAlquiler> logger
-@inject AlquilerStateContainer AlquilerState
+@inject ILogger<SelectHerramientasForReparacion> logger
+@inject ReparacionStateContainer reparacionState
 @inject NavigationManager navigation
-
-@*@attribute [Authorize]*@ 
-
-
-
-
-<h3>SelectHerramientaForAlquiler</h3>
-
+@*@attribute [Authorize]@*@
+<h3>SelectHerramientaForReparacion</h3>
 
 <div class="container-fluid">
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
@@ -23,28 +16,32 @@
         <div class="col-8">
             <div class="row">
 
+
+
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Title</span>
-                        <input type="text" id="inputNombre" @bind=herramientaNombre class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Nombre</span>
+                        <input type="text" id="inputTitle" @bind=herramientaNombre class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col">
                     <div class="input-group mb-3">
-                        <span class="input-group-text" id="basic-addon1">Genre</span>
-                        <input type="text" id="inputMaterial" @bind=herramientaMaterial class="form-control" placeholder="Material" aria-label="Material" aria-describedby="basic-addon1">
+                        <span class="input-group-text" id="basic-addon1">Tiempo de Reparacion</span>
+                        <input type="text" id="inputGenre" @bind=herramientaTiempoReparacion class="form-control" placeholder="Tiempo Reparacion" aria-label="Tiempo Reparacion" aria-describedby="basic-addon1">
                     </div>
                 </div>
 
-                <div class="col">
-                    <button type="button" class="btn btn-primary" @onclick=@SearchHerramientas id="SearchHerramientas">Search Herramientas</button>
-                </div>
 
+
+
+                <div class="col">
+                    <button type="button" class="btn btn-primary" @onclick=@SearchHerramientas id="searchHerramientas">Search herramientas</button>
+                </div>
             </div>
             <div class="row">
                 @if (herramientas == null)
                 {
-                    <p>Loading herramientas....</p>
+                    <p>Cargando herramientas....</p>
                 }
                 else
                 {
@@ -69,7 +66,7 @@
                                         <td>@herramienta.Precio</td>
                                         <td>@herramienta.Fabricante</td>
                                         <td>
-                                            <button class="btn btn-outline-secondary" id="herramientaToRent_@herramienta.Id" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
+                                            <button class="btn btn-outline-secondary" id="herramientaParaOferta_@herramienta.Id" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
                                         </td>
                                     </tr>
                                 }
@@ -80,62 +77,58 @@
                 }
             </div>
         </div>
-        <div class="col-2" hidden="@hideRentingCart">
+        <div class="col-2" hidden="@hideReparacionCart">
             <div class="row">
                 <h3>Shopping Cart</h3>
             </div>
-            @foreach (AlquilarItemDTO herramienta in alquiler.AlquilerItems)
+            @foreach (ReparacionItemDTO item in reparacion.ReparacionItems)
             {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeHerramienta_@herramienta.NombreHerramienta" @onclick="@(() => RemoveAlquilerItem(herramienta))">x @herramienta.NombreHerramienta - @herramienta.Precio€</button>
+                    <button type="button" class="btn btn-light" id="removeHerramienta_@item.NombreHerramienta" @onclick="@(() => RemoveReparacionItem(item))">x @item.NombreHerramienta - @item.Precio€</button>
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseHerramientaButton" @onclick=@AlquilarHerramientas>Alquilar herramienta</button>
+                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@RepararHerramientas>Reparar herramientas</button>
             </div>
         </div>
-
     </div>
-
 </div>
 
 
-
-
 @code {
-    private bool hideRentingCart { get { return alquiler.AlquilerItems.Count == 0; } }
-
-
-    private ICollection<HerramientasParaAlquilarDTO> herramientas;
+    private bool hideReparacionCart { get { return reparacion.ReparacionItems.Count == 0; } }
+    private ICollection<HerramientasParaRepararDTO> herramientas;
     private bool hideErrors { get { return errors.Length == 0; } }
     private string errors = "";
     private string herramientaNombre { get; set; }
-    private string herramientaMaterial { get; set; }
+    private int? herramientaTiempoReparacion { get; set; }
+    private ReparacionForCreateDTO reparacion => reparacionState.Reparacion;
 
+    private bool hiddenReparacionCart = true;
 
-
-    private AlquilerForCreateDTO alquiler => AlquilerState.Alquiler;
-
-    private bool hiddenAlquilerCart = true;
-
-    private void AddHerramienta(HerramientasParaAlquilarDTO herramientas)
+    private void AddHerramienta(HerramientasParaRepararDTO herramienta)
     {
-        AlquilerState.AddHerramientaToAlquiler(herramientas);
+        reparacionState.AddHerramientaToReparacion(herramienta);
     }
 
-    private void RemoveAlquilerItem(AlquilarItemDTO item)
+    private void RemoveReparacionItem(ReparacionItemDTO item)
     {
-        AlquilerState.RemoveAlquilerItemToAlquiler(item);
-        if (alquiler.AlquilerItems.Count == 0) hiddenAlquilerCart = true;
+        reparacionState.RemoveReparacionItemToReparar(item);
+        if (reparacion.ReparacionItems.Count == 0) hiddenReparacionCart = true;
     }
-
 
     public async void SearchHerramientas()
     {
+        if (herramientaTiempoReparacion == 0)
+        {
+            herramientaTiempoReparacion = null;
+
+        }
         try
         {
-            herramientas = await apiclient.GetHerramientasNombreMaterialAsync(herramientaNombre, herramientaMaterial);
+            herramientas = await apiclient.GetHerramientasPorNombreTiempoRepAsync(herramientaNombre, herramientaTiempoReparacion);
             errors = "";
+
         }
         catch (ApiException ex)
         {
@@ -147,14 +140,14 @@
 
     protected override Task OnInitializedAsync()
     {
+
         SearchHerramientas();
+
         return base.OnInitializedAsync();
     }
 
-    private void AlquilarHerramientas()
+    private void RepararHerramientas()
     {
-        navigation.NavigateTo("/alquiler/createalquiler");
+        navigation.NavigateTo("/reparaciones/createreparacion");
     }
-
-
 }
