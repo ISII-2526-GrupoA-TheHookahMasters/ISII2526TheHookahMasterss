@@ -148,13 +148,22 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Assert.True(crearOferta_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
         }
 
-        
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC3_10_AF4_CarritoVacio()
+        {
+            InitialStepsForOfertaHerramientas();
+            Thread.Sleep(500);
+
+            Assert.True(selectHerramientasForOferta_PO.OfertaNotAvailable());
+        }
 
         [Theory]
-        [InlineData(herramientaId1, herramientaNombre1, "16/12/2025", "", "Error! Fecha Final es un campo obligatorio")]
-        [InlineData(herramientaId1, herramientaNombre1, "", "26/12/2025", "Error! Fecha Inicio es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "16/12/2025", "", "10", "Error! Fecha Final es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "", "26/12/2025", "10", "Error! Fecha Inicio es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "16/12/2025", "26/12/2025", "0", "Error: El porcentaje es un campo obligatorio")]
         [Trait("LevelTesting", "Funcional Testing")]
-        public void UC3_11_12_AF5_CamposObligatorios(string herramientaId, string herramientaNombre, string fechaInicio, string fechaFinal, string expectedError)
+        public void UC3_11_12_AF5_CamposObligatorios(string herramientaId, string herramientaNombre, string fechaInicio, string fechaFinal, string porcentaje, string expectedError)
         {
             InitialStepsForOfertaHerramientas();
             Thread.Sleep(2000);
@@ -162,7 +171,7 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
             Thread.Sleep(2000);
             selectHerramientasForOferta_PO.crearOfertaCarrito();
             Thread.Sleep(2000);
-            crearOferta_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", "10");
+            crearOferta_PO.addAtributosOferta(herramientaId, fechaInicio, fechaFinal, "Efectivo", "Socios", porcentaje);
             Thread.Sleep(2000);
             crearOferta_PO.guardarOfertaDialog();
             Thread.Sleep(1000);
