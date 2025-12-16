@@ -52,6 +52,20 @@
             </div>
         </div>
 
+        <div class="col-12">
+            <div class="form-floating">
+                <InputNumber @bind-Value="compra.NumTelefono" class="form-control" id="NumTelefono" />
+                <label for="NumTelefono">Teléfono</label>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-floating">
+                <InputText @bind-Value="compra.CorreoElectronico" class="form-control" id="CorreoElectronico" />
+                <label for="CorreoElectronico">Correo electrónico</label>
+            </div>
+        </div>
+
         <div class="col-md">
             <div class="form-floating mb-3">
                 @*this button will be used to ask the user if he want to proceed to rent the movies*@
@@ -103,8 +117,8 @@
 @*a modal popup dialog for checking if user wants to proceed to rent*@
 @if (DialogIsOpen)
 {
-    <Dialog Caption="Rental movies"
-    Message="Do you want to proceed to rent the selected movies?"
+    <Dialog Caption="Comprar herramientas"
+    Message="Quieres comprar las herramientas seleccionadas?"
     OnClose="@OnDialogClose"
     Type=Dialog.Category.SaveNot>
     </Dialog>

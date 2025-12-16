@@ -17,11 +17,7 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime FechaEntrega { get; set; }
 
-        [Required]
-        [JsonPropertyName("fechaRecogida")]
-        [DataType(System.ComponentModel.DataAnnotations.DataType.Date), Display(Name = "Fecha de Recogida")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime FechaRecogida { get; set; }
+       
 
         [Required]
         [JsonPropertyName("precioTotal")]
@@ -37,15 +33,22 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
+        [JsonPropertyName("numTelefono")]
+        [Range(100000000, 999999999, ErrorMessage = "El número de teléfono debe tener 9 dígitos (ej: 612345678).")]
+        public int? NumTelefono { get; set; }
+
+
         public IList<ReparacionItemDTO> ReparacionItems { get; set; }
 
-        public ReparacionForCreateDTO(string nombreCliente, string apellidosCliente, DateTime fechaEntrega, DateTime fechaRecogida, TiposMetodoPago tipoMetodoPago, IList<ReparacionItemDTO> reparacionItems)
+
+
+        public ReparacionForCreateDTO(string nombreCliente, string apellidosCliente, DateTime fechaEntrega, TiposMetodoPago tipoMetodoPago, int? numTelefono, IList<ReparacionItemDTO> reparacionItems)
         {
             NombreCliente = nombreCliente;
             ApellidosCliente = apellidosCliente;
             FechaEntrega = fechaEntrega;
-            FechaRecogida = fechaRecogida;
             TipoMetodoPago = tipoMetodoPago;
+            NumTelefono = numTelefono;
             ReparacionItems = reparacionItems;
             
         }
@@ -59,16 +62,15 @@ namespace AppForSEII2526.API.DTOs.ReparacionDTOs
             return obj is ReparacionForCreateDTO dTO &&
                    NombreCliente == dTO.NombreCliente &&
                    ApellidosCliente == dTO.ApellidosCliente &&
-                   CompareDate(FechaEntrega, dTO.FechaEntrega) &&
-                   CompareDate(FechaRecogida, dTO.FechaRecogida) && 
                    PrecioTotal == dTO.PrecioTotal &&
                    ReparacionItems.SequenceEqual(dTO.ReparacionItems) &&
-                   TipoMetodoPago == dTO.TipoMetodoPago;
+                   TipoMetodoPago == dTO.TipoMetodoPago &&
+                   NumTelefono == dTO.NumTelefono;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(NombreCliente, ApellidosCliente, FechaEntrega, FechaRecogida, PrecioTotal, ReparacionItems, TipoMetodoPago);
+            return HashCode.Combine(NombreCliente, ApellidosCliente, FechaEntrega, PrecioTotal, ReparacionItems, TipoMetodoPago, NumTelefono);
         }
     }
 }

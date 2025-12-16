@@ -50,8 +50,6 @@ namespace AppForSEII2526.UT.OfertaController_test
             var ofertaFromBeforeToday = new OfertaForCreateDTO(DateTime.Today.AddDays(8), DateTime.Today,
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes, ofertaItems);
 
-            
-
             var ofertaHerramientaNoDisponible = new OfertaForCreateDTO(DateTime.Today.AddDays(11), DateTime.Today.AddDays(2),
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
@@ -61,8 +59,6 @@ namespace AppForSEII2526.UT.OfertaController_test
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
                 new List<OfertaItemDTO>()
                 { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 150) });
-
-            
 
             var ofertaSinFechaInicio = new OfertaForCreateDTO(DateTime.Today.AddDays(5), DateTime.MinValue,
                 TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
@@ -74,7 +70,10 @@ namespace AppForSEII2526.UT.OfertaController_test
                new List<OfertaItemDTO>()
                { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 50) });
 
-
+            var ofertaPorcentajeCero = new OfertaForCreateDTO(DateTime.Today.AddDays(11), DateTime.Today.AddDays(2),
+                TiposMetodoPago.PayPal, TiposDirigidaOferta.Clientes,
+                new List<OfertaItemDTO>()
+                { new OfertaItemDTO(1, "Martillo", "Acero", "Bosch", 20, 0) });
 
             var allTests = new List<object[]>
             {
@@ -82,12 +81,11 @@ namespace AppForSEII2526.UT.OfertaController_test
                 new object[] { ofertaSinFechaFinal, "Error! Fecha Final es un campo obligatorio", },
                 new object[] { ofertaNoItem, "Error! Tienes que incluir al menos una herramienta para aplicar una oferta",  },
                 new object[] { ofertaFromBeforeToday, "Error! La fecha de inicio de tu oferta debe ser posterior a hoy", },
-                
                 new object[] { ofertaHerramientaNoDisponible, $"La herramienta con nombre {ofertaHerramientaNoDisponible.OfertaItems[0].NombreHerramienta} no fue encontrada", },
                 new object[] { ofertaPorcentajeNoValido, "Error: El porcentaje debe estar entre 0 y 100", },
                 new object[] { ofertaSinFechaInicio, "Error! Fecha Inicio es un campo obligatorio", },
                 new object[] { ofertaMayorQueUnaSemana, "¡Error!, la oferta debe durar al menos una semana", },
-                
+                new object[] { ofertaPorcentajeCero, "Error: El porcentaje es un campo obligatorio", },
 
             };
 

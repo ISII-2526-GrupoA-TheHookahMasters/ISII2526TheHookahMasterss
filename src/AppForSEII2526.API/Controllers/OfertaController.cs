@@ -99,6 +99,8 @@ namespace AppForSEII2526.API.Controllers
                     ModelState.AddModelError("OfertaItems", $"La herramienta con nombre {ofertaItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
+                if (ofertaItem.Porcentaje == 0)
+                    ModelState.AddModelError("Porcentaje", "Error: El porcentaje es un campo obligatorio");
 
                 if (ofertaItem.Porcentaje < 0 || ofertaItem.Porcentaje > 100)
                     ModelState.AddModelError("Porcentaje", "Error: El porcentaje debe estar entre 0 y 100");

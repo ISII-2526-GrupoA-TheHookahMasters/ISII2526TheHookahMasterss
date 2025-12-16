@@ -14,6 +14,8 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
         By tableOfHerramientasBy = By.Id("TableOfHerramientas");
         By errorShownBy = By.Id("ErrorsShown");
         By buttonCompraHerramienta = By.Id("comprarHerramientaButton");
+        By buttonCrearCompraCarrito = By.Id("crearCompraCarritoButton");
+        By buttonCrearCompra = By.Id("crearCompraButton");
 
         public SelectHerramientasForCompra_PO(IWebDriver driver, ITestOutputHelper output) : base(driver, output)
         {
@@ -29,6 +31,43 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
 
             _driver.FindElement(buttonSearchHerramientas).Click();
         }
+
+        public void crearCompraCarrito()
+        {
+            WaitForBeingClickable(buttonCrearCompraCarrito);
+
+            _driver.FindElement(buttonCrearCompraCarrito).Click();
+        }
+
+        public void crearCompra()
+        {
+            WaitForBeingClickable(buttonCrearCompra);
+
+            _driver.FindElement(buttonCrearCompra).Click();
+        }
+
+        public void addAtributosCompra(string herramientaId, string nombreCliente, string apellidoCliente, string direccionEnvio, string metodoPago, int cantidad, string descripcion)
+        {
+            WaitForBeingClickable(By.Id("Nombre"));
+            _driver.FindElement(By.Id("Nombre")).SendKeys(nombreCliente);
+
+            WaitForBeingClickable(By.Id("Apellido"));
+            _driver.FindElement(By.Id("Apellido")).SendKeys(apellidoCliente);
+
+            WaitForBeingClickable(By.Id("DireccionEnvio"));
+            _driver.FindElement(By.Id("DireccionEnvio")).SendKeys(direccionEnvio);
+
+            if (metodoPago == "") metodoPago = "Efectivo";
+            SelectElement selectElement2 = new SelectElement(_driver.FindElement(By.Id("MetodoPago")));
+            selectElement2.SelectByText(dirigidaA);
+
+            WaitForBeingClickable(By.Id($"porcentaje_{herramientaId}"));
+            driver.FindElement(By.Id($"porcentaje{herramientaId}")).SendKeys(porcentaje);
+
+            _driver.FindElement(buttonCrearCompra).Click();
+
+        }
+
 
         public bool CheckListOfHerramientas(List<string[]> expectedHerramientas)
         {
