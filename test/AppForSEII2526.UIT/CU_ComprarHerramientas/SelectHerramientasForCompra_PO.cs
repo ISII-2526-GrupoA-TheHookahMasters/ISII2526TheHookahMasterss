@@ -11,9 +11,10 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
         By inputMaterial = By.Id("inputMaterial");
         By inputPrecio = By.Id("inputPrecio");
         By buttonSearchHerramientas = By.Id("searchHerramientas");
-        By tableOfHerramientasBy = By.Id("TableOfHerramientas");
+        By tableOfCompraItems = By.Id("TableOfHerramientas");
         By errorShownBy = By.Id("ErrorsShown");
         By buttonCompraHerramienta = By.Id("comprarHerramientaButton");
+        By buttonCrearCompraCarrito = By.Id("crearCompraCarritoButton");
 
         public SelectHerramientasForCompra_PO(IWebDriver driver, ITestOutputHelper output) : base(driver, output)
         {
@@ -30,9 +31,30 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
             _driver.FindElement(buttonSearchHerramientas).Click();
         }
 
+        public void crearCompraCarrito()
+        {
+            WaitForBeingClickable(buttonCrearCompraCarrito);
+
+            _driver.FindElement(buttonCrearCompraCarrito).Click();
+        }
+
+        public bool IsCrearCompraCarritoButtonActive()
+        {
+            var button = _driver.FindElements(By.Id("crearCompraCarritoButton"));
+
+            var btn = button[0];
+
+            // si está oculto por hidden del contenedor => Displayed = false
+            if (!btn.Displayed) return false;
+
+            if (btn.GetAttribute("disabled") != null) return false;
+
+            return true;
+        }
+
         public bool CheckListOfHerramientas(List<string[]> expectedHerramientas)
         {
-            return CheckBodyTable(expectedHerramientas, tableOfHerramientasBy);
+            return CheckBodyTable(expectedHerramientas, tableOfCompraItems);
         }
 
         public bool CheckMessageError(string errorMessage)
@@ -42,22 +64,29 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
             return actualErrorShown.Text.Contains(errorMessage);
         }
 
-        public void AddHerramientaToCompraCart(string herramientaTitle)
+        public void AddHerramientaToCompraCart(string herramientaNombre)
         {
-            WaitForBeingClickable(By.Id("herramientaToCompra_" + herramientaTitle));
+            WaitForBeingClickable(By.Id("herramientaParaCompra_" + herramientaNombre));
 
-            _driver.FindElement(By.Id("herramientaToCompra" + herramientaTitle)).Click();
+            _driver.FindElement(By.Id("herramientaParaCompra_" + herramientaNombre)).Click();
         }
 
         public void RemoveHerramientaFromCompraCart(string herramientaTitle)
         {
             WaitForBeingClickable(By.Id("removeHerramienta_" + herramientaTitle));
-            _driver.FindElement(By.Id("removeHerramienta" + herramientaTitle)).Click();
+            _driver.FindElement(By.Id("removeHerramienta_" + herramientaTitle)).Click();
         }
 
         public bool CompraNotAvailable()
         {
-            return _driver.FindElement(buttonCompraHerramienta).Displayed == false;
+            try
+            {
+                return _driver.FindElement(buttonCrearCompraCarrito).Displayed == false;
+            }
+            catch (Exception e)
+            {
+                return true;
+            }
         }
     }
 }

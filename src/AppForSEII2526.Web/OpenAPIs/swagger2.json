@@ -1212,7 +1212,6 @@
       "CompraItemDTO": {
         "required": [
           "cantidad",
-          "descripcionHerramienta",
           "materialHerramienta",
           "nombreHerramienta",
           "precioHerramienta"
@@ -1586,13 +1585,6 @@
           },
           "tipoMetodoPago": {
             "$ref": "#/components/schemas/TiposMetodoPago"
-          },
-          "numTelefono": {
-            "maximum": 999999999,
-            "minimum": 100000000,
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
           },
           "reparacionItems": {
             "type": "array",

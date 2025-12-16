@@ -42,6 +42,7 @@ namespace AppForSEII2526.API.DTOs.AlquilerDTOs
         [Required]
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
+
         public IList<AlquilarItemDTO> AlquilerItems { get; set; }
         public AlquilerForCreateDTO( string nombreCliente, string apellidosCliente, string direccionEnvio, DateTime fechaFin, DateTime fechaInicio, IList<AlquilarItemDTO> alquilerItems, TiposMetodoPago tipoMetodoPago)
         {
@@ -53,6 +54,7 @@ namespace AppForSEII2526.API.DTOs.AlquilerDTOs
             Periodo = (FechaFin - FechaInicio).Days;
             AlquilerItems = alquilerItems;
             TipoMetodoPago = tipoMetodoPago;
+
         }
         public bool CompareDate(DateTime date1, DateTime date2)
         {

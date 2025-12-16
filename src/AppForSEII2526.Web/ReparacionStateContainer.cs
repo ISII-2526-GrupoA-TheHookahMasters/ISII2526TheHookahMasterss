@@ -9,6 +9,7 @@ namespace AppForSEII2526.Web
             ReparacionItems = new List<ReparacionItemDTO>()
         };
 
+
         public float PrecioTotal
         {
             get
@@ -16,6 +17,7 @@ namespace AppForSEII2526.Web
                 return (float)Reparacion.ReparacionItems.Sum(h => h.Precio * h.Cantidad);
             }
         }
+
 
         public event Action? OnChange;
 
