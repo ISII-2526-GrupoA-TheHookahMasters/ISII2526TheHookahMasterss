@@ -13,51 +13,55 @@
 <h3>Create Alquiler</h3>
 
 <EditForm Model="alquiler" OnValidSubmit="OpenDialog">
+    
     <div class="row">
         <DataAnnotationsValidator />
-        <ValidationSummary class="row alert alert-danger" />
+        <ValidationSummary class="row alert alert-danger" /> 
     </div>
+    
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
         <p id="ErrorsShown">Errors: @messageError</p>
     </div>
+    
+
     <div class="row g-3">
         <div class="col-12">
             <div class="form-floating">
-                <InputText @bind-Value="alquiler.NombreCliente" class="form-control" id="Nombre" />
+                <InputText @bind-Value="alquiler.NombreCliente" class="form-control" id="inputNombre" />
                 <label for="Nombre">Nombre </label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
-                <InputText @bind-Value="alquiler.ApellidosCliente" class="form-control" id="Apellido" />
+                <InputText @bind-Value="alquiler.ApellidosCliente" class="form-control" id="inputApellido" />
                 <label for="Apellido">Apellido </label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
-                <InputDate @bind-Value="alquiler.FechaInicio" class="form-control" id="FechaInicio" />
+                <InputDate @bind-Value="alquiler.FechaInicio" class="form-control" id="inputFechaInicio" />
                 <label for="FechaInicio">Fecha de Inicio</label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
-                <InputDate @bind-Value="alquiler.FechaFin" class="form-control" id="FechaFinal" />
+                <InputDate @bind-Value="alquiler.FechaFin" class="form-control" id="inputFechaFin" />
                 <label for="FechaFinal">Fecha Final </label>
             </div>
         </div>
         <div class="col-md">
             <div class="form-floating">
-                <InputText @bind-Value="alquiler.DireccionEnvio" class="form-control" id="DirecciónEnvio" />
+                <InputText @bind-Value="alquiler.DireccionEnvio" class="form-control" id="inputDireccion" />
                 <label for="DirecciónEnvio">DirecciónEnvio</label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating">
                 @*a dropdown for selecting the payment method*@
-                <InputSelect class="form-select" @bind-Value="@alquiler.TipoMetodoPago" id="MetodoPago">
-                    <option value="@TiposMetodoPago.TarjetaCredito" default> TarjetaCredito</option>
-                    <option value="@TiposMetodoPago.PayPal"> PayPal</option>
-                    <option value="@TiposMetodoPago.Efectivo"> Efectivo</option>
+                <InputSelect class="form-select" @bind-Value="@alquiler.TipoMetodoPago" id="selectMetodoPago">
+                    <option value="@TiposMetodoPago.TarjetaCredito" default>TarjetaCredito</option>
+                    <option value="@TiposMetodoPago.PayPal">PayPal</option>
+                    <option value="@TiposMetodoPago.Efectivo">Efectivo</option>
                 </InputSelect>
                 <label for="MetodoPago">MetodoPago</label>
             </div>
@@ -65,7 +69,7 @@
         <div class="col-12">
             <div class="form-floating mb-5">
                 @*this button will be used to ask the user if he want to proceed to rent the movies*@
-                <button class="btn btn-primary" type="submit" id="Submit">
+                <button class="btn btn-primary" type="submit" id="buttonCreateAlquiler" disabled="@(!PuedeAlquiler)">
                     Alquilar herramientas
                 </button>
             </div>
@@ -97,7 +101,7 @@
                         <td>@herramienta.NombreHerramienta</td>
                         <td>@herramienta.Material</td>
                         <td>@herramienta.Precio</td>
-                    <td><InputNumber @bind-Value="herramienta.Cantidad" class="form-control" id="@($"cantidad{herramienta.HerramientaId}")" /></td>
+                        <td><InputNumber @bind-Value="herramienta.Cantidad" class="form-control" id="@($"inputCantidad_{herramienta.HerramientaId}")" /></td>
                     </tr>
                 }
             </tbody>
@@ -201,5 +205,10 @@
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
+
+    private bool PuedeAlquiler =>
+    alquiler.AlquilerItems != null &&
+    alquiler.AlquilerItems.Count > 0 &&
+    alquiler.AlquilerItems.All(i => i.Cantidad >= 1);
 
 }

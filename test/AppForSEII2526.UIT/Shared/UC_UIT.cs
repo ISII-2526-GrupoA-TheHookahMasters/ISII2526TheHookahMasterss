@@ -69,7 +69,7 @@ namespace AppForMovies.UIT.Shared {
         }
 
 
-        protected void SetUp_Chrome4UIT() {
+        public void SetUp_Chrome4UIT() {
             var optionsc = new ChromeOptions {
                 PageLoadStrategy = PageLoadStrategy.Normal,
                 AcceptInsecureCertificates = true
