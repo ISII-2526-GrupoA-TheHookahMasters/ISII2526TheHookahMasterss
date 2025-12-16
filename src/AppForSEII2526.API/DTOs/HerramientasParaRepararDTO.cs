@@ -29,7 +29,6 @@ namespace AppForSEII2526.API.DTOs
         public float Precio { get; set; }
 
         [JsonPropertyName("TiempoReparacion")]
-
         public int TiempoReparacion { get; set; }
 
         public HerramientasParaRepararDTO(int id, string nombre, string material, float precio, string fabricante, int tiemporeparacion)

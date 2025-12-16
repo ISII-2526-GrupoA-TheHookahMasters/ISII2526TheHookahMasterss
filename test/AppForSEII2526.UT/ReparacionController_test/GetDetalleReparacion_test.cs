@@ -57,7 +57,7 @@ namespace AppForSEII2526.UT.ReparacionController_test
             var controller = new ReparacionController(_context, logger);
 
             var expectedReparacion = new ReparacionDetailDTO(1, "Antonio", "Ortiz", DateTime.Today, DateTime.Today.AddDays(2), new List<ReparacionItemDTO>());
-            expectedReparacion.ReparacionItems.Add(new ReparacionItemDTO(2, "Llave inglesa", 15, 3, "Llave inglesa de cabezal grande"));
+            expectedReparacion.ReparacionItems.Add(new ReparacionItemDTO(2, "Llave inglesa", 15, 3, "Llave inglesa de cabezal grande", 1));
 
             // Act 
             var result = await controller.GetReparacionesPorId(1);
