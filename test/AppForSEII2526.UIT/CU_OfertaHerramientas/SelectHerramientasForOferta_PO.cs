@@ -13,7 +13,8 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
         By buttonSearchHerramientas = By.Id("searchHerramientas");
         By tableOfHerramientasBy = By.Id("TableOfHerramientas");
         By errorShownBy = By.Id("ErrorsShown");
-        By buttonOfertaHerramienta = By.Id("ofertarHerramientaButton");
+        By buttonCrearOfertaCarrito = By.Id("crearOfertaCarritoButton");
+         
 
         public SelectHerramientasForOferta_PO(IWebDriver driver, ITestOutputHelper output) : base(driver, output)
         {
@@ -31,11 +32,17 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
             _driver.FindElement(buttonSearchHerramientas).Click();
         }
 
+        public void crearOfertaCarrito()
+        {
+            WaitForBeingClickable(buttonCrearOfertaCarrito);
+            _driver.FindElement(buttonCrearOfertaCarrito).Click();
+        }
+
         public bool CheckListOfHerramientas(List<string[]> expectedHerramientas)
         {
             return CheckBodyTable(expectedHerramientas, tableOfHerramientasBy);
         }
-        
+
         public bool CheckMessageError(string errorMessage)
         {
             IWebElement actualErrorShown = _driver.FindElement(errorShownBy);
@@ -43,22 +50,28 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
             return actualErrorShown.Text.Contains(errorMessage);
         }
 
-        public void AddHerramientaToOfertaCart(string herramientaTitle)
+        public void AddHerramientaToOfertaCart(string herramientaNombre)
         {
-            WaitForBeingClickable(By.Id("herramientaToOferta_" + herramientaTitle));
-
-            _driver.FindElement(By.Id("herramientaToOferta_" + herramientaTitle)).Click();
+            WaitForBeingClickable(By.Id("herramientaParaOferta_" + herramientaNombre));
+            _driver.FindElement(By.Id("herramientaParaOferta_" + herramientaNombre)).Click();
         }
 
-        public void RemoveHerramientaFromOfertaCart(string herramientaTitle)
+        public void RemoveHerramientaFromOfertaCart(string herramientaNombre)
         {
-            WaitForBeingClickable(By.Id("removeHerramienta_" + herramientaTitle));
-            _driver.FindElement(By.Id("removeHerramienta_" + herramientaTitle)).Click();
+            WaitForBeingClickable(By.Id("removeHerramienta_" + herramientaNombre));
+            _driver.FindElement(By.Id("removeHerramienta_" + herramientaNombre)).Click();   
         }
 
         public bool OfertaNotAvailable()
         {
-            return _driver.FindElement(buttonOfertaHerramienta).Displayed == false;
+            try
+            {
+                return _driver.FindElement(buttonCrearOfertaCarrito).Displayed == false;
+            } 
+            catch(Exception e)
+            {
+                return true;
+            }
         }
     }
 }
