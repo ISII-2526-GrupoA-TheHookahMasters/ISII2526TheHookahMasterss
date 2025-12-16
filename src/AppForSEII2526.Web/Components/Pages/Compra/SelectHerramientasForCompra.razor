@@ -61,7 +61,7 @@
                                         <td>@herramienta.Precio</td>
                                         <td>@herramienta.Fabricante</td>
                                         <td>
-                                            <button class="btn btn-outline-secondary" id="herramientaParaOferta_@herramienta.Id" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
+                                            <button class="btn btn-outline-secondary" id="herramientaParaCompra_@herramienta.Nombre" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
                                         </td>
                                     </tr>
                                 }
@@ -79,11 +79,11 @@
             @foreach (CompraItemDTO item in compra.CompraItems)
             {
                 <div class="row">
-                    <button type="button" class="btn btn-light" id="removeCompra_@item.NombreHerramienta" @onclick="@(() => RemoveCompraItem(item))">x @item.NombreHerramienta - @item.PrecioHerramienta€</button>
+                    <button type="button" class="btn btn-light" id="removeHerramienta_@item.NombreHerramienta" @onclick="@(() => RemoveCompraItem(item))">x @item.NombreHerramienta - @item.PrecioHerramienta€</button>
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@CompraHerramientas>Compra herramientas</button>
+                <button type="button" class="btn btn-primary" id="crearCompraCarritoButton" @onclick=@CompraHerramientas>Compra herramientas</button>
             </div>
         </div>
 

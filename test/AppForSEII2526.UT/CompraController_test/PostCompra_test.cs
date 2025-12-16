@@ -32,6 +32,7 @@ namespace AppForSEII2526.UT.CompraController_test
 
             _context.Add(fabricante);
             _context.AddRange(herramientas);
+            _context.Add(usuario);
             _context.Add(compra);
             _context.SaveChanges();
         }
@@ -40,34 +41,34 @@ namespace AppForSEII2526.UT.CompraController_test
         public static IEnumerable<object[]> TestCasesFor_CreateCompra()
         {
             var compraNoItem = new CompraForCreateDTO("Juan", "Perez",
-                "Avenida España 12", TiposMetodoPago.PayPal, new List<CompraItemDTO>());
+                "Avenida España 12", TiposMetodoPago.PayPal, new List<CompraItemDTO>(), "juan.nuevo@gmail.com", 612345678);
 
             var compraItems = new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, "Martillo de carpintero", 3) };
 
             var compraNoNombre = new CompraForCreateDTO(null, "Perez",
-                "Avenida España 12", TiposMetodoPago.PayPal, compraItems);
+                "Avenida España 12", TiposMetodoPago.PayPal, compraItems, "juan.nuevo@gmail.com", 612345678);
 
             var compraNoApellido = new CompraForCreateDTO("Juan", null,
-                "Avenida España 12", TiposMetodoPago.PayPal, compraItems);
+                "Avenida España 12", TiposMetodoPago.PayPal, compraItems, "juan.nuevo@gmail.com", 612345678);
 
             var compraNoDireccion = new CompraForCreateDTO("Juan", "Perez", 
-                null, TiposMetodoPago.PayPal, compraItems);
+                null, TiposMetodoPago.PayPal, compraItems, "juan.nuevo@gmail.com", 612345678);
 
             var compraCantidadCero = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, "Martillo de carpintero", 0) });
+                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, "Martillo de carpintero", 0) }, "juan.nuevo@gmail.com", 612345678);
 
             var compraHerramientaNoExiste = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(9, "Llave de pico", "Acero", 20, "Llave de pico de loro mango rojo", 3) });
+                new List<CompraItemDTO>() { new CompraItemDTO(9, "Llave de pico", "Acero", 20, "Llave de pico de loro mango rojo", 3) }, "juan.nuevo@gmail.com", 612345678);
 
             var compraNoDescripcion = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 2) });
+                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 2) }, "juan.nuevo@gmail.com", 612345678);
 
             var compraHerramientaSinDescripcion = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 3) });
+                new List<CompraItemDTO>() { new CompraItemDTO(3, "Martillo", "Acero", 20, null, 3) }, "juan.nuevo@gmail.com", 612345678);
 
             var allTests = new List<object[]>
             {             //input for createpurchase - Error expected
@@ -124,7 +125,9 @@ namespace AppForSEII2526.UT.CompraController_test
 
             var compraDTO = new CompraForCreateDTO("Juan", "Perez",
                 "Avenida España 12", TiposMetodoPago.PayPal,
-                new List<CompraItemDTO>() { new CompraItemDTO(1, "Martillo", "Acero", 20, "Martillo de carpintero", 3) });
+                new List<CompraItemDTO>() { new CompraItemDTO(1, "Martillo", "Acero", 20, "Martillo de carpintero", 3) },
+                "juan.nuevo@gmail.com",
+                612345678);
 
             var expectedCompraDetailDTO = new CompraDetailDTO(2, "Juan", "Perez",
                 "Avenida España 12", DateTime.Today,
@@ -141,5 +144,6 @@ namespace AppForSEII2526.UT.CompraController_test
             Assert.Equal(expectedCompraDetailDTO, actualCompraDetailDTO);
 
         }
+
     }
 }

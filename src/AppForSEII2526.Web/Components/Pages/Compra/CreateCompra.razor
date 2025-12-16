@@ -16,7 +16,7 @@
 <EditForm Model="compra" OnValidSubmit="OpenDialog">
     <div class="row">
         <DataAnnotationsValidator />
-        <ValidationSummary class="row alert alert-danger" />
+        <ValidationSummary id="ValidationSummary" class="row alert alert-danger" />
     </div>
     <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
         <p id="ErrorsShown">Errors: @messageError</p>
@@ -52,10 +52,24 @@
             </div>
         </div>
 
+        <div class="col-12">
+            <div class="form-floating">
+                <InputNumber @bind-Value="compra.NumTelefono" class="form-control" id="NumTelefono" />
+                <label for="NumTelefono">Teléfono</label>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-floating">
+                <InputText @bind-Value="compra.CorreoElectronico" class="form-control" id="CorreoElectronico" />
+                <label for="CorreoElectronico">Correo electrónico</label>
+            </div>
+        </div>
+
         <div class="col-md">
             <div class="form-floating mb-3">
                 @*this button will be used to ask the user if he want to proceed to rent the movies*@
-                <button class="btn btn-primary" type="submit" id="Submit">
+                <button class="btn btn-primary" type="submit" id="crearCompraButton" disabled="@(!PuedeComprar)">
                     Compra tus herramientas
                 </button>
             </div>
@@ -65,7 +79,7 @@
     <h4>Compra detail</h4>
     <p>
         <b>Precio Total:</b> @TotalCost €
-        <button class="btn btn-outline-primary" type="submit" @onclick="ModifyCompraItems" id="ModifyHerramientas">
+        <button class="btn btn-outline-primary" type="submit" @onclick="ModifyCompraItems" id="modifyHerramientasButton">
             Modificar herramientas
         </button>
     </p>
@@ -100,11 +114,11 @@
     </div>
 </EditForm>
 
-@*a modal popup dialog for checking if user wants to proceed to rent*@
+@*a modal popup dialog for checking if user wants to proceed to buy*@
 @if (DialogIsOpen)
 {
-    <Dialog Caption="Rental movies"
-    Message="Do you want to proceed to rent the selected movies?"
+    <Dialog Caption="Comprar herramientas"
+    Message="Quieres comprar las herramientas seleccionadas?"
     OnClose="@OnDialogClose"
     Type=Dialog.Category.SaveNot>
     </Dialog>
@@ -191,6 +205,7 @@
             compra.NombreCliente = compra.NombreCliente == null ? "" : compra.NombreCliente;
             compra.ApellidoCliente= compra.ApellidoCliente == null ? "" : compra.ApellidoCliente;
             compra.DireccionEnvio = compra.DireccionEnvio == null ? "" : compra.DireccionEnvio;
+            
 
         }
     }
@@ -198,4 +213,9 @@
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
+
+    private bool PuedeComprar =>
+    compra.CompraItems != null &&
+    compra.CompraItems.Count > 0 &&
+    compra.CompraItems.All(i => i.Cantidad >= 1);
 }
