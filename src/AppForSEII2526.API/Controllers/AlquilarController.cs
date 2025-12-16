@@ -32,7 +32,7 @@ namespace AppForSEII2526.API.Controllers
                     .Include(a => a.AlquilarItems)
                         .ThenInclude(ai => ai.Herramienta)
 
-                .Select(a => new AlquilerDetailDTO(a.Id,a.Usuario.Nombre,a.Usuario.Apellido,a.DireccionEnvio,
+                .Select(a => new AlquilerDetailDTO(a.Id, a.Usuario.Nombre, a.Usuario.Apellido, a.DireccionEnvio,
                         a.FechaAlquiler, a.FechaFin, a.FechaInicio, a.AlquilarItems
                             .Select(ai => new AlquilarItemDTO(ai.HerramientaId, ai.Herramienta.Nombre,
                                 ai.Herramienta.Material, ai.Cantidad,
@@ -94,11 +94,11 @@ namespace AppForSEII2526.API.Controllers
 
             var herramientaNombre = alquilerForCreate.AlquilerItems.Select(a => a.NombreHerramienta).ToList();
             var herramientas = await _context.Herramienta
-                .Include(f=>f.Fabricante)
+                .Include(f => f.Fabricante)
                 .Where(h => herramientaNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevoAlquiler = new Alquiler(usuario,alquilerForCreate.DireccionEnvio, DateTime.Today, alquilerForCreate.FechaFin, alquilerForCreate.FechaInicio, alquilerForCreate.PrecioTotal, new List<AlquilarItem>());
+            var nuevoAlquiler = new Alquiler(usuario, alquilerForCreate.DireccionEnvio, DateTime.Today, alquilerForCreate.FechaFin, alquilerForCreate.FechaInicio, alquilerForCreate.PrecioTotal, new List<AlquilarItem>());
 
             foreach (var alquilerItem in alquilerForCreate.AlquilerItems)
             {

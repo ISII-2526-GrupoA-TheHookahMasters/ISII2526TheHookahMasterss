@@ -48,10 +48,10 @@ namespace AppForSEII2526.UT.AlquilerController_test
                 DateTime.Today.AddDays(2), DateTime.Today.AddDays(5), alquilerItems, TiposMetodoPago.Efectivo);
 
             var alquilarHerramientaNotAvailable = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2),new List<AlquilarItemDTO>() 
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>()
                     { new AlquilarItemDTO(1, "Destornillador", "Cristal", 4, 120) }, TiposMetodoPago.Efectivo);
 
-            var alquilerSinNombreCliente= new AlquilerForCreateDTO(null, "Gomez", "Avd España 4",
+            var alquilerSinNombreCliente = new AlquilerForCreateDTO(null, "Gomez", "Avd España 4",
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.Efectivo);
 
             var alquilerSinApellidoCliente = new AlquilerForCreateDTO("Carlos", null, "Avd España 4",
@@ -61,7 +61,7 @@ namespace AppForSEII2526.UT.AlquilerController_test
                 DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), alquilerItems, TiposMetodoPago.Efectivo);
 
             var alquilerSinCantidad = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
-                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>() 
+                DateTime.Today.AddDays(5), DateTime.Today.AddDays(2), new List<AlquilarItemDTO>()
                     { new AlquilarItemDTO(1, "Martillo", "Acero", 0, 120) }, TiposMetodoPago.Efectivo);
 
             var alquilerSinPayPal = new AlquilerForCreateDTO("Carlos", "Gomez", "Avd España 4",
