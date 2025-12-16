@@ -43,15 +43,8 @@ namespace AppForSEII2526.API.DTOs.AlquilerDTOs
         public TiposMetodoPago TipoMetodoPago { get; set; }
 
 
-        [Display(Name = "Teléfono (opcional)")]
-        public int? Telefono { get; set; }
-
-        [EmailAddress]
-        [Display(Name = "Correo Electrónico (opcional)")]
-        public string? CorreoElectronico { get; set; }
-
         public IList<AlquilarItemDTO> AlquilerItems { get; set; }
-        public AlquilerForCreateDTO( string nombreCliente, string apellidosCliente, string direccionEnvio, DateTime fechaFin, DateTime fechaInicio, IList<AlquilarItemDTO> alquilerItems, TiposMetodoPago tipoMetodoPago, int? telefono , string? correoElectronico)
+        public AlquilerForCreateDTO( string nombreCliente, string apellidosCliente, string direccionEnvio, DateTime fechaFin, DateTime fechaInicio, IList<AlquilarItemDTO> alquilerItems, TiposMetodoPago tipoMetodoPago)
         {
             NombreCliente = nombreCliente;
             ApellidosCliente = apellidosCliente;
@@ -61,8 +54,6 @@ namespace AppForSEII2526.API.DTOs.AlquilerDTOs
             Periodo = (FechaFin - FechaInicio).Days;
             AlquilerItems = alquilerItems;
             TipoMetodoPago = tipoMetodoPago;
-            Telefono = telefono;
-            CorreoElectronico = correoElectronico;
 
         }
         public bool CompareDate(DateTime date1, DateTime date2)
