@@ -159,9 +159,9 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
         }
 
         [Theory]
-        [InlineData(herramientaId1, herramientaNombre1, "16/12/2025", "", "10", "Error! Fecha Final es un campo obligatorio")]
-        [InlineData(herramientaId1, herramientaNombre1, "", "26/12/2025", "10", "Error! Fecha Inicio es un campo obligatorio")]
-        [InlineData(herramientaId1, herramientaNombre1, "16/12/2025", "26/12/2025", "0", "Error: El porcentaje es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "20/12/2025", "", "10", "Error! Fecha Final es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "", "30/12/2025", "10", "Error! Fecha Inicio es un campo obligatorio")]
+        [InlineData(herramientaId1, herramientaNombre1, "20/12/2025", "30/12/2025", "0", "Error: El porcentaje es un campo obligatorio")]
         [Trait("LevelTesting", "Funcional Testing")]
         public void UC3_11_12_AF5_CamposObligatorios(string herramientaId, string herramientaNombre, string fechaInicio, string fechaFinal, string porcentaje, string expectedError)
         {

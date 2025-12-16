@@ -9,14 +9,15 @@ namespace AppForSEII2526.Web
             ReparacionItems = new List<ReparacionItemDTO>()
         };
 
+
         public float PrecioTotal
         {
             get
             {
-                int numberOfDays = (Reparacion.FechaRecogida - Reparacion.FechaEntrega).Days;
-                return (float)Reparacion.ReparacionItems.Sum(ri => ri.Precio * numberOfDays);
+                return (float)Reparacion.ReparacionItems.Sum(h => h.Precio * h.Cantidad);
             }
         }
+
 
         public event Action? OnChange;
 
