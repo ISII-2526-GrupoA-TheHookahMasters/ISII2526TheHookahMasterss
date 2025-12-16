@@ -10,27 +10,33 @@
 <h3>Create Reparacion</h3>
 
 <EditForm Model="reparacion" OnValidSubmit="OpenDialog">
+    
     <div class="row">
         <DataAnnotationsValidator />
         <ValidationSummary />
+    </div>
+    
+
+    <div class="row alert alert-danger" role="alert" hidden="@hideErrors">
+        <p id="ErrorsShown">Errors: @messageError</p>
     </div>
 
     <div class="row g-3">
         <div class="col-12">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="reparacion.NombreCliente" class="form-control" id="Nombre" />
+                <InputText @bind-Value="reparacion.NombreCliente" class="form-control" id="inputNombre" />
                 <label for="Nombre">Nombre </label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating mb-3">
-                <InputText @bind-Value="reparacion.ApellidosCliente" class="form-control" id="Apellidos" />
+                <InputText @bind-Value="reparacion.ApellidosCliente" class="form-control" id="inputApellido" />
                 <label for="Apellidos">Apellidos </label>
             </div>
         </div>
         <div class="col-12">
             <div class="form-floating mb-3">
-                <InputDate @bind-Value="reparacion.FechaEntrega" class="form-control" id="FechaEntrega" />
+                <InputDate @bind-Value="reparacion.FechaEntrega" class="form-control" id="inputFechaEntrega" />
                 <label for="FechaEntrega">Fecha de Entrega</label>
             </div>
         </div>
@@ -44,9 +50,11 @@
                 <label for="TipoMetodoPago">Método de Pago</label>
             </div>
         </div>
+
+       
         <div class="col-12">
             <div class="form-floating">
-                <button class="btn btn-primary" type="submit" id="Submit">
+                <button class="btn btn-primary" type="submit" id="crearReparacionButton" disabled="@(!PuedeReparar)">
                     Repara tus herramientas
                 </button>
             </div>
@@ -163,4 +171,9 @@
 
     [CascadingParameter]
     private Task<AuthenticationState>? authenticationState { get; set; }
+
+    private bool PuedeReparar =>
+    reparacion.ReparacionItems != null &&
+    reparacion.ReparacionItems.Count > 0 &&
+    reparacion.ReparacionItems.All(i => i.Cantidad >= 1);
 }
