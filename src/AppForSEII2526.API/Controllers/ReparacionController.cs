@@ -24,7 +24,7 @@ namespace AppForSEII2526.API.Controllers
 
         [HttpGet]
         [Route("[action]")]
-        [ProducesResponseType(typeof(IList<ReparacionDetailDTO>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ReparacionDetailDTO), (int)HttpStatusCode.OK)]
         public async Task<ActionResult> GetReparacionesPorId(int id)
         {
             var reparacion = await _context.Reparacion
