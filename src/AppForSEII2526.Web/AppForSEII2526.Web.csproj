@@ -28,16 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="OpenAPIs\swagger1.json" ClassName="AppForHerramientasAPIClient" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="OpenAPIs\swagger.json" ClassName="AppForHerramientasAPIClient" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <OpenApiReference Include="OpenAPIs\swagger2.json" Namespace="AppForSEII2526.Web.API" ClassName="AppForHerramientasAPIClient">
-      <SourceUri>https://thehookahmasters-h4cjfwchcebjemf9.switzerlandnorth-01.azurewebsites.net/swagger/v1/swagger.json</SourceUri>
+    <OpenApiReference Include="OpenAPIs\swagger.json" Namespace="AppForSEII2526.Web.API" ClassName="AppForHerramientasAPIClient">
+      <SourceUri>https://localhost:44339/swagger/v1/swagger.json</SourceUri>
     </OpenApiReference>
   </ItemGroup>
 

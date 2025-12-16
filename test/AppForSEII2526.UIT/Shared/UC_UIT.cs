@@ -10,6 +10,7 @@ namespace AppForMovies.UIT.Shared {
 
         //establish which browser you would like to use
         private string _browser = "Chrome";
+        //private string _browser = "Edge";
 
         protected IWebDriver _driver;
         protected readonly ITestOutputHelper _output;
@@ -18,7 +19,7 @@ namespace AppForMovies.UIT.Shared {
         public string _URI {
             get {
                 //set url of your web page 
-                return "https://localhost:7081/";
+                return "https://localhost:44335/";
 
             }
         }

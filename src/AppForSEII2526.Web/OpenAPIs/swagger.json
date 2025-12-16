@@ -1185,6 +1185,20 @@
           "tipoMetodoPago": {
             "$ref": "#/components/schemas/TiposMetodoPago"
           },
+          "correoElectronico": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "numTelefono": {
+            "maximum": 999999999,
+            "minimum": 100000000,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
           "compraItems": {
             "type": "array",
             "items": {
@@ -1198,6 +1212,7 @@
       "CompraItemDTO": {
         "required": [
           "cantidad",
+          "descripcionHerramienta",
           "materialHerramienta",
           "nombreHerramienta",
           "precioHerramienta"
@@ -1223,8 +1238,8 @@
             "format": "currency"
           },
           "descripcionHerramienta": {
-            "type": "string",
-            "nullable": true
+            "minLength": 1,
+            "type": "string"
           },
           "cantidad": {
             "maximum": 2147483647,
@@ -1541,7 +1556,6 @@
         "required": [
           "apellidosCliente",
           "fechaEntrega",
-          "fechaRecogida",
           "nombreCliente",
           "precioTotal",
           "tipoMetodoPago"
@@ -1560,10 +1574,6 @@
             "type": "string",
             "format": "date"
           },
-          "fechaRecogida": {
-            "type": "string",
-            "format": "date"
-          },
           "precioTotal": {
             "type": "number",
             "format": "currency",
@@ -1571,6 +1581,13 @@
           },
           "tipoMetodoPago": {
             "$ref": "#/components/schemas/TiposMetodoPago"
+          },
+          "numTelefono": {
+            "maximum": 999999999,
+            "minimum": 100000000,
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "reparacionItems": {
             "type": "array",
