@@ -146,6 +146,8 @@
 
     private void OpenDialog()
     {
+        foreach (var it in compra.CompraItems)
+            it.DescripcionHerramienta ??= "";
         DialogIsOpen = true;
     }
 
