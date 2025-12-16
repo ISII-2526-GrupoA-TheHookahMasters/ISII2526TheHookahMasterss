@@ -13,8 +13,7 @@ namespace AppForSEII2526.Web
         {
             get
             {
-                int numberOfDays = (Reparacion.FechaRecogida - Reparacion.FechaEntrega).Days;
-                return (float)Reparacion.ReparacionItems.Sum(ri => ri.Precio * numberOfDays);
+                return (float)Reparacion.ReparacionItems.Sum(h => h.Precio * h.Cantidad);
             }
         }
 
@@ -31,6 +30,7 @@ namespace AppForSEII2526.Web
                     HerramientaId = herramienta.Id,
                     NombreHerramienta = herramienta.Nombre,
                     Precio = herramienta.Precio,
+                    TiempoReparacion = herramienta.TiempoReparacion,
                 }
             );
         }

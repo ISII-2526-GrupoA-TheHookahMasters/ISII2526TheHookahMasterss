@@ -14,6 +14,8 @@ namespace AppForSEII2526.API.Controllers
 
         private readonly ILogger<ReparacionController> _logger;
 
+
+
         public ReparacionController(ApplicationDbContext context, ILogger<ReparacionController> logger)
         {
             _context = context;
@@ -32,7 +34,7 @@ namespace AppForSEII2526.API.Controllers
                             .ThenInclude(h => h.Fabricante)
 
                 .Select(r => new ReparacionDetailDTO(r.Id, r.Usuario.Nombre, r.Usuario.Apellido, r.FechaEntrega, r.FechaRecogida, r.ReparacionItems
-                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion)).ToList<ReparacionItemDTO>()))
+                            .Select(ri => new ReparacionItemDTO(ri.HerramientaId, ri.Herramienta.Nombre, ri.Precio, ri.Cantidad, ri.Descripcion, ri.Herramienta.TiempoReparacion)).ToList<ReparacionItemDTO>()))
                 .FirstOrDefaultAsync();
 
             if (reparacion == null)
@@ -55,9 +57,6 @@ namespace AppForSEII2526.API.Controllers
             if (reparacionForCreate.FechaEntrega == DateTime.MinValue)
                 ModelState.AddModelError("FechaEntrega", "Error! La fecha de entrega es obligatoria");
 
-            if (reparacionForCreate.FechaRecogida == DateTime.MinValue)
-                ModelState.AddModelError("FechaRecogida", "Error! La fecha de recogida es obligatoria");
-
             if (reparacionForCreate.FechaEntrega <= DateTime.Today)
                 ModelState.AddModelError("FechaEntrega", "Error! La fecha de entrega debe ser posterior a hoy");
 
@@ -70,6 +69,7 @@ namespace AppForSEII2526.API.Controllers
             if (reparacionForCreate.ApellidosCliente == null)
                 ModelState.AddModelError("ApellidosCliente", "Error! Los apellidos del cliente son obligatorios");
 
+
             var usuario = _context.Users.FirstOrDefault(u => u.Nombre == reparacionForCreate.NombreCliente && u.Apellido == reparacionForCreate.ApellidosCliente);
             if (usuario == null)
             {
@@ -79,13 +79,47 @@ namespace AppForSEII2526.API.Controllers
             if (ModelState.ErrorCount > 0)
                 return BadRequest(new ValidationProblemDetails(ModelState));
 
+            if (reparacionForCreate.NumTelefono.HasValue)
+                usuario.Telefono = reparacionForCreate.NumTelefono;
+
             var herramientasNombre = reparacionForCreate.ReparacionItems.Select(ri => ri.NombreHerramienta).ToList();
             var herramientas = await _context.Herramienta
                 .Include(h => h.Fabricante)
                 .Where(h => herramientasNombre.Contains(h.Nombre))
                 .ToListAsync();
 
-            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaRecogida, reparacionForCreate.FechaEntrega, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
+
+
+            float maxDiasReparacion = 0;
+
+            foreach (var item in reparacionForCreate.ReparacionItems)
+            {
+                var dbTool = herramientas.FirstOrDefault(h => h.Nombre == item.NombreHerramienta);
+
+                if (dbTool == null)
+                {
+                    ModelState.AddModelError("ReparacionItems", $"Error: La herramienta con nombre {item.NombreHerramienta} no fue encontrada.");
+                    continue;
+                }
+
+                maxDiasReparacion = maxDiasReparacion + item.TiempoReparacion;
+
+                float diasDb = dbTool.TiempoReparacion;
+
+                if (diasDb > maxDiasReparacion)
+                {
+                    maxDiasReparacion = diasDb;
+                }
+            }
+
+            if (ModelState.ErrorCount > 0)
+                return BadRequest(new ValidationProblemDetails(ModelState));
+
+            DateTime fechaRecogida = reparacionForCreate.FechaEntrega.AddDays(maxDiasReparacion);
+            
+
+
+            var nuevaReparacion = new Reparacion(usuario, reparacionForCreate.FechaEntrega, fechaRecogida, reparacionForCreate.TipoMetodoPago, new List<ReparacionItem>());
 
             foreach (var reparacionItem in reparacionForCreate.ReparacionItems)
             {
@@ -93,7 +127,7 @@ namespace AppForSEII2526.API.Controllers
 
                 if (herramienta == null)
                 {
-                    ModelState.AddModelError("ReparacionItems", $"La herramienta con nombre {reparacionItem.NombreHerramienta} no fue encontrada.");
+                    ModelState.AddModelError("ReparacionItems", $"Error: La herramienta con nombre {reparacionItem.NombreHerramienta} no fue encontrada.");
                     continue;
                 }
 
@@ -106,6 +140,8 @@ namespace AppForSEII2526.API.Controllers
            
                     nuevaReparacion.ReparacionItems.Add(new ReparacionItem(reparacionItem.Cantidad, reparacionItem.Descripcion, reparacionItem.Precio, nuevaReparacion, herramienta));
                     nuevaReparacion.PrecioTotal += herramienta.Precio * reparacionItem.Cantidad;
+
+                    
                 }
             }
 
@@ -131,7 +167,8 @@ namespace AppForSEII2526.API.Controllers
                                                             ri.Herramienta.Nombre, 
                                                             ri.Herramienta.Precio, 
                                                             ri.Cantidad, 
-                                                            ri.Descripcion
+                                                            ri.Descripcion,
+                                                            ri.Herramienta.TiempoReparacion
                                                         ))
                                                         .ToList<ReparacionItemDTO>());
 
