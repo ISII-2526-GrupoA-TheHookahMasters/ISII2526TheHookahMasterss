@@ -67,7 +67,7 @@
                                             <td>@herramienta.Precio</td>
                                             <td>@herramienta.Fabricante</td>
                                             <td>
-                                                <button class="btn btn-outline-secondary" id="herramientaParaOferta_@herramienta.Id" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
+                                                <button class="btn btn-outline-secondary" id="herramientaParaOferta_@herramienta.Nombre" @onclick="@(() => AddHerramienta(herramienta))">Añadir</button>
                                             </td>
                                         </tr>
                                     }
@@ -88,7 +88,7 @@
                 </div>
             }
             <div class="row">
-                <button type="button" class="btn btn-primary" id="purchaseMovieButton" @onclick=@OfertarHerramientas>Crear Ofertas</button>
+                <button type="button" class="btn btn-primary" id="crearOfertaCarritoButton" @onclick=@OfertarHerramientas>Crear Ofertas</button>
             </div>
         </div>
     </div>
