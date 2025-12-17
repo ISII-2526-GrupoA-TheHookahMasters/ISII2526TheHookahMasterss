@@ -32,6 +32,10 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
             _driver.FindElement(inputNombreHerramienta).SendKeys(nombreHerramienta);
             Thread.Sleep(1000);
             _driver.FindElement(buttonSearchHerramientas).Click();
+
+            _driver.FindElement(inputTiempoReparacion).Clear();
+            _driver.FindElement(inputNombreHerramienta).Clear();
+
         }
 
         public void crearReparacionCarrito()
