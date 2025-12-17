@@ -23,9 +23,11 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas
         {
             //wait for the webelement to be clickable
             WaitForBeingClickable(inputMaterial);
+            _driver.FindElement(inputMaterial).Clear();
             _driver.FindElement(inputMaterial).SendKeys(material);
 
             WaitForBeingClickable(inputPrecio);
+            _driver.FindElement(inputPrecio).Clear();
             _driver.FindElement(inputPrecio).SendKeys(precio);
 
             _driver.FindElement(buttonSearchHerramientas).Click();
