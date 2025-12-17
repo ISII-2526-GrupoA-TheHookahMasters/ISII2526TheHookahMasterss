@@ -30,6 +30,8 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas
             selectElement.SelectByText(fabricante);
 
             _driver.FindElement(buttonSearchHerramientas).Click();
+
+            _driver.FindElement(inputPrecio).Clear();
         }
 
         public void crearOfertaCarrito()

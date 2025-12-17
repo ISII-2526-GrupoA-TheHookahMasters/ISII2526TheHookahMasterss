@@ -178,5 +178,48 @@ namespace AppForSEII2526.UIT.CU_OfertaHerramientas_UIT
 
             Assert.True(crearOferta_PO.CheckValidationError(expectedError), $"Expected error: {expectedError}");
         }
+
+        [Fact]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void UC3_examen()
+        {
+            string fabricante = herramientaFabricante1;
+            string precio = herramientaPrecio2;
+            float precio2 = float.Parse(precio);
+            int porcentaje = 10;
+
+            InitialStepsForOfertaHerramientas();
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.SearchHerramientas(fabricante, "");
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.AddHerramientaToOfertaCart(herramientaNombre1);
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.SearchHerramientas("", precio);
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.AddHerramientaToOfertaCart(herramientaNombre2);
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.crearOfertaCarrito();
+            Thread.Sleep(1000);
+            crearOferta_PO.modificarHerramientas();
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.RemoveHerramientaFromOfertaCart(herramientaNombre1);
+            Thread.Sleep(1000);
+            selectHerramientasForOferta_PO.crearOfertaCarrito();
+            Thread.Sleep(1000);
+            var expectedOfertaItems = new List<string[]> { new string[] { herramientaNombre2, herramientaMaterial2, herramientaPrecio2 }, };
+            Assert.True(crearOferta_PO.CheckListOfOfertaItems(expectedOfertaItems));
+
+            crearOferta_PO.addAtributosOferta(herramientaId2, DateTime.Today.AddDays(3).ToString(), DateTime.Today.AddDays(11).ToString(), "PayPal", "Socios", "10");
+            Thread.Sleep(1000);
+            crearOferta_PO.guardarOfertaDialog();
+            Thread.Sleep(1000);
+            Assert.True(detailOferta_PO.CheckOfertaDetail(DateTime.Today.AddDays(3), DateTime.Today.AddDays(11), DateTime.Today, "PayPal", "Socios", 1));
+
+            float precioTotal = precio2 * (1 - (porcentaje / 100.0f));
+
+            var expectedOfertaItems2 = new List<string[]> { new string[] { herramientaId2, herramientaNombre2, herramientaMaterial2, herramientaFabricante2, $"{precio2.ToString("0.00")} €", $"{porcentaje.ToString()} %", $"{precioTotal.ToString()} €" }, };
+
+            Assert.True(detailOferta_PO.CheckListaHerramientas(expectedOfertaItems2));
+        }
     }
 }
