@@ -205,7 +205,7 @@ namespace AppForSEII2526.UIT.CU_RepararHerramientas
             crearReparacion_PO.modificarHerramientas();
             Thread.Sleep(500);
             selectHerramientasForReparacion_PO.RemoveHerramientaFromReparacionCart(herramientaNombre1);
-            Thread.Sleep(500);nh
+            Thread.Sleep(500);
             selectHerramientasForReparacion_PO.crearReparacionCarrito();
             Thread.Sleep(500);
             var expectedReparacionItems = new List<string[]> { new string[] { "Sierra circular Makita HS7601", "7", "120,5" }, };
