@@ -252,6 +252,66 @@ namespace AppForSEII2526.UIT.CU_CompraHerramientas_UIT
             Assert.False(crearCompra_PO.IsSubmitEnabled());
 
         }
+
+        [Theory]
+        [InlineData(herramientaId1, herramientaNombre1, herramientaMaterial1, herramientaPrecio1, herramientaFabricante1, herramientaId2, herramientaNombre2, herramientaMaterial2, herramientaPrecio2, herramientaFabricante2, "Acero y plástico", "120,5")]
+        [Trait("LevelTesting", "Funcional Testing")]
+        public void EXAMEN_ComprarHerramientas(string herramientaId1, string herramientaNombre1, string herramientaMaterial1, string herramientaPrecio1, string herramientaFabricante1, 
+            string herramientaId2, string herramientaNombre2, string herramientaMaterial2, string herramientaPrecio2, string herramientaFabricante2,
+            string filtroMaterial, string filtroPrecio)
+        {
+            //Arrange
+            InitialStepsForCompraHerramientas();
+            var expectedHerramientas1 = new List<string[]> { new string[] { herramientaId1, herramientaNombre1, herramientaMaterial1, herramientaPrecio1, herramientaFabricante1 }, };
+            var expectedHerramientas2 = new List<string[]> { new string[] { herramientaId2, herramientaNombre2, herramientaMaterial2, herramientaPrecio2, herramientaFabricante2 }, };
+            var expectedHerramientasModi = new List<string[]> { new string[] { herramientaNombre2, herramientaMaterial2, herramientaPrecio2 }};
+            //Act
+            selectHerramientasForCompra_PO.SearchHerramientas(filtroMaterial, "");
+
+            Thread.Sleep(500);
+
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.AddHerramientaToCompraCart(herramientaNombre1);
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.SearchHerramientas("", filtroPrecio);
+
+            Thread.Sleep(500);
+
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.AddHerramientaToCompraCart(herramientaNombre2);
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.crearCompraCarrito();
+            
+            Thread.Sleep(1000);
+
+            crearCompra_PO.modificarHerramientas();
+            Thread.Sleep(1000);
+
+            selectHerramientasForCompra_PO.RemoveHerramientaFromCompraCart(herramientaNombre1);
+            Thread.Sleep(500);
+
+            selectHerramientasForCompra_PO.crearCompraCarrito();
+
+            Thread.Sleep(1000);
+
+            crearCompra_PO.addAtributosCompra(herramientaId2, "Carlos", "Gomez", "Avenida de España, 12", "Efectivo", "123456789", "carlosg@gmail.com", "Descripcion", "2");
+
+            crearCompra_PO.pulsarCrearCompra();
+            Thread.Sleep(500);
+
+            Thread.Sleep(1000);
+
+            crearCompra_PO.guardarCompraDialog();
+
+            Thread.Sleep(5000);
+
+            //Assert
+            Assert.True(detailCompra_PO.CheckCompraDetail("Carlos", "Gomez", "Avenida de España, 12", DateTime.Now.ToString("dd/MM/yyyy"), "1"));
+        }
     }
 
 }
