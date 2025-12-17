@@ -8,7 +8,9 @@ public class CUAlquilarHerramientas_UIT : UC_UIT
 {
     private CrearAlquiler_PO crearAlquiler_PO;
     private SelectHerramientasForAlquiler_PO selectHerramientasForAqluilerPO;
+    private DetailAlquiler_PO detailAlquiler_PO;
     private const string herramientaId1 = "1";
+
     private const string herramientaNombre1 = "Taladro percutor Bosch GSB 13 RE";
     private const string herramientaMaterial1 = "Acero y plástico";
     private const string herramientaPrecio1 = "89,99";
@@ -23,6 +25,7 @@ public class CUAlquilarHerramientas_UIT : UC_UIT
     {
         selectHerramientasForAqluilerPO = new SelectHerramientasForAlquiler_PO(_driver, _output);
         crearAlquiler_PO = new CrearAlquiler_PO(_driver, _output);
+        detailAlquiler_PO = new DetailAlquiler_PO(_driver, _output);
     }
 
     /*private void Precondition_perform_login()
@@ -188,6 +191,52 @@ public class CUAlquilarHerramientas_UIT : UC_UIT
         //Assert
         Assert.False(crearAlquiler_PO.IsSubmitEnabled());
 
+    }
+
+
+    [Theory]
+    
+    [InlineData(herramientaId2, herramientaNombre2, herramientaMaterial2, herramientaPrecio2, herramientaFabricante2, "", "Aluminio y acero")]
+    [Trait("LevelTesting", "Funcional Testing")]
+    public void Examen(string herramientaId, string herramientaNombre, string herramientaMaterial, string herramientaPrecio, string herramientaFabricante,
+        string filtroNombre, string filtroMaterial)
+    {
+        //Arrange
+        InitialStepsForAlquilarHerramientas();
+        var expectedHerramientas = new List<string[]> { new string[] { herramientaId, herramientaNombre, herramientaMaterial, herramientaPrecio, herramientaFabricante }, };
+
+        //Act
+        selectHerramientasForAqluilerPO.SearchHerramientas(filtroNombre, "");
+        Thread.Sleep(500);
+        selectHerramientasForAqluilerPO.AddHerramientaToAlquilerCart(herramientaNombre1);
+        Thread.Sleep(500);
+        selectHerramientasForAqluilerPO.SearchHerramientas("", filtroMaterial);
+        Thread.Sleep(500);
+        selectHerramientasForAqluilerPO.AddHerramientaToAlquilerCart(herramientaNombre2);
+        Thread.Sleep(1000);
+        
+        Thread.Sleep(1000);
+        selectHerramientasForAqluilerPO.BotonAlquilerHerramienta();
+        Thread.Sleep(500);
+        crearAlquiler_PO.modificarHerramientas();
+        Thread.Sleep(500);
+        selectHerramientasForAqluilerPO.RemoveHerramientaFromAlquilerCart(herramientaNombre1);
+        Thread.Sleep(500);
+        
+        Thread.Sleep(500);
+        selectHerramientasForAqluilerPO.BotonAlquilerHerramienta();
+        Thread.Sleep(500);
+        var expectedAlquilerItems = new List<string[]> { new string[] { herramientaNombre2, herramientaMaterial2, herramientaPrecio2 }, };
+
+        crearAlquiler_PO.addAtributosAlquiler(herramientaId, "Carlos", "Gomez", "Avd España 4", "22/12/2025", "31/12/2025", "Efectivo", "10");
+        Thread.Sleep(1000);
+
+        crearAlquiler_PO.pulsarCrearAlquiler();
+        Thread.Sleep(2000);
+
+        crearAlquiler_PO.guardarAlquilerDialog();
+        Thread.Sleep(10000);
+        
     }
 
 }
