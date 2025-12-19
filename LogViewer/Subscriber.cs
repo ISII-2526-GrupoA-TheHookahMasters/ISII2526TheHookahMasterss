@@ -31,21 +31,19 @@ public class Subscriber
 
         _channel = _connection.CreateModel();
         _properties = _channel.CreateBasicProperties();
-        _properties.Persistent = true; // Hace el mensaje persistente
+        _properties.Persistent = true;
 
         _channel.ExchangeDeclare(_exchangeName, ExchangeType.Topic, durable: true);
 
         var tempQueue = _channel.QueueDeclare(
                         queue: _queueName,
-                        durable: false,   // La cola sobrevive a reinicios del servidor
-                        exclusive: false, // La cola puede ser usada por múltiples conexiones
-                        autoDelete: false, // La cola no se elimina automáticamente
+                        durable: false,
+                        exclusive: false,
+                        autoDelete: false,
                         arguments: null
                     );
 
         _queueName = tempQueue.QueueName;
-
-        _channel.QueueBind(queue: _queueName, exchange: _exchangeName, routingKey: "");
     }
 
     public void StartConsuming(string topicKey)
@@ -65,7 +63,7 @@ public class Subscriber
 
         _channel.BasicConsume(
             queue: _queueName,
-            autoAck: true, // Confirmación automática de recepción del mensaje  
+            autoAck: true,
             consumer: consumer
         );
     }
